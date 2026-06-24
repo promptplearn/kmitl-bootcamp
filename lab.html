@@ -115,8 +115,18 @@
   .prompt .ptt .ps{font-size:12px;color:var(--text2);margin-top:1px}
   .prompt .tooltag{flex:0 0 auto;font-size:10.5px;font-weight:800;letter-spacing:.03em;border-radius:7px;padding:4px 9px;font-family:var(--mono)}
   .tooltag.search{background:rgba(123,169,242,.14);color:var(--blue)}
-  .tooltag.artifact{background:rgba(183,156,240,.16);color:var(--purple)}
+  .tooltag.image{background:rgba(127,207,160,.14);color:var(--green)}
+  .tooltag.render{background:rgba(183,156,240,.16);color:var(--purple)}
   .tooltag.chat{background:var(--panel2);color:var(--text3);border:1px solid var(--line)}
+  /* model-routing card */
+  .models{margin-top:20px;border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:18px 20px}
+  .models h4{font-size:13px;font-weight:800;color:var(--clay2);font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
+  .mrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(max-width:680px){.mrow{grid-template-columns:1fr}}
+  .mitem{font-size:13.5px;color:var(--text2);line-height:1.5;display:flex;gap:10px}
+  .mitem .me{font-size:20px;flex:0 0 auto;line-height:1.3}
+  .mitem b{color:var(--text)}
+  .models .quota{margin-top:12px;font-size:12.5px;color:var(--amber);border-top:1px solid var(--line);padding-top:10px}
   .prompt .pbody{padding:16px 18px}
   .prompt pre{font-family:var(--mono);font-size:12.8px;line-height:1.62;color:#D9E2EC;white-space:pre-wrap;word-break:break-word}
   .prompt .pbody .ph-acc{color:var(--clay2);font-weight:700}
@@ -193,7 +203,7 @@
       <span class="arrowmini">→</span>
       <span class="pill"><span class="e">🔎</span> <span class="bi inl"><span class="en">Research + MVP via Claude</span><span class="th">รีเสิร์ช + MVP ด้วย Claude</span></span></span>
       <span class="arrowmini">→</span>
-      <span class="pill"><span class="e">🛠️</span> <span class="bi inl"><span class="en">Build a demo (Artifact)</span><span class="th">สร้างเดโม่ (Artifact)</span></span></span>
+      <span class="pill"><span class="e">🛠️</span> <span class="bi inl"><span class="en">Make a demo (image / HTML)</span><span class="th">สร้างเดโม่ (ภาพ / HTML)</span></span></span>
       <span class="arrowmini">→</span>
       <span class="pill"><span class="e">🎤</span> <span class="bi inl"><span class="en">Present 90 sec</span><span class="th">พิทช์ 90 วิ</span></span></span>
     </div>
@@ -210,9 +220,21 @@
 
   <!-- PROMPTS -->
   <section id="prompts">
-    <div class="kicker">Claude chat only · ใช้แค่ Claude chat</div>
+    <div class="kicker">Uni AI portal · พอร์ทัล AI ของมหาลัย</div>
     <h2 class="bi"><span class="en">The prompt pack <span class="em">— run them in order</span></span><span class="th">ชุดพรอมป์ <span class="em">— รันตามลำดับ</span></span></h2>
-    <p class="lede bi"><span class="en">Paste your chosen card (or your own idea) into Prompt 1, then go down the list. <b>Prompt 2 needs Web Search ON. Prompt 5 builds your demo as an Artifact</b> you can click and show. You can paste in Thai — just add “ตอบเป็นไทย”.</span><span class="th">วางการ์ดที่เลือก (หรือไอเดียตัวเอง) ลงพรอมป์ 1 แล้วไล่ลงไป <b>พรอมป์ 2 ต้องเปิด Web Search · พรอมป์ 5 จะสร้างเดโม่เป็น Artifact</b> ที่กดและโชว์ได้ พิมพ์ไทยได้ แค่เติม “ตอบเป็นไทย”</span></p>
+    <p class="lede bi"><span class="en">Paste your chosen card (or your own idea) into Prompt 1, then go down the list. <b>Prompt 2 needs Web Search ON</b> (the 🌐 toggle). For the demo, <b>Prompt 5 makes an image mockup</b> and <b>Prompt 6 writes HTML you render on the <a href="preview.html" style="color:var(--clay2)">Preview page</a></b> — no Artifacts needed. You can paste in Thai — just add “ตอบเป็นไทย”.</span><span class="th">วางการ์ดที่เลือก (หรือไอเดียตัวเอง) ลงพรอมป์ 1 แล้วไล่ลงไป <b>พรอมป์ 2 ต้องเปิด Web Search</b> (ปุ่ม 🌐) ส่วนเดโม่: <b>พรอมป์ 5 สร้างภาพม็อกอัพ</b> และ <b>พรอมป์ 6 เขียน HTML ไปเรนเดอร์ที่<a href="preview.html" style="color:var(--clay2)">หน้า Preview</a></b> — ไม่ต้องใช้ Artifact พิมพ์ไทยได้ แค่เติม “ตอบเป็นไทย”</span></p>
+
+    <div class="models">
+      <h4 class="bi inl"><span class="en">Which model for what · the portal has many</span><span class="th">เลือกโมเดลให้ถูกงาน · พอร์ทัลมีหลายตัว</span></h4>
+      <div class="mrow">
+        <div class="mitem"><span class="me">🔎</span><span class="bi"><span class="en"><b>Research, writing &amp; code</b> → Claude Sonnet 4.6 or GPT 5.5. Turn the <b>🌐 web search</b> toggle ON for market data.</span><span class="th"><b>รีเสิร์ช เขียน และโค้ด</b> → Claude Sonnet 4.6 หรือ GPT 5.5 เปิดปุ่ม <b>🌐 ค้นเว็บ</b> เมื่อหาข้อมูลตลาด</span></span></div>
+        <div class="mitem"><span class="me">🎨</span><span class="bi"><span class="en"><b>Images &amp; mockups</b> → Gemini Image (Flash = cheaper, Pro = sharper). Best for product renders &amp; UI shots.</span><span class="th"><b>ภาพและม็อกอัพ</b> → Gemini Image (Flash ถูกกว่า, Pro คมกว่า) เหมาะกับภาพผลิตภัณฑ์และหน้าจอ</span></span></div>
+        <div class="mitem"><span class="me">⚙️</span><span class="bi"><span class="en"><b>Effort “Medium”</b> is fine for most prompts; bump it up only for hard analysis.</span><span class="th"><b>Effort “Medium”</b> พอสำหรับงานทั่วไป เพิ่มเฉพาะงานวิเคราะห์หนัก ๆ</span></span></div>
+        <div class="mitem"><span class="me">👁️</span><span class="bi"><span class="en"><b>Got a photo?</b> Attach it (📎) and ask the model to describe or improve it.</span><span class="th"><b>มีรูปอยู่แล้ว?</b> แนบ (📎) แล้วให้โมเดลอธิบายหรือปรับให้</span></span></div>
+      </div>
+      <div class="quota bi"><span class="en">⚡ Quota is shared (~1000). Images &amp; 💎 Pro models cost more — do research in text, then generate just 1–2 key visuals. Don't spam.</span><span class="th">⚡ โควต้าใช้ร่วมกัน (~1000) ภาพและโมเดล 💎 Pro กินโควต้าเยอะ — รีเสิร์ชด้วยข้อความก่อน แล้วค่อยสร้างภาพสำคัญ 1–2 รูป อย่ายิงรัว</span></div>
+    </div>
+
     <div class="prompts" id="prompts-list"></div>
   </section>
 
@@ -222,8 +244,8 @@
     <h2 class="bi"><span class="en">Present it <span class="em">in 90 seconds</span></span><span class="th">พรีเซนต์ <span class="em">ใน 90 วินาที</span></span></h2>
     <div class="steps">
       <div class="step"><div class="sn">1</div><div class="sh bi inl"><span class="en">Pick</span><span class="th">เลือก</span></div><div class="sd bi"><span class="en">Your own idea, or one card from the bank. Decide in 2 minutes.</span><span class="th">ไอเดียตัวเอง หรือหนึ่งการ์ด ตัดสินใน 2 นาที</span></div></div>
-      <div class="step"><div class="sn">2</div><div class="sh bi inl"><span class="en">Run prompts</span><span class="th">รันพรอมป์</span></div><div class="sd bi"><span class="en">1 → 6 in one Claude chat. Research, MVP, then build the demo.</span><span class="th">1 → 6 ในแชท Claude เดียว รีเสิร์ช MVP แล้วสร้างเดโม่</span></div></div>
-      <div class="step"><div class="sn">3</div><div class="sh bi inl"><span class="en">Show &amp; tell</span><span class="th">โชว์และเล่า</span></div><div class="sd bi"><span class="en">90-second pitch + open your Artifact demo on screen.</span><span class="th">พิทช์ 90 วิ + เปิดเดโม่ Artifact บนจอ</span></div></div>
+      <div class="step"><div class="sn">2</div><div class="sh bi inl"><span class="en">Run prompts</span><span class="th">รันพรอมป์</span></div><div class="sd bi"><span class="en">1 → 7 in the portal. Research, MVP, then a demo (image or HTML).</span><span class="th">1 → 7 ในพอร์ทัล รีเสิร์ช MVP แล้วทำเดโม่ (ภาพ หรือ HTML)</span></div></div>
+      <div class="step"><div class="sn">3</div><div class="sh bi inl"><span class="en">Show &amp; tell</span><span class="th">โชว์และเล่า</span></div><div class="sd bi"><span class="en">90-second pitch + show your image, or your HTML on the Preview page.</span><span class="th">พิทช์ 90 วิ + โชว์ภาพ หรือ HTML ที่หน้า Preview</span></div></div>
       <div class="step"><div class="sn">4</div><div class="sh bi inl"><span class="en">Get judged</span><span class="th">ถูกตัดสิน</span></div><div class="sd bi"><span class="en">The room votes pivot or persevere, and scores you on the rubric.</span><span class="th">ห้องโหวตพิวอตหรือไปต่อ และให้คะแนนตามรูบริก</span></div></div>
     </div>
     <div class="pitchbox">
@@ -442,18 +464,21 @@
     {n:4,tag:'chat',tt:{en:'Find your MVP',th:'หา MVP ของคุณ'},sub:{en:'The smallest test of your assumption',th:'การทดสอบเล็กสุดของสมมติฐาน'},
      tip:{en:'Force it small. One test, one metric, buildable in the next hour.',th:'บังคับให้เล็ก หนึ่งทดสอบ หนึ่งตัวชี้วัด สร้างได้ในชั่วโมงถัดไป'},
      body:'Given my idea [X] and my riskiest assumption [A], design the smallest MVP that tests that assumption in a 2-hour build.\nChoose ONE level: (1) demand-test landing page, (2) clickable prototype, (3) single working feature, or (4) concierge-by-hand.\nTell me exactly what to build, what to leave out, and the ONE success metric (with a number) that proves it worked.'},
-    {n:5,tag:'artifact',tt:{en:'Build the demo',th:'สร้างเดโม่'},sub:{en:'Claude builds it as a clickable Artifact',th:'Claude สร้างเป็น Artifact ที่กดได้'},
-     tip:{en:'This is your demo for the pitch — Claude renders it on the right. Iterate by chatting “change X”.',th:'นี่คือเดโม่สำหรับพิทช์ Claude เรนเดอร์ด้านขวา ปรับโดยพิมพ์ “เปลี่ยน X”'},
-     body:'Build my MVP as a single self-contained HTML file I can show as a demo. Pick ONE:\n(a) Landing page: hero headline + subtitle + email signup button + 3 feature cards + one testimonial.\n(b) App mockup: top nav bar, one main screen, realistic sample data.\nUse clean, modern design with Thai + English text. Make it an Artifact I can click and present. Then ask me what to change.'},
-    {n:6,tag:'chat',tt:{en:'Pitch it',th:'พิทช์'},sub:{en:'90-second script + 6-slide outline',th:'สคริปต์ 90 วิ + โครง 6 สไลด์'},
+    {n:5,tag:'image',tt:{en:'Make a visual mockup',th:'สร้างภาพม็อกอัพ'},sub:{en:'Switch to a Gemini Image model',th:'สลับไปโมเดล Gemini Image'},
+     tip:{en:'Best for tangible products: a product render, packaging, or a companion-app screen. Download the image to present.',th:'เหมาะกับสินค้าจับต้องได้: ภาพผลิตภัณฑ์ แพ็กเกจ หรือหน้าจอแอป โหลดรูปไว้พรีเซนต์'},
+     body:'[Switch the model to Gemini Image first.]\nGenerate a clean, realistic product visual for: [MY IDEA].\nPick what fits:\n• Hardware/tangible → a photorealistic product render on a plain background, plus a small phone screen showing its companion app.\n• Software/platform → a modern UI screenshot of the main screen with realistic Thai sample data.\nStyle: clean, professional, good lighting, no text errors. 16:9. If you can\'t render text well, keep on-screen text minimal.'},
+    {n:6,tag:'render',tt:{en:'Build a clickable HTML demo',th:'สร้างเดโม่ HTML ที่กดได้'},sub:{en:'Paste the code into the Preview page',th:'วางโค้ดที่หน้า Preview'},
+     tip:{en:'Best for software/platform ideas. Copy ALL the code, then paste it into the Preview page to render & present.',th:'เหมาะกับไอเดียซอฟต์แวร์ คัดลอกโค้ดทั้งหมด แล้ววางที่หน้า Preview เพื่อเรนเดอร์และพรีเซนต์'},
+     body:'Build my MVP as a SINGLE self-contained HTML file I can show as a demo. Pick ONE:\n(a) Landing page: hero headline + subtitle + signup button + 3 feature cards + one testimonial.\n(b) App mockup: top nav bar, one main screen, realistic Thai sample data, buttons that respond on click.\nRules: everything inline (CSS in <style>, JS in <script>), NO external libraries/CDNs/fonts/image URLs — use emoji or CSS shapes. It must work offline as one .html file. Output ONLY the HTML code in one block. (I will paste it into a Preview page to render it.)'},
+    {n:7,tag:'chat',tt:{en:'Pitch it',th:'พิทช์'},sub:{en:'90-second script + 6-slide outline',th:'สคริปต์ 90 วิ + โครง 6 สไลด์'},
      tip:{en:'Reviewers want who pays and why now — not how the tech works.',th:'กรรมการอยากรู้ใครจ่ายและทำไมตอนนี้ ไม่ใช่เทคทำงานยังไง'},
      body:'Write my 90-second pitch and a 6-slide outline for [IDEA].\nPitch lines: (1) We help [who] do [what]; (2) Unlike others, we…; (3) The market is…; (4) Why now…; (5) Our riskiest assumption + how we\'ll test it.\nSlides (one line each): Problem, Solution, Why-now, Market, Demo, The Ask.\nLead with the problem and the money, not the technology. (ตอบเป็นไทยได้)'}
   ];
-  function fmtBody(s){return s.replace(/\[([^\]]+)\]/g,'<span class="ph-acc">[$1]</span>');}
+  function fmtBody(s){return s.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}).replace(/\[([^\]]+)\]/g,'<span class="ph-acc">[$1]</span>');}
   var plEl=document.getElementById('prompts-list');
-  var PICON={1:'sparkle',2:'search',3:'customer',4:'target',5:'build',6:'rocket'};
+  var PICON={1:'sparkle',2:'search',3:'customer',4:'target',5:'image',6:'code',7:'rocket'};
   plEl.innerHTML=PROMPTS.map(function(p){
-    var tagtxt=p.tag==='search'?'WEB SEARCH ON':(p.tag==='artifact'?'BUILDS ARTIFACT':'CLAUDE CHAT');
+    var tagtxt=p.tag==='search'?'WEB SEARCH ON':p.tag==='image'?'USE IMAGE MODEL':p.tag==='render'?'PASTE → PREVIEW':'PORTAL CHAT';
     var pico=(window.KV&&PICON[p.n])?('<span style="display:inline-flex;vertical-align:-3px;margin-right:6px;color:var(--clay2)">'+KV.icon(PICON[p.n],16)+'</span>'):'';
     return '<div class="prompt"><div class="ph"><div class="pnum">'+p.n+'</div>'
       +'<div class="ptt"><div class="pt">'+pico+biCol(p.tt)+'</div><div class="ps">'+biCol(p.sub)+'</div></div>'

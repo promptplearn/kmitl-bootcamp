@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Demo Preview</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wrap{max-width:1080px;margin:0 auto}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  @media(max-width:860px){.split{grid-template-columns:1fr}}
+  .pane{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);overflow:hidden}
+  .pane .ph{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel-soft);font-weight:700;font-size:13px}
+  .pane .ph .sp{flex:1}
+  textarea#code{flex:1;min-height:300px;border:none;background:var(--panel2);color:var(--text);font-family:var(--mono);font-size:12.5px;line-height:1.5;padding:14px;outline:none;resize:vertical;width:100%}
+  #frame{flex:1;min-height:300px;width:100%;border:none;background:#fff}
+  .framewrap{position:relative;flex:1;display:flex;min-height:300px;background:#fff}
+  .empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9aa;font-size:14px;text-align:center;padding:24px;pointer-events:none}
+  .howto{margin-top:18px;border:1px dashed var(--line2);border-radius:14px;overflow:hidden}
+  .howto>summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;font-size:14px;color:var(--clay2);display:flex;align-items:center;gap:8px}
+  .howto>summary::-webkit-details-marker{display:none}
+  .howto>summary::before{content:"▸";transition:transform .2s}
+  .howto[open]>summary::before{transform:rotate(90deg)}
+  .howc{padding:0 16px 16px}
+  .promptbox{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 14px 14px;font-family:var(--mono);font-size:12.5px;color:var(--text2);line-height:1.55;white-space:pre-wrap;margin-top:8px}
+  .copyb{position:absolute;top:10px;right:10px}
+  .steps3{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .s3{flex:1;min-width:180px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2)}
+  .s3 b{color:var(--text)}
+  .s3 .n{font-family:var(--mono);color:var(--clay2);font-weight:700}
+</style>
+</head>
+<body data-lang="en" data-page="preview">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<main class="page">
+  <section class="wrap">
+    <div class="kicker pop">Step 2b · พรีวิวเดโม่ · render your mockup</div>
+    <h1 class="big pop bi" style="font-size:clamp(26px,4.5vw,44px)"><span class="en">Render your <span class="em">demo</span></span><span class="th">เรนเดอร์<span class="em">เดโม่</span>ของคุณ</span></h1>
+    <p class="lede pop bi"><span class="en">The uni AI can <b>write</b> HTML but can't <b>show</b> it. So: ask Claude/GPT for a single-file HTML mockup, copy all the code, paste it below — and it renders live, ready to present.</span><span class="th">AI ของมหาลัย <b>เขียน</b> HTML ได้ แต่ <b>แสดงผล</b>ไม่ได้ วิธีคือ: ขอให้ Claude/GPT เขียนม็อกอัพ HTML ไฟล์เดียว คัดลอกโค้ดทั้งหมด วางด้านล่าง แล้วมันจะเรนเดอร์สด พร้อมพรีเซนต์</span></p>
+
+    <div class="steps3 pop">
+      <div class="s3"><span class="n">1</span> <b class="bi inl"><span class="en">Ask</span><span class="th">ขอ</span></b> — <span class="bi inl"><span class="en">use the prompt below in the portal (Claude / GPT)</span><span class="th">ใช้พรอมป์ด้านล่างในพอร์ทัล (Claude / GPT)</span></span></div>
+      <div class="s3"><span class="n">2</span> <b class="bi inl"><span class="en">Paste</span><span class="th">วาง</span></b> — <span class="bi inl"><span class="en">copy ALL the HTML, paste it on the left</span><span class="th">คัดลอก HTML ทั้งหมด วางทางซ้าย</span></span></div>
+      <div class="s3"><span class="n">3</span> <b class="bi inl"><span class="en">Present</span><span class="th">พรีเซนต์</span></b> — <span class="bi inl"><span class="en">tap Fullscreen and show the room</span><span class="th">กดเต็มจอ แล้วโชว์ทั้งห้อง</span></span></div>
+    </div>
+
+    <div class="split pop">
+      <div class="pane">
+        <div class="ph"><span class="bi inl"><span class="en">⌨ Paste your HTML</span><span class="th">⌨ วาง HTML</span></span><span class="sp"></span><button class="btn ghost sm" id="clear"><span class="bi inl"><span class="en">Clear</span><span class="th">ล้าง</span></span></button></div>
+        <textarea id="code" placeholder="<!DOCTYPE html>&#10;<html>...paste the whole file here...</html>" spellcheck="false"></textarea>
+      </div>
+      <div class="pane">
+        <div class="ph"><span class="bi inl"><span class="en">▶ Live preview</span><span class="th">▶ พรีวิวสด</span></span><span class="sp"></span><button class="btn sm" id="full"><span class="bi inl"><span class="en">⛶ Fullscreen</span><span class="th">⛶ เต็มจอ</span></span></button></div>
+        <div class="framewrap">
+          <iframe id="frame" sandbox="allow-scripts allow-popups allow-modals allow-forms" title="preview"></iframe>
+          <div class="empty bi" id="emptyNote"><span class="en">Your rendered demo appears here.</span><span class="th">เดโม่ที่เรนเดอร์จะปรากฏที่นี่</span></div>
+        </div>
+      </div>
+    </div>
+
+    <details class="howto pop">
+      <summary class="bi inl"><span class="en">📋 The prompt that gets good single-file HTML</span><span class="th">📋 พรอมป์ที่ได้ HTML ไฟล์เดียวที่ดี</span></summary>
+      <div class="howc">
+        <p style="font-size:13px;color:var(--text2)" class="bi"><span class="en">Paste your idea where it says [your idea], run it in the portal, then copy the whole code block it returns.</span><span class="th">วางไอเดียตรง [ไอเดียของคุณ] รันในพอร์ทัล แล้วคัดลอกบล็อกโค้ดทั้งหมดที่ได้</span></p>
+        <div class="promptbox" id="ptext"><button class="btn sm copyb" id="copyP"><span class="bi inl"><span class="en">Copy</span><span class="th">คัดลอก</span></span></button>Build a single, self-contained HTML file for a clickable mockup of: [your idea].
+Requirements:
+- Everything inline — CSS in a &lt;style&gt; tag, JS in a &lt;script&gt; tag.
+- NO external libraries, CDNs, web fonts, or image URLs. Use emoji or CSS shapes instead.
+- It must work offline as one saved .html file.
+- Modern, clean, mobile-friendly. Make the key buttons actually do something on click.
+Output ONLY the HTML code, nothing else.</div>
+        <p style="font-size:12.5px;color:var(--text3);margin-top:10px" class="bi"><span class="en">Tip: if it pasted with “&lt;” showing as text or got cut off, ask the portal to “resend the full file in one code block.”</span><span class="th">เคล็ดลับ: ถ้าโค้ดโดนตัดหรือแสดงผิด ให้บอกพอร์ทัลว่า “ส่งไฟล์เต็มในบล็อกโค้ดเดียวอีกครั้ง”</span></p>
+      </div>
+    </details>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var code=document.getElementById('code'), frame=document.getElementById('frame'), empty=document.getElementById('emptyNote');
+  var KEY='kmitl:preview_html';
+  function render(){
+    var html=code.value;
+    empty.style.display=html.trim()?'none':'';
+    // sandboxed (no allow-same-origin) → student code can't touch this origin's storage
+    frame.srcdoc=html;
+    try{ localStorage.setItem(KEY,html); }catch(e){}
+  }
+  var t=null;
+  code.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(render,350); });
+  try{ var saved=localStorage.getItem(KEY); if(saved){ code.value=saved; render(); } }catch(e){}
+  document.getElementById('clear').addEventListener('click',function(){ code.value=''; render(); code.focus(); });
+  document.getElementById('full').addEventListener('click',function(){
+    var el=frame; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else KX.toast(KX.TH()?'เบราว์เซอร์ไม่รองรับเต็มจอ':'Fullscreen not supported','bad');
+  });
+  document.getElementById('copyP').addEventListener('click',function(e){
+    var btn=e.currentTarget, txt=document.getElementById('ptext').innerText.replace(/^Copy\s*|^คัดลอก\s*/,'').trim();
+    navigator.clipboard.writeText(txt).then(function(){ KX.toast(KX.TH()?'คัดลอกพรอมป์แล้ว':'Prompt copied','good'); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -13,6 +13,7 @@
     { id: "home",   href: "index.html",  en: "Home",     th: "หน้าหลัก" },
     { id: "learn",  href: "learn.html",  en: "Learn",    th: "เรียน" },
     { id: "lab",    href: "lab.html",    en: "Idea Lab", th: "แล็บไอเดีย" },
+    { id: "preview",href: "preview.html",en: "Preview",  th: "พรีวิว" },
     { id: "submit", href: "submit.html", en: "Submit",   th: "ส่งงาน" },
     { id: "vote",   href: "vote.html",   en: "Vote",     th: "โหวต" },
     { id: "board",  href: "board.html",  en: "Board",    th: "บอร์ด" }

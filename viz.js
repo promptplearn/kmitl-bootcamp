@@ -61,7 +61,9 @@
     target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6" fill="currentColor"/>',
     chart: '<path d="M5 4v15a1 1 0 0 0 1 1h15"/><path d="M9 15l3-4 3 2 4-6"/>',
     check: '<path d="m5 12 4.5 4.5L19 7"/>',
-    flag: '<path d="M5 21V4M5 4c3-1.8 7 1.8 10 0v9c-3 1.8-7-1.8-10 0"/>'
+    flag: '<path d="M5 21V4M5 4c3-1.8 7 1.8 10 0v9c-3 1.8-7-1.8-10 0"/>',
+    image: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="m21 16-5-5L5 19"/>',
+    code: '<path d="m8 9-3 3 3 3M16 9l3 3-3 3M13.5 7l-3 10"/>'
   };
   function icon(name, size, color) {
     var p = ICONS[name] || ICONS.sparkle, s = size || 22;
