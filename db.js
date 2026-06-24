@@ -26,7 +26,8 @@
       body: opts.body ? JSON.stringify(opts.body) : undefined
     }).then(function (r) {
       if (!r.ok) return r.text().then(function (t) { throw new Error(r.status + " " + t); });
-      return r.status === 204 ? null : r.json();
+      // return=minimal POSTs come back 201 with an EMPTY body — don't call r.json() on those
+      return r.text().then(function (t) { return t ? JSON.parse(t) : null; });
     });
   }
 
