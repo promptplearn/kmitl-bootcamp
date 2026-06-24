@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · The Lean Startup — Build · Measure · Learn</title>
+<meta name="description" content="A grown-up, interactive Lean Startup workshop: build your MVP, vote pivot-or-persevere, and grade ideas with a weighted rubric. Bilingual EN/TH." />
+<meta name="theme-color" content="#15161c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#15161c;--bg2:#191b22;--panel:#1d1f28;--panel-soft:#21242e;--panel2:#16171d;
+    --line:rgba(255,255,255,0.08);--line2:rgba(217,119,87,0.4);
+    --clay:#D97757;--clay2:#E5926F;--clay-dim:rgba(217,119,87,0.13);
+    --blue:#7BA9F2;--green:#7FCFA0;--green-dim:rgba(127,207,160,.13);--amber:#E6B566;--rose:#E58A8A;--rose-dim:rgba(229,138,138,.13);--purple:#B79CF0;
+    --text:#ECE9E2;--text2:#A6A39A;--text3:#6f6d66;
+    --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:'Outfit',-apple-system,system-ui,sans-serif;
+    --thai:'Noto Sans Thai','Sukhumvit Set','Thonburi',var(--sans);
+    --r:18px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;overflow:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(217,119,87,0.28)}
+  .th{font-family:var(--thai)}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px;mask-image:radial-gradient(ellipse 75% 70% at 50% 22%,#000 20%,transparent 75%);opacity:.6}
+  .bg-glow{position:absolute;width:70vw;height:70vw;left:50%;top:-25%;transform:translateX(-50%);background:radial-gradient(circle,rgba(217,119,87,.14),transparent 62%);filter:blur(20px)}
+
+  /* bilingual */
+  .bi{display:flex;flex-direction:column;gap:.16em}
+  .bi .en,.bi .th{transition:font-size .25s,opacity .25s}
+  body[data-lang="en"] .bi .th{font-size:.62em;opacity:.62;font-weight:500}
+  body[data-lang="th"] .bi{flex-direction:column-reverse}
+  body[data-lang="th"] .bi .en{font-size:.62em;opacity:.62;font-weight:500}
+  .bi-inline{display:inline-flex}
+
+  /* chrome */
+  header.top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);background:rgba(21,22,28,.86);backdrop-filter:blur(14px)}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14.5px;text-decoration:none;color:var(--text)}
+  .brand .star{color:var(--clay);font-size:17px}
+  .brand .who{color:var(--text2);font-weight:500;font-size:12.5px;font-family:var(--mono)}
+  .spacer{flex:1}
+  .counter{font-family:var(--mono);font-size:12.5px;color:var(--text3);letter-spacing:.05em}
+  .lang-toggle{display:inline-flex;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .lt{cursor:pointer;border:none;background:transparent;color:var(--text2);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:8px;font-family:inherit}
+  .lt.active{background:var(--clay-dim);color:var(--clay2)}
+  .lt .thai{font-family:var(--thai)}
+
+  /* deck */
+  main.deck{position:relative;z-index:5;height:100dvh}
+  .slide{display:none;position:absolute;inset:0;padding:74px clamp(16px,4vw,48px) 96px;overflow-y:auto}
+  .slide.active{display:flex}
+  .wrap{width:min(1080px,100%);text-align:center;margin:auto}
+  .kicker{font-size:12.5px;font-weight:700;color:var(--clay);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+  h1.big{font-size:clamp(29px,4.4vw,50px);font-weight:800;letter-spacing:-.02em;line-height:1.12}
+  h1.big .em{color:var(--clay)}
+  h2.mid{font-size:clamp(23px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.16}
+  h2.mid .em{color:var(--clay)}
+  .caption{margin:24px auto 0;max-width:64ch;color:var(--text2);font-size:clamp(15px,1.6vw,18.5px)}
+  .caption b{color:var(--text)}
+
+  /* entrance */
+  .pop{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+  .slide.show .pop{opacity:1;transform:none}
+
+  /* duo cards (slow vs lean) */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px auto 0;max-width:860px;text-align:left}
+  @media(max-width:720px){.duo{grid-template-columns:1fr}}
+  .duo-card{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:22px}
+  .duo-card .tag{display:inline-block;font-size:12px;font-weight:700;border-radius:8px;padding:4px 11px;margin-bottom:12px}
+  .duo-card.no{border-color:rgba(229,138,138,.4)}
+  .duo-card.no .tag{background:var(--rose-dim);color:var(--rose)}
+  .duo-card.yes{border-color:rgba(127,207,160,.45)}
+  .duo-card.yes .tag{background:var(--green-dim);color:var(--green)}
+  .duo-card .txt{font-size:clamp(15px,1.8vw,17.5px);font-weight:600;line-height:1.5}
+
+  /* loop */
+  .loop{display:flex;align-items:stretch;justify-content:center;gap:14px;margin:32px auto 6px;max-width:880px;flex-wrap:wrap}
+  .loop-node{flex:1;min-width:200px;border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:22px 18px;text-align:center}
+  .loop-node .ic{font-size:42px;line-height:1}
+  .loop-node .nm{margin-top:10px;font-weight:800;font-size:clamp(17px,2vw,21px)}
+  .loop-node .nm.c{color:var(--clay)}.loop-node .nm.b{color:var(--blue)}.loop-node .nm.g{color:var(--green)}
+  .loop-node .ds{margin-top:6px;font-size:13.5px;color:var(--text2)}
+  .loop-arrow{display:flex;align-items:center;font-size:26px;color:var(--text3)}
+  @media(max-width:720px){.loop-arrow{transform:rotate(90deg)}}
+  .loop-repeat{margin-top:6px;font-family:var(--mono);font-size:13px;color:var(--clay);letter-spacing:.04em}
+
+  /* level cards (MVP) */
+  .levels{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:30px auto 0;max-width:1000px;text-align:left}
+  @media(max-width:840px){.levels{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.levels{grid-template-columns:1fr}}
+  .lvl{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:16px 15px;position:relative}
+  .lvl .n{font-family:var(--mono);font-size:12px;color:var(--text3);font-weight:700}
+  .lvl .h{margin-top:4px;font-weight:800;font-size:15.5px}
+  .lvl .d{margin-top:7px;font-size:12.8px;color:var(--text2);line-height:1.45}
+  .lvl .e{margin-top:9px;font-size:11.5px;color:var(--clay2);font-style:italic}
+  .lvl .when{position:absolute;top:13px;right:13px;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:3px 7px}
+  .lvl .when.now{background:var(--green-dim);color:var(--green)}
+  .lvl .when.if{background:var(--amber);color:#241a06}
+  .lvl .when.later{background:var(--panel-soft);color:var(--text3);border:1px solid var(--line)}
+
+  /* two-col compare (measure) */
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px auto 0;max-width:860px;text-align:left}
+  @media(max-width:720px){.cmp{grid-template-columns:1fr}}
+  .cmp-col{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:20px}
+  .cmp-col h4{font-size:14px;font-weight:800;letter-spacing:.02em;margin-bottom:12px}
+  .cmp-col.bad h4{color:var(--rose)}.cmp-col.good h4{color:var(--green)}
+  .cmp-col ul{list-style:none}
+  .cmp-col li{font-size:14.5px;color:var(--text2);padding:6px 0 6px 22px;position:relative}
+  .cmp-col li::before{position:absolute;left:0;top:6px;font-weight:800}
+  .cmp-col.bad li::before{content:"✕";color:var(--rose)}
+  .cmp-col.good li::before{content:"✓";color:var(--green)}
+  .cmp-col li .th{display:block;font-size:12px;color:var(--text3)}
+
+  /* pivot types */
+  .ptypes{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:28px auto 0;max-width:820px}
+  .ptype{border:1px solid var(--line);background:var(--panel-soft);border-radius:14px;padding:13px 18px;text-align:center;min-width:175px}
+  .ptype .pi{font-size:26px}
+  .ptype .pn{margin-top:6px;font-weight:700;font-size:14.5px}
+  .ptype .pd{font-size:12px;color:var(--text2);margin-top:3px}
+
+  /* ---------- WIDGETS ---------- */
+  .tool{margin:26px auto 0;max-width:880px;text-align:left}
+  .field{margin-bottom:14px}
+  .field>label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
+  .field>label .th{font-weight:500;color:var(--text2)}
+  .field .hintlbl{font-size:11.5px;color:var(--text3);font-weight:500}
+  input.in,textarea.in,select.in{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--text);font-family:inherit;font-size:15px;padding:12px 14px;outline:none;transition:border-color .15s}
+  textarea.in{resize:vertical;min-height:58px;line-height:1.5}
+  input.in:focus,textarea.in:focus,select.in:focus{border-color:var(--line2)}
+  input.in::placeholder,textarea.in::placeholder{color:var(--text3)}
+  select.in{appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--text2) 50%),linear-gradient(135deg,var(--text2) 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 13px) 19px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.grid2{grid-template-columns:1fr}}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;background:linear-gradient(180deg,var(--clay2),var(--clay));border:none;color:#2a140c;font-size:clamp(15px,1.7vw,17px);font-weight:800;padding:13px 26px;border-radius:13px;transition:transform .14s,box-shadow .2s;font-family:inherit;box-shadow:0 8px 26px rgba(217,119,87,.30)}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(217,119,87,.44)}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:var(--panel);color:var(--text);border:1px solid var(--line);box-shadow:none;font-weight:700}
+  .btn.ghost:hover{border-color:var(--line2);box-shadow:none}
+  .btn.sm{padding:9px 16px;font-size:13.5px;border-radius:10px}
+
+  /* MVP card output */
+  .mvp-card{margin-top:20px;border:1px solid var(--line2);background:var(--panel);border-radius:18px;padding:22px;display:none}
+  .mvp-card.show{display:block}
+  .mvp-card .ttl{font-family:var(--mono);font-size:12px;color:var(--clay);letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+  .mvp-row{display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+  .mvp-row:first-of-type{border-top:none;margin-top:8px}
+  .mvp-row .k{flex:0 0 132px;font-size:12.5px;font-weight:700;color:var(--text2)}
+  .mvp-row .k .th{display:block;font-weight:500;color:var(--text3);font-size:11px}
+  .mvp-row .v{flex:1;font-size:15px;color:var(--text);white-space:pre-wrap}
+  .feedback{margin-top:14px;border-radius:12px;padding:13px 15px;font-size:13.5px;line-height:1.5}
+  .feedback.warn{background:var(--amber);color:#241a06}
+  .feedback.good{background:var(--green-dim);border:1px solid rgba(127,207,160,.4);color:var(--green)}
+  .feedback ul{margin:6px 0 0 18px}
+  .feedback li{margin:3px 0}
+
+  /* vote widget */
+  .vote-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  @media(max-width:560px){.vote-grid{grid-template-columns:1fr}}
+  .vote-btn{cursor:pointer;border-radius:16px;padding:20px 16px;text-align:center;font-family:inherit;border:2px solid var(--line);background:var(--panel);transition:.15s;color:var(--text)}
+  .vote-btn .vi{font-size:34px;line-height:1}
+  .vote-btn .vt{margin-top:8px;font-weight:800;font-size:17px}
+  .vote-btn .vs{font-size:12.5px;color:var(--text2);margin-top:3px}
+  .vote-btn.persevere:hover,.vote-btn.persevere.sel{border-color:var(--green);background:var(--green-dim)}
+  .vote-btn.persevere.sel .vt{color:var(--green)}
+  .vote-btn.pivot:hover,.vote-btn.pivot.sel{border-color:var(--rose);background:var(--rose-dim)}
+  .vote-btn.pivot.sel .vt{color:var(--rose)}
+  .tallybar{display:flex;height:34px;border-radius:10px;overflow:hidden;margin-top:16px;border:1px solid var(--line);background:var(--panel2)}
+  .tallybar .seg{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#10110f;transition:width .35s ease;white-space:nowrap;overflow:hidden}
+  .tallybar .seg.p{background:var(--green)}
+  .tallybar .seg.v{background:var(--rose)}
+  .feed{margin-top:16px;display:flex;flex-direction:column;gap:8px;max-height:188px;overflow-y:auto}
+  .feed-item{border:1px solid var(--line);background:var(--panel-soft);border-radius:12px;padding:10px 13px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start}
+  .feed-item .chip{flex:0 0 auto;font-size:11px;font-weight:800;border-radius:7px;padding:2px 8px;margin-top:1px}
+  .feed-item.p .chip{background:var(--green-dim);color:var(--green)}
+  .feed-item.v .chip{background:var(--rose-dim);color:var(--rose)}
+  .feed-item .ct{color:var(--text2)}
+  .feed-empty{color:var(--text3);font-size:13px;text-align:center;padding:18px}
+  .reveal{margin-top:16px;border:1px dashed var(--line2);border-radius:14px;overflow:hidden}
+  .reveal>summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;font-size:13.5px;color:var(--clay2);display:flex;align-items:center;gap:8px}
+  .reveal>summary::-webkit-details-marker{display:none}
+  .reveal>summary::before{content:"▸";transition:transform .2s}
+  .reveal[open]>summary::before{transform:rotate(90deg)}
+  .reveal .rc{padding:0 16px 16px;font-size:13.5px;color:var(--text2);line-height:1.55}
+  .reveal .rc b{color:var(--text)}
+  .reveal .rc .sig{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin-top:8px}
+  .reveal .rc .sig .s{font-weight:800;color:var(--clay2)}
+
+  /* rubric */
+  .rubric{margin-top:8px}
+  .crit{border-top:1px solid var(--line);padding:14px 0}
+  .crit:first-child{border-top:none}
+  .crit .ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
+  .crit .cn{font-size:14.5px;font-weight:700}
+  .crit .cn .th{display:block;font-size:12px;color:var(--text2);font-weight:500}
+  .crit .cw{flex:0 0 auto;font-family:var(--mono);font-size:11.5px;color:var(--text3);font-weight:700}
+  .score-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .sbtn{cursor:pointer;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:8px 6px;text-align:center;font-family:inherit;color:var(--text2);transition:.13s}
+  .sbtn .sv{font-weight:800;font-size:15px;color:var(--text)}
+  .sbtn .sl{font-size:10.5px;display:block;margin-top:1px}
+  .sbtn:hover{border-color:var(--line2)}
+  .sbtn.on{background:var(--clay-dim);border-color:var(--clay)}
+  .sbtn.on .sv{color:var(--clay2)}
+  .result{margin-top:20px;border:1px solid var(--line2);background:var(--panel);border-radius:18px;padding:20px}
+  .result .scoreline{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .result .num{font-size:46px;font-weight:800;line-height:1;font-family:var(--sans)}
+  .result .num small{font-size:20px;color:var(--text3);font-weight:700}
+  .tierbadge{font-size:13px;font-weight:800;border-radius:10px;padding:7px 14px}
+  .meter{height:12px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;margin-top:14px}
+  .meter .mfill{height:100%;border-radius:99px;transition:width .4s ease,background .4s}
+  .weak{margin-top:14px;font-size:13.5px;color:var(--text2)}
+  .weak b{color:var(--text)}
+  .weak .wfix{margin-top:7px;display:flex;flex-direction:column;gap:7px}
+  .weak .wf{border-left:3px solid var(--rose);background:var(--rose-dim);border-radius:0 10px 10px 0;padding:8px 12px;font-size:13px}
+  .weak .wf .wt{color:var(--text2)}
+
+  .cta-line{margin-top:30px;font-size:clamp(17px,2.1vw,22px);font-weight:800}
+  .cta-line .hl{color:var(--green)}
+
+  /* nav */
+  .navdots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:8px;max-width:60vw;flex-wrap:wrap;justify-content:center}
+  .dotn{width:9px;height:9px;border-radius:50%;border:none;background:var(--panel-soft);outline:1px solid var(--line);cursor:pointer;transition:.2s;padding:0}
+  .dotn.on{background:var(--clay);transform:scale(1.25)}
+  .navbtns{position:fixed;bottom:16px;right:18px;z-index:40;display:flex;gap:10px}
+  .nb{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px;cursor:pointer;transition:.16s;display:flex;align-items:center;justify-content:center}
+  .nb:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .nb:active{transform:scale(.94)}
+  .key-hint{position:fixed;bottom:24px;left:18px;z-index:40;font-size:11.5px;color:var(--text3);font-family:var(--mono)}
+  @media(max-width:760px){.key-hint{display:none}}
+  .xnav2{display:flex;gap:2px}
+  .xnav2 a{font-size:12.5px;color:var(--text2);text-decoration:none;padding:6px 10px;border-radius:8px;font-weight:600;white-space:nowrap}
+  .xnav2 a:hover{background:var(--panel-soft);color:var(--text)}
+  @media(max-width:820px){.xnav2{display:none}}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<header class="top">
+  <a class="brand" href="index.html"><span class="star">✶</span> The Lean Startup <span class="who">· KMITL bootcamp</span></a>
+  <nav class="xnav2">
+    <a href="index.html">Home</a>
+    <a href="lab.html">Idea Lab</a>
+    <a href="submit.html">Submit</a>
+    <a href="board.html">Board</a>
+  </nav>
+  <div class="spacer"></div>
+  <span class="counter" id="counter">1 / 11</span>
+  <div class="lang-toggle">
+    <button class="lt active" data-lang="en">EN</button>
+    <button class="lt" data-lang="th"><span class="thai">ไทย</span></button>
+  </div>
+</header>
+
+<main class="deck" id="deck">
+
+  <!-- 1 · HOOK -->
+  <section class="slide active">
+    <div class="wrap">
+      <div class="kicker pop">The Lean Startup · ลีนสตาร์ทอัพ</div>
+      <h1 class="big pop bi">
+        <span class="en">The loop that separates <span class="em">builders from talkers</span></span>
+        <span class="th">ลูปที่แยก<span class="em">คนลงมือ ออกจากคนพูด</span></span>
+      </h1>
+      <p class="caption pop bi">
+        <span class="en">It isn't money or genius. It's one fast loop — <b>Build → Measure → Learn</b> — spun over and over until the market says yes.</span>
+        <span class="th">ไม่ใช่เงินหรือพรสวรรค์ แต่คือลูปเดียวที่หมุนเร็ว — <b>สร้าง → วัดผล → เรียนรู้</b> — ซ้ำไปจนตลาดตอบรับ</span>
+      </p>
+      <p class="cta-line pop bi" style="margin-top:26px">
+        <span class="en">Today you don't just learn it — <span class="hl">you run it on your own idea.</span></span>
+        <span class="th">วันนี้ไม่ใช่แค่เรียน — <span class="hl">แต่คุณจะลงมือทำกับไอเดียตัวเอง</span></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 2 · BRIEF AI -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker pop">AI · briefly · แบบสั้น ๆ</div>
+      <h2 class="mid pop bi">
+        <span class="en">AI is your unfair speed — but it gives a <span class="em">draft, not the truth</span></span>
+        <span class="th">AI คือความเร็วที่ได้เปรียบ — แต่มันให้แค่ <span class="em">‘ฉบับร่าง’ ไม่ใช่ความจริง</span></span>
+      </h2>
+      <div class="cmp" style="grid-template-columns:1fr 1fr 1fr;max-width:1000px">
+        <div class="cmp-col good pop"><h4 class="bi"><span class="en">⚡ Compresses the loop</span><span class="th">⚡ ย่นลูปให้สั้น</span></h4>
+          <p style="font-size:14px;color:var(--text2)" class="bi"><span class="en">Research, mockups, copy, code — minutes, not weeks.</span><span class="th">รีเสิร์ช ม็อกอัพ ก๊อปปี้ โค้ด — เป็นนาที ไม่ใช่สัปดาห์</span></p></div>
+        <div class="cmp-col bad pop"><h4 class="bi"><span class="en">⚠ Invents things</span><span class="th">⚠ มันกุขึ้นมา</span></h4>
+          <p style="font-size:14px;color:var(--text2)" class="bi"><span class="en">Numbers, citations, and ~45% of its code is insecure.</span><span class="th">ตัวเลข แหล่งอ้างอิง และโค้ดไม่ปลอดภัยราว 45%</span></p></div>
+        <div class="cmp-col pop" style="border-color:var(--line2)"><h4 style="color:var(--clay2)" class="bi"><span class="en">✓ Your job</span><span class="th">✓ หน้าที่คุณ</span></h4>
+          <p style="font-size:14px;color:var(--text2)" class="bi"><span class="en">Use it for speed, then verify every claim before you trust it.</span><span class="th">ใช้เพื่อความเร็ว แล้วตรวจทุกข้ออ้างก่อนเชื่อ</span></p></div>
+      </div>
+      <p class="caption pop bi">
+        <span class="en">You already know how to prompt. The founder skill is <b>knowing which claims to challenge</b> — that's also what makes a grant defensible.</span>
+        <span class="th">คุณรู้วิธี prompt อยู่แล้ว ทักษะของผู้ก่อตั้งคือ <b>รู้ว่าควรตั้งคำถามกับข้ออ้างไหน</b> — และนั่นคือสิ่งที่ทำให้ขอทุนได้อย่างมีน้ำหนัก</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · SLOW vs LEAN -->
+  <section class="slide">
+    <div class="wrap">
+      <h2 class="mid pop bi">
+        <span class="en">The slow way <span class="em">vs</span> the lean way</span>
+        <span class="th">ทางช้า <span class="em">vs</span> ทางลีน</span>
+      </h2>
+      <div class="duo">
+        <div class="duo-card no pop">
+          <span class="tag bi"><span class="en">✕ The slow way — how most fail</span><span class="th">✕ ทางช้า — ที่คนส่วนใหญ่พลาด</span></span>
+          <p class="txt bi"><span class="en">Build the “perfect” product in secret for 6 months. Launch. Nobody wants it. Six months gone — building something no one asked for.</span><span class="th">สร้างของ ‘สมบูรณ์แบบ’ เงียบ ๆ 6 เดือน เปิดตัว ไม่มีใครใช้ เสีย 6 เดือนไปกับสิ่งที่ไม่มีใครต้องการ</span></p>
+        </div>
+        <div class="duo-card yes pop">
+          <span class="tag bi"><span class="en">✓ The lean way — the loop that wins</span><span class="th">✓ ทางลีน — ลูปที่ชนะ</span></span>
+          <p class="txt bi"><span class="en">Ship the smallest test in days. Watch real users. Learn from data. Improve. Every lap, the product gets smarter.</span><span class="th">ปล่อยตัวทดสอบเล็กสุดใน 2–3 วัน ดูผู้ใช้จริง เรียนรู้จากข้อมูล แล้วปรับ ทุกรอบของฉลาดขึ้น</span></p>
+        </div>
+      </div>
+      <p class="caption pop bi">
+        <span class="en">Rule of thumb: <b>if you're not a little embarrassed by v1, you launched too late.</b></span>
+        <span class="th">กฎง่าย ๆ: <b>ถ้า v1 ไม่ทำให้คุณเขินนิดหน่อย แปลว่าคุณปล่อยช้าไป</b></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 4 · THE LOOP -->
+  <section class="slide">
+    <div class="wrap">
+      <h2 class="mid pop bi">
+        <span class="en">The engine: <span class="em">Build → Measure → Learn</span></span>
+        <span class="th">เครื่องยนต์: <span class="em">สร้าง → วัดผล → เรียนรู้</span></span>
+      </h2>
+      <div class="loop">
+        <div class="loop-node pop"><div class="ic">🔨</div><div class="nm c bi-wrap"><span class="bi"><span class="en">Build</span><span class="th">สร้าง</span></span></div><div class="ds bi"><span class="en">the smallest version that works</span><span class="th">เวอร์ชันเล็กสุดที่ใช้ได้</span></div></div>
+        <div class="loop-arrow pop">→</div>
+        <div class="loop-node pop"><div class="ic">📊</div><div class="nm b"><span class="bi"><span class="en">Measure</span><span class="th">วัดผล</span></span></div><div class="ds bi"><span class="en">what real people actually do</span><span class="th">สิ่งที่คนจริงทำจริง</span></div></div>
+        <div class="loop-arrow pop">→</div>
+        <div class="loop-node pop"><div class="ic">🧠</div><div class="nm g"><span class="bi"><span class="en">Learn</span><span class="th">เรียนรู้</span></span></div><div class="ds bi"><span class="en">decide from data, then improve</span><span class="th">ตัดสินจากข้อมูล แล้วปรับ</span></div></div>
+      </div>
+      <div class="loop-repeat pop">↺ &nbsp;repeat — faster each lap · หมุนซ้ำ — เร็วขึ้นทุกรอบ</div>
+      <p class="caption pop bi">
+        <span class="en">The product isn't the point. <b>Speed of learning</b> is the only advantage a startup actually has.</span>
+        <span class="th">ตัวผลิตภัณฑ์ไม่ใช่ประเด็น <b>ความเร็วในการเรียนรู้</b> คือข้อได้เปรียบเดียวที่สตาร์ทอัพมีจริง</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 · MVP LEVELS -->
+  <section class="slide">
+    <div class="wrap">
+      <h2 class="mid pop bi">
+        <span class="en">MVP = the smallest thing <span class="em">real people can use</span></span>
+        <span class="th">MVP = สิ่งเล็กสุดที่<span class="em">คนจริงใช้ได้</span></span>
+      </h2>
+      <div class="levels">
+        <div class="lvl pop"><span class="when now bi-inline"><span class="en">DO TODAY</span></span><div class="n">LEVEL 1</div><div class="h bi"><span class="en">Demand test</span><span class="th">ทดสอบความต้องการ</span></div><div class="d bi"><span class="en">Fake-door landing page, waitlist, explainer video.</span><span class="th">หน้าแลนดิ้งหลอก ลิสต์รอ วิดีโออธิบาย</span></div><div class="e">Dropbox: 5k → 75k waitlist</div></div>
+        <div class="lvl pop"><span class="when now">DO TODAY</span><div class="n">LEVEL 2</div><div class="h bi"><span class="en">Prototype</span><span class="th">โปรโตไทป์</span></div><div class="d bi"><span class="en">Clickable mockup — how it looks &amp; feels to use.</span><span class="th">ม็อกอัพกดได้ — หน้าตาและการใช้งาน</span></div><div class="e bi"><span class="en">Proof it's real, not imaginary</span><span class="th">พิสูจน์ว่ามีจริง</span></div></div>
+        <div class="lvl pop"><span class="when if">IF READY</span><div class="n">LEVEL 3</div><div class="h bi"><span class="en">Functional</span><span class="th">ใช้งานได้จริง</span></div><div class="d bi"><span class="en">Single feature, Wizard-of-Oz, or concierge by hand.</span><span class="th">ฟีเจอร์เดียว ทำมือหลังบ้าน</span></div><div class="e">Zappos &amp; Airbnb began here</div></div>
+        <div class="lvl pop"><span class="when later">LATER</span><div class="n">LEVEL 4</div><div class="h bi"><span class="en">Marketable</span><span class="th">ขายได้</span></div><div class="d bi"><span class="en">Smallest version a customer actually pays for.</span><span class="th">เวอร์ชันเล็กสุดที่ลูกค้ายอมจ่าย</span></div><div class="e bi"><span class="en">The goal after the bootcamp</span><span class="th">เป้าหมายหลังบูทแคมป์</span></div></div>
+      </div>
+      <p class="caption pop bi">
+        <span class="en">Pick the <b>lowest level that tests your riskiest assumption.</b> Ugly but real beats polished but imaginary.</span>
+        <span class="th">เลือก<b>ระดับต่ำสุดที่ทดสอบสมมติฐานเสี่ยงสุดได้</b> ของจริงแต่ดิบ ชนะของสวยแต่จินตนาการ</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 6 · INTERACTIVE: BUILD YOUR MVP -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker pop">Your turn · ตาคุณแล้ว · interactive</div>
+      <h2 class="mid pop bi">
+        <span class="en">Build <span class="em">your</span> MVP</span>
+        <span class="th">ออกแบบ MVP <span class="em">ของคุณ</span></span>
+      </h2>
+      <p class="caption pop bi" style="margin-top:14px;max-width:60ch">
+        <span class="en">Fill the five boxes. Keep it brutally small.</span>
+        <span class="th">เติมห้าช่อง ให้เล็กที่สุดเท่าที่ทำได้</span>
+      </p>
+      <div class="tool pop">
+        <div class="grid2">
+          <div class="field"><label class="bi"><span class="en">1 · The problem <span class="hintlbl">— a real, specific pain</span></span><span class="th">1 · ปัญหา — ที่เจ็บจริงและเฉพาะ</span></label><textarea class="in" id="mvProblem" placeholder="e.g. Durian exporters can't verify ripeness per crate, so rejected shipments cost them millions."></textarea></div>
+          <div class="field"><label class="bi"><span class="en">2 · The customer <span class="hintlbl">— who exactly (not “everyone”)</span></span><span class="th">2 · ลูกค้า — ใครกันแน่ (ไม่ใช่ ‘ทุกคน’)</span></label><textarea class="in" id="mvCustomer" placeholder="e.g. Mid-size durian packhouses exporting to China."></textarea></div>
+        </div>
+        <div class="field"><label class="bi"><span class="en">3 · Riskiest assumption <span class="hintlbl">— the one thing that must be true</span></span><span class="th">3 · สมมติฐานเสี่ยงสุด — สิ่งเดียวที่ต้องเป็นจริง</span></label><textarea class="in" id="mvRisk" placeholder="e.g. Packhouses will trust a sucrose-based reading enough to sort by it."></textarea></div>
+        <div class="grid2">
+          <div class="field"><label class="bi"><span class="en">4 · Your MVP level <span class="hintlbl">— smallest test</span></span><span class="th">4 · ระดับ MVP — ทดสอบเล็กสุด</span></label>
+            <select class="in" id="mvLevel">
+              <option value="">— choose / เลือก —</option>
+              <option value="Demand test — fake-door landing / waitlist">L1 · Demand test (landing / waitlist)</option>
+              <option value="Prototype — clickable mockup">L2 · Prototype (clickable mockup)</option>
+              <option value="Functional — single feature / concierge">L3 · Functional (single feature / concierge)</option>
+              <option value="Marketable — smallest paid version">L4 · Marketable (smallest paid version)</option>
+            </select>
+          </div>
+          <div class="field"><label class="bi"><span class="en">5 · Success metric <span class="hintlbl">— a number that proves it</span></span><span class="th">5 · ตัวชี้วัด — ตัวเลขที่พิสูจน์ได้</span></label><input class="in" id="mvMetric" placeholder="e.g. 20% of visitors join the waitlist in 1 week." /></div>
+        </div>
+        <button class="btn" id="mvpGen"><span class="bi bi-inline"><span class="en">Generate my MVP card</span><span class="th">สร้างการ์ด MVP ของฉัน</span></span></button>
+
+        <div class="mvp-card" id="mvpCard">
+          <div class="ttl">Your MVP · การ์ด MVP</div>
+          <div class="mvp-row"><div class="k">Problem<span class="th">ปัญหา</span></div><div class="v" id="oProblem"></div></div>
+          <div class="mvp-row"><div class="k">Customer<span class="th">ลูกค้า</span></div><div class="v" id="oCustomer"></div></div>
+          <div class="mvp-row"><div class="k">Riskiest assumption<span class="th">สมมติฐานเสี่ยงสุด</span></div><div class="v" id="oRisk"></div></div>
+          <div class="mvp-row"><div class="k">We'll build<span class="th">เราจะสร้าง</span></div><div class="v" id="oLevel"></div></div>
+          <div class="mvp-row"><div class="k">Success =<span class="th">สำเร็จเมื่อ</span></div><div class="v" id="oMetric"></div></div>
+          <div id="mvpFeedback"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · MEASURE -->
+  <section class="slide">
+    <div class="wrap">
+      <h2 class="mid pop bi">
+        <span class="en">Measure what <span class="em">matters</span> — not what flatters</span>
+        <span class="th">วัดสิ่งที่<span class="em">สำคัญ</span> ไม่ใช่สิ่งที่ทำให้รู้สึกดี</span>
+      </h2>
+      <div class="cmp">
+        <div class="cmp-col bad pop">
+          <h4 class="bi"><span class="en">Vanity metrics — feel good, mean little</span><span class="th">ตัวเลขลวงตา — ดูดีแต่ไม่บอกอะไร</span></h4>
+          <ul>
+            <li class="bi"><span class="en">Page views &amp; impressions</span><span class="th">ยอดวิว ยอดเห็น</span></li>
+            <li class="bi"><span class="en">Likes &amp; followers</span><span class="th">ไลก์และผู้ติดตาม</span></li>
+            <li class="bi"><span class="en">Sign-ups that never come back</span><span class="th">คนสมัครที่ไม่กลับมาอีก</span></li>
+            <li class="bi"><span class="en">“People said they loved it”</span><span class="th">“คนบอกว่าชอบ”</span></li>
+          </ul>
+        </div>
+        <div class="cmp-col good pop">
+          <h4 class="bi"><span class="en">Real metrics — tied to behaviour &amp; money</span><span class="th">ตัวเลขจริง — ผูกกับพฤติกรรมและเงิน</span></h4>
+          <ul>
+            <li class="bi"><span class="en">Activation: they complete the core task</span><span class="th">การเริ่มใช้: ทำงานหลักได้สำเร็จ</span></li>
+            <li class="bi"><span class="en">Retention: they come back &amp; use it again</span><span class="th">การกลับมา: ใช้ซ้ำ</span></li>
+            <li class="bi"><span class="en">Conversion: waitlist, pre-order, payment</span><span class="th">การเปลี่ยนเป็นลูกค้า: ลิสต์รอ พรีออเดอร์ จ่ายเงิน</span></li>
+            <li class="bi"><span class="en">Willingness to pay (the honest one)</span><span class="th">ความยอมจ่าย (ตัวจริง)</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="caption pop bi">
+        <span class="en">One engaged user who comes back beats a thousand who bounce. <b>Behaviour &gt; opinion.</b></span>
+        <span class="th">ผู้ใช้ที่กลับมาหนึ่งคน ชนะพันคนที่จากไป <b>พฤติกรรม &gt; คำพูด</b></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 8 · PIVOT -->
+  <section class="slide">
+    <div class="wrap">
+      <h2 class="mid pop bi">
+        <span class="en">Pivot: <span class="em">change direction, keep the learning</span></span>
+        <span class="th">พิวอต: <span class="em">เปลี่ยนทิศ แต่เก็บสิ่งที่เรียนรู้</span></span>
+      </h2>
+      <p class="caption pop bi" style="margin-top:16px">
+        <span class="en">You measure, and the data says “this isn't working.” That's not failure — <b>that's information.</b> A pivot keeps what you learned and changes the approach.</span>
+        <span class="th">คุณวัดผล แล้วข้อมูลบอกว่า ‘อันนี้ไม่เวิร์ก’ นั่นไม่ใช่ความล้มเหลว — <b>มันคือข้อมูล</b> พิวอตคือเก็บสิ่งที่เรียนรู้ไว้ แล้วเปลี่ยนวิธี</span>
+      </p>
+      <div class="ptypes">
+        <div class="ptype pop"><div class="pi">👤</div><div class="pn bi"><span class="en">Customer pivot</span><span class="th">เปลี่ยนลูกค้า</span></div><div class="pd bi"><span class="en">same product, different buyer</span><span class="th">ของเดิม คนซื้อใหม่</span></div></div>
+        <div class="ptype pop"><div class="pi">🎯</div><div class="pn bi"><span class="en">Problem pivot</span><span class="th">เปลี่ยนปัญหา</span></div><div class="pd bi"><span class="en">same customer, different pain</span><span class="th">ลูกค้าเดิม ปัญหาใหม่</span></div></div>
+        <div class="ptype pop"><div class="pi">💰</div><div class="pn bi"><span class="en">Model pivot</span><span class="th">เปลี่ยนโมเดล</span></div><div class="pd bi"><span class="en">same value, new way to earn</span><span class="th">คุณค่าเดิม วิธีหาเงินใหม่</span></div></div>
+      </div>
+      <p class="caption pop bi" style="margin-top:22px">
+        <span class="en"><b>Smart founders pivot. Stubborn ones sink.</b> The skill is reading the signal honestly.</span>
+        <span class="th"><b>ผู้ก่อตั้งที่ฉลาดพิวอต คนที่ดื้อจมน้ำ</b> ทักษะคืออ่านสัญญาณอย่างซื่อสัตย์</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 9 · INTERACTIVE: PIVOT OR PERSEVERE -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker pop">Decide together · ตัดสินด้วยกัน · interactive</div>
+      <h2 class="mid pop bi">
+        <span class="en">Pivot or <span class="em">persevere?</span></span>
+        <span class="th">พิวอต หรือ <span class="em">ไปต่อ?</span></span>
+      </h2>
+      <div class="tool pop" style="max-width:760px">
+        <div class="field"><label class="bi"><span class="en">Team / idea under review</span><span class="th">ทีม / ไอเดียที่กำลังรีวิว</span></label><input class="in" id="pvTeam" placeholder="e.g. Pet Connect" /></div>
+        <div class="feedback" style="background:var(--panel-soft);border:1px dashed var(--line2);color:var(--text2)">
+          <b style="color:var(--text)" class="bi bi-inline"><span class="en">The signal</span><span class="th">สัญญาณ</span></b>
+          <div class="bi" style="margin-top:5px"><span class="en">They shipped the MVP. 200 visitors, 3 sign-ups — but those 3 use it every day and emailed asking for a feature they didn't build. Read it: persevere, or pivot?</span><span class="th">ปล่อย MVP แล้ว มีคนเข้า 200 สมัคร 3 — แต่ 3 คนนั้นใช้ทุกวัน และอีเมลมาขอฟีเจอร์ที่ทีมยังไม่ได้ทำ อ่านสัญญาณ: ไปต่อ หรือพิวอต?</span></div>
+        </div>
+        <div class="vote-grid">
+          <button class="vote-btn persevere" id="vbP"><div class="vi">🚀</div><div class="vt bi bi-inline"><span class="en">Persevere</span><span class="th">ไปต่อ</span></div><div class="vs bi bi-inline"><span class="en">stay the course</span><span class="th">เดินหน้าต่อ</span></div></button>
+          <button class="vote-btn pivot" id="vbV"><div class="vi">🔀</div><div class="vt bi bi-inline"><span class="en">Pivot</span><span class="th">พิวอต</span></div><div class="vs bi bi-inline"><span class="en">change direction</span><span class="th">เปลี่ยนทิศ</span></div></button>
+        </div>
+        <div class="field" style="margin-top:14px"><label class="bi"><span class="en">Your reason <span class="hintlbl">(optional — then click a vote above)</span></span><span class="th">เหตุผลของคุณ (ไม่บังคับ — แล้วกดโหวตด้านบน)</span></label><input class="in" id="pvReason" placeholder="Why? / เพราะอะไร?" /></div>
+        <div class="tallybar" id="pvBar"><div class="seg p" id="pvSegP" style="width:50%">0</div><div class="seg v" id="pvSegV" style="width:50%">0</div></div>
+        <div class="feed" id="pvFeed"><div class="feed-empty bi"><span class="en">No votes yet — cast the first one.</span><span class="th">ยังไม่มีโหวต — เริ่มโหวตแรกเลย</span></div></div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn ghost sm" id="pvReset"><span class="bi bi-inline"><span class="en">↺ Reset for next team</span><span class="th">↺ รีเซ็ตสำหรับทีมถัดไป</span></span></button>
+        </div>
+        <details class="reveal">
+          <summary class="bi bi-inline"><span class="en">How to read the signal (the logic)</span><span class="th">วิธีอ่านสัญญาณ (ตรรกะ)</span></summary>
+          <div class="rc">
+            <div class="bi"><span class="en">There's no “correct” vote — but the data usually points one way:</span><span class="th">ไม่มีโหวตที่ ‘ถูก’ ตายตัว — แต่ข้อมูลมักชี้ทางใดทางหนึ่ง:</span></div>
+            <div class="sig">
+              <span class="s">Few users, high love →</span><span class="bi"><span class="en"><b>customer pivot.</b> Wrong crowd, right value. Find more people like the 3 who stayed.</span><span class="th"><b>พิวอตลูกค้า</b> กลุ่มผิด คุณค่าถูก หาคนแบบ 3 คนที่อยู่ต่อให้มากขึ้น</span></span>
+              <span class="s">Many users, flat usage →</span><span class="bi"><span class="en"><b>problem pivot.</b> You drew a crowd but solved nothing they care about.</span><span class="th"><b>พิวอตปัญหา</b> ดึงคนมาได้ แต่ไม่ได้แก้สิ่งที่เขาแคร์</span></span>
+              <span class="s">Strong pull, can't keep up →</span><span class="bi"><span class="en"><b>persevere</b> and double down. The market is pulling.</span><span class="th"><b>ไปต่อ</b> และเร่งเครื่อง ตลาดกำลังดึง</span></span>
+              <span class="s">Nothing moves at all →</span><span class="bi"><span class="en">back to the loop — your riskiest assumption was wrong.</span><span class="th">กลับเข้าลูป — สมมติฐานเสี่ยงสุดผิด</span></span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · INTERACTIVE: GRADING RUBRIC -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker pop">Score it · ให้คะแนน · interactive</div>
+      <h2 class="mid pop bi">
+        <span class="en">Grade the idea <span class="em">— with logic</span></span>
+        <span class="th">ให้คะแนนไอเดีย <span class="em">— อย่างมีตรรกะ</span></span>
+      </h2>
+      <p class="caption pop bi" style="margin-top:12px;max-width:62ch">
+        <span class="en">Score each criterion 0–3. Each is <b>weighted</b> — the total out of 100 maps to a funding tier, and the tool tells you what to fix first.</span>
+        <span class="th">ให้คะแนนแต่ละข้อ 0–3 แต่ละข้อมี <b>น้ำหนัก</b> รวมเป็น 100 แล้วแมปเป็นระดับความพร้อมขอทุน พร้อมบอกว่าควรแก้อะไรก่อน</span>
+      </p>
+      <div class="tool pop">
+        <div class="rubric" id="rubric"><!-- injected --></div>
+        <div class="result">
+          <div class="scoreline">
+            <div class="num"><span id="rTotal">0</span><small>/100</small></div>
+            <div class="tierbadge" id="rTier">—</div>
+          </div>
+          <div class="meter"><div class="mfill" id="rMeter" style="width:0%;background:var(--rose)"></div></div>
+          <div class="weak" id="rWeak"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · CLOSE -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker pop">Now go · ลงมือเลย</div>
+      <h1 class="big pop bi">
+        <span class="en">Stop polishing the idea.<br><span class="em">Start shipping the proof.</span></span>
+        <span class="th">หยุดขัดเกลาไอเดีย<br><span class="em">เริ่มส่งหลักฐาน</span></span>
+      </h1>
+      <p class="caption pop bi">
+        <span class="en">You came in with an idea. Walk out with something real — a built artifact, a tested assumption, a graded plan. <b>Then go get the grant.</b></span>
+        <span class="th">คุณเข้ามาพร้อมไอเดีย เดินออกไปพร้อมของจริง — ชิ้นงานที่สร้าง สมมติฐานที่ทดสอบ แผนที่ถูกให้คะแนน <b>แล้วไปคว้าทุน</b></span>
+      </p>
+      <p class="cta-line pop bi">
+        <span class="en">Build small. Launch fast. Learn from real people. <span class="hl">That's the whole game.</span> 🚀</span>
+        <span class="th">สร้างเล็ก ปล่อยไว เรียนจากคนจริง <span class="hl">นี่แหละทั้งเกม</span> 🚀</span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="navdots" id="dots"></div>
+<div class="navbtns">
+  <button class="nb" id="prev" aria-label="Previous">←</button>
+  <button class="nb" id="next" aria-label="Next">→</button>
+</div>
+<div class="key-hint">← → or click · กดลูกศรเพื่อเปลี่ยนสไลด์</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var N=slides.length,cur=0,busy=false;
+  var dots=document.getElementById('dots');
+  slides.forEach(function(_,i){
+    var d=document.createElement('button');d.className='dotn'+(i===0?' on':'');d.setAttribute('aria-label','Slide '+(i+1));
+    d.addEventListener('click',function(){go(i);});dots.appendChild(d);
+  });
+  var dotEls=[].slice.call(dots.children);
+  document.getElementById('counter').textContent='1 / '+N;
+  function enter(s){
+    var pops=s.querySelectorAll('.pop');
+    pops.forEach(function(p,i){p.style.transitionDelay=(i*0.06)+'s';});
+    requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('show');});});
+  }
+  function go(n){
+    if(n<0||n>=N||n===cur||busy)return;busy=true;
+    slides[cur].classList.remove('active');slides[cur].classList.remove('show');
+    cur=n;slides[cur].classList.add('active');
+    dotEls.forEach(function(d,i){d.classList.toggle('on',i===cur);});
+    document.getElementById('counter').textContent=(cur+1)+' / '+N;
+    enter(slides[cur]);
+    setTimeout(function(){busy=false;},230);
+  }
+  document.getElementById('next').addEventListener('click',function(){go(cur+1);});
+  document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
+  document.addEventListener('keydown',function(e){
+    var t=e.target.tagName;if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  });
+  var tx=null,ty=null;
+  document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(tx===null)return;var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;tx=null;
+    if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.5){dx<0?go(cur+1):go(cur-1);}
+  },{passive:true});
+
+  /* language toggle */
+  var lts=[].slice.call(document.querySelectorAll('.lt'));
+  lts.forEach(function(b){b.addEventListener('click',function(){
+    document.body.dataset.lang=b.dataset.lang;
+    lts.forEach(function(x){x.classList.toggle('active',x===b);});
+  });});
+
+  var TH=function(){return document.body.dataset.lang==='th';};
+  function bi(en,th){return '<span class="bi bi-inline"><span class="en">'+en+'</span><span class="th">'+th+'</span></span>';}
+  function esc(s){return (s||'').replace(/[&<>]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;'})[c];});}
+
+  /* ---------- MVP builder ---------- */
+  var mb=document.getElementById('mvpGen');
+  mb.addEventListener('click',function(){
+    var problem=document.getElementById('mvProblem').value.trim();
+    var customer=document.getElementById('mvCustomer').value.trim();
+    var risk=document.getElementById('mvRisk').value.trim();
+    var level=document.getElementById('mvLevel').value;
+    var metric=document.getElementById('mvMetric').value.trim();
+    var dash='—';
+    document.getElementById('oProblem').textContent=problem||dash;
+    document.getElementById('oCustomer').textContent=customer||dash;
+    document.getElementById('oRisk').textContent=risk||dash;
+    document.getElementById('oLevel').textContent=level||dash;
+    document.getElementById('oMetric').textContent=metric||dash;
+    /* validation logic */
+    var flags=[];
+    if(!problem) flags.push(bi('Add the problem — what specific pain, for a real situation.','ใส่ปัญหา — เจ็บอะไร ในสถานการณ์จริงแบบไหน'));
+    if(!customer){ flags.push(bi('Name the customer — a specific, reachable group.','ระบุลูกค้า — กลุ่มที่เฉพาะและเข้าถึงได้'));}
+    else if(/every\s?one|everybody|\ball\b|anyone|ทุกคน|ใครก็ได้|คนทั่วไป/i.test(customer)){ flags.push(bi('“Everyone” is no one — narrow to one specific segment.','‘ทุกคน’ = ไม่มีใคร — แคบลงเหลือกลุ่มเดียวที่ชัด'));}
+    if(!risk) flags.push(bi('State your riskiest assumption — the one thing that, if false, kills it.','ระบุสมมติฐานเสี่ยงสุด — สิ่งเดียวที่ถ้าผิดแล้วจบ'));
+    if(!level) flags.push(bi('Pick an MVP level — the smallest test, not a finished app.','เลือกระดับ MVP — ทดสอบเล็กสุด ไม่ใช่แอปสมบูรณ์'));
+    if(!metric){ flags.push(bi('Add a success metric.','ใส่ตัวชี้วัดความสำเร็จ'));}
+    else if(!/\d|%|percent|rate|ratio|จำนวน|ราย|คน|บาท|เปอร์เซ็น|อัตรา/i.test(metric)){ flags.push(bi('Make the metric measurable — put a number or % on it.','ทำให้วัดได้ — ใส่ตัวเลขหรือ %'));}
+    /* level vs assumption nudge */
+    if(level.indexOf('Marketable')===0||/Marketable/.test(level)){ flags.push(bi('Level 4 is usually too big for a first test — can a demand test or prototype prove the same assumption faster?','ระดับ 4 มักใหญ่ไปสำหรับเทสต์แรก — demand test หรือ prototype พิสูจน์สมมติฐานเดียวกันได้ไวกว่าไหม'));}
+    var fb=document.getElementById('mvpFeedback');
+    if(flags.length){
+      fb.className='feedback warn';
+      fb.innerHTML='<b>'+ (TH()?'ทำให้คมขึ้น:':'Sharpen this:') +'</b><ul><li>'+flags.join('</li><li>')+'</li></ul>';
+    }else{
+      fb.className='feedback good';
+      fb.innerHTML='✓ '+bi('Sharp and testable. This is buildable today — go make the artifact.','คมและทดสอบได้ สร้างได้วันนี้ — ไปทำชิ้นงานเลย');
+    }
+    document.getElementById('mvpCard').classList.add('show');
+  });
+
+  /* ---------- Pivot vote ---------- */
+  var pv={p:0,v:0,items:[]};
+  function pvRender(){
+    var tot=pv.p+pv.v;
+    var pp=tot?Math.round(pv.p/tot*100):50, vp=100-pp; if(!tot){pp=50;vp=50;}
+    var segP=document.getElementById('pvSegP'),segV=document.getElementById('pvSegV');
+    segP.style.width=pp+'%';segV.style.width=vp+'%';
+    segP.textContent=pv.p?(pv.p+(pp>14?(TH()?' ไปต่อ':' persevere'):'')):'';
+    segV.textContent=pv.v?(pv.v+(vp>14?(TH()?' พิวอต':' pivot'):'')):'';
+    var feed=document.getElementById('pvFeed');
+    if(!pv.items.length){feed.innerHTML='<div class="feed-empty">'+bi('No votes yet — cast the first one.','ยังไม่มีโหวต — เริ่มโหวตแรกเลย')+'</div>';return;}
+    feed.innerHTML=pv.items.map(function(it){
+      var lbl=it.type==='p'?bi('Persevere','ไปต่อ'):bi('Pivot','พิวอต');
+      var reason=it.reason?'<span class="ct">'+esc(it.reason)+'</span>':'<span class="ct" style="opacity:.5">'+(TH()?'(ไม่มีเหตุผล)':'(no reason given)')+'</span>';
+      return '<div class="feed-item '+it.type+'"><span class="chip">'+lbl+'</span>'+reason+'</div>';
+    }).join('');
+  }
+  function castVote(type){
+    var reason=document.getElementById('pvReason').value.trim();
+    pv.items.unshift({type:type,reason:reason});
+    if(type==='p')pv.p++;else pv.v++;
+    document.getElementById('pvReason').value='';
+    document.getElementById('vbP').classList.toggle('sel',type==='p');
+    document.getElementById('vbV').classList.toggle('sel',type==='v');
+    setTimeout(function(){document.getElementById('vbP').classList.remove('sel');document.getElementById('vbV').classList.remove('sel');},450);
+    pvRender();
+  }
+  document.getElementById('vbP').addEventListener('click',function(){castVote('p');});
+  document.getElementById('vbV').addEventListener('click',function(){castVote('v');});
+  document.getElementById('pvReset').addEventListener('click',function(){
+    pv={p:0,v:0,items:[]};document.getElementById('pvTeam').value='';document.getElementById('pvReason').value='';pvRender();
+  });
+  pvRender();
+
+  /* ---------- Grading rubric ---------- */
+  var CRIT=[
+    {id:'problem',w:20,en:'Problem is real &amp; specific',th:'ปัญหาจริงและเฉพาะเจาะจง',
+      fix:{en:'Talk to 3 real people with this pain before building. Specific beats broad.',th:'คุยกับคนที่เจ็บจริง 3 คนก่อนสร้าง เฉพาะเจาะจงดีกว่ากว้าง'}},
+    {id:'customer',w:15,en:'Customer is a named, reachable segment',th:'ลูกค้าเป็นกลุ่มที่ชัดและเข้าถึงได้',
+      fix:{en:'Replace “everyone” with one segment you can name and find this week.',th:'แทน ‘ทุกคน’ ด้วยกลุ่มเดียวที่ระบุชื่อและหาเจอในสัปดาห์นี้'}},
+    {id:'innovation',w:20,en:'Innovation / defensibility — new, not reselling',th:'นวัตกรรม / ลอกยาก — ใหม่ ไม่ใช่ซื้อมาขายไป',
+      fix:{en:'Name what you do that the market doesn\'t have. Reselling isn\'t fundable.',th:'ระบุสิ่งที่คุณทำซึ่งตลาดยังไม่มี ซื้อมาขายไปขอทุนไม่ได้'}},
+    {id:'mvp',w:15,en:'MVP is truly minimal AND testable',th:'MVP เล็กสุดจริง และทดสอบได้',
+      fix:{en:'Cut scope to the one test of your riskiest assumption. Ship in days, not weeks.',th:'ตัดให้เหลือการทดสอบสมมติฐานเสี่ยงสุดหนึ่งอย่าง ปล่อยใน 2–3 วัน'}},
+    {id:'assumption',w:15,en:'Riskiest assumption named &amp; being tested',th:'ระบุสมมติฐานเสี่ยงสุด และกำลังทดสอบ',
+      fix:{en:'Write the one thing that, if false, kills the idea — then design the test for it.',th:'เขียนสิ่งเดียวที่ถ้าผิดแล้วจบ แล้วออกแบบการทดสอบมัน'}},
+    {id:'evidence',w:15,en:'Evidence over opinion — real metric &amp; data-driven decisions',th:'หลักฐานเหนือความเห็น — ตัวเลขจริง ตัดสินด้วยข้อมูล',
+      fix:{en:'Define the number that proves success, and let it (not pride) drive pivot-or-persevere.',th:'กำหนดตัวเลขที่พิสูจน์ความสำเร็จ และให้มัน (ไม่ใช่อีโก้) ตัดสินพิวอตหรือไปต่อ'}}
+  ];
+  var SLAB=[{v:0,en:'Missing',th:'ไม่มี'},{v:1,en:'Weak',th:'อ่อน'},{v:2,en:'Solid',th:'ดี'},{v:3,en:'Strong',th:'แข็ง'}];
+  var scores={};CRIT.forEach(function(c){scores[c.id]=0;});
+  var rub=document.getElementById('rubric');
+  rub.innerHTML=CRIT.map(function(c){
+    var btns=SLAB.map(function(s){return '<button class="sbtn'+(s.v===0?' on':'')+'" data-c="'+c.id+'" data-v="'+s.v+'"><span class="sv">'+s.v+'</span><span class="sl">'+bi(s.en,s.th)+'</span></button>';}).join('');
+    return '<div class="crit"><div class="ch"><div class="cn">'+bi(c.en,c.th)+'</div><div class="cw">'+c.w+' pts</div></div><div class="score-row">'+btns+'</div></div>';
+  }).join('');
+  function tierFor(t){
+    if(t>=80)return{en:'Fundable — ready to pitch',th:'พร้อมขอทุน — ไปพิทช์ได้',col:'var(--green)',bg:'var(--green-dim)',mc:'var(--green)'};
+    if(t>=60)return{en:'Promising — sharpen the weak spots',th:'มีแวว — ลับจุดอ่อน',col:'var(--clay2)',bg:'var(--clay-dim)',mc:'var(--clay)'};
+    if(t>=40)return{en:'Early — validate before building more',th:'ยังเริ่ม — ตรวจสอบก่อนสร้างเพิ่ม',col:'var(--amber)',bg:'rgba(230,181,102,.14)',mc:'var(--amber)'};
+    return{en:'Back to the loop',th:'กลับเข้าลูป',col:'var(--rose)',bg:'var(--rose-dim)',mc:'var(--rose)'};
+  }
+  function recompute(){
+    var total=0;CRIT.forEach(function(c){total+=(scores[c.id]/3)*c.w;});
+    total=Math.round(total);
+    document.getElementById('rTotal').textContent=total;
+    var t=tierFor(total);
+    var tb=document.getElementById('rTier');tb.innerHTML=bi(t.en,t.th);tb.style.background=t.bg;tb.style.color=t.col;
+    var m=document.getElementById('rMeter');m.style.width=total+'%';m.style.background=t.mc;
+    /* weakest: lowest contribution with room to improve */
+    var ranked=CRIT.map(function(c){return{c:c,contrib:(scores[c.id]/3)*c.w,score:scores[c.id]};})
+      .filter(function(x){return x.score<3;})
+      .sort(function(a,b){return (a.score-b.score)|| (b.c.w-a.c.w);});
+    var weak=document.getElementById('rWeak');
+    if(!ranked.length){
+      weak.innerHTML='<b>'+bi('Every criterion is strong. Go pitch it.','ทุกข้อแข็งหมด ไปพิทช์เลย')+'</b>';
+      return;
+    }
+    var top=ranked.slice(0,2);
+    weak.innerHTML='<b>'+bi('Fix these first:','แก้สิ่งเหล่านี้ก่อน:')+'</b><div class="wfix">'+top.map(function(x){
+      return '<div class="wf">'+bi(x.c.en,x.c.th)+' <span class="wt">— '+bi(x.c.fix.en,x.c.fix.th)+'</span></div>';
+    }).join('')+'</div>';
+  }
+  rub.addEventListener('click',function(e){
+    var b=e.target.closest('.sbtn');if(!b)return;
+    var cid=b.dataset.c,v=+b.dataset.v;scores[cid]=v;
+    [].slice.call(rub.querySelectorAll('.sbtn[data-c="'+cid+'"]')).forEach(function(x){x.classList.toggle('on',+x.dataset.v===v);});
+    recompute();
+  });
+  recompute();
+
+  /* re-render dynamic bilingual bits on language switch */
+  lts.forEach(function(b){b.addEventListener('click',function(){pvRender();recompute();});});
+
+  enter(slides[0]);
+})();
+</script>
+<script>
+/* sync EN/TH choice across the whole site */
+(function(){
+  try{var l=localStorage.getItem('kmitl:lang');if(l)document.body.dataset.lang=l;}catch(e){}
+  [].slice.call(document.querySelectorAll('.lt')).forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===document.body.dataset.lang);
+    b.addEventListener('click',function(){try{localStorage.setItem('kmitl:lang',b.dataset.lang);}catch(e){}});
+  });
+})();
+</script>
+</body>
+</html>

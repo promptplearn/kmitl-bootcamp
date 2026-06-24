@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Live vote</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wrap{max-width:620px;margin:0 auto}
+  .waiting{text-align:center;padding:48px 20px;color:var(--text2)}
+  .waiting .em{font-size:50px;display:block;margin-bottom:14px}
+  .stage{display:none}
+  .stage.show{display:block}
+  .teamcard{border:1px solid var(--line2);background:var(--panel);border-radius:var(--r);padding:20px;margin-top:8px}
+  .teamcard .who{font-family:var(--mono);font-size:11.5px;color:var(--clay);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+  .teamcard h2{font-size:24px;font-weight:800;margin-top:3px;overflow-wrap:anywhere}
+  .teamcard .mini{margin-top:12px;font-size:14px;color:var(--text2);line-height:1.55}
+  .teamcard .mini b{color:var(--text)}
+  .vote-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  .vote-btn{cursor:pointer;border-radius:16px;padding:22px 16px;text-align:center;font-family:inherit;border:2px solid var(--line);background:var(--panel);transition:.15s;color:var(--text)}
+  .vote-btn .vi{font-size:38px;line-height:1}
+  .vote-btn .vt{margin-top:8px;font-weight:800;font-size:18px}
+  .vote-btn .vs{font-size:12.5px;color:var(--text2);margin-top:3px}
+  .vote-btn.persevere:hover,.vote-btn.persevere.sel{border-color:var(--green);background:var(--green-dim)}
+  .vote-btn.persevere.sel .vt{color:var(--green)}
+  .vote-btn.pivot:hover,.vote-btn.pivot.sel{border-color:var(--rose);background:var(--rose-dim)}
+  .vote-btn.pivot.sel .vt{color:var(--rose)}
+  .vote-btn[disabled]{opacity:.45;pointer-events:none}
+  .tallybar{display:flex;height:36px;border-radius:10px;overflow:hidden;margin-top:18px;border:1px solid var(--line);background:var(--panel2)}
+  .tallybar .seg{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#10110f;transition:width .4s ease;white-space:nowrap;overflow:hidden}
+  .tallybar .seg.p{background:var(--green)}
+  .tallybar .seg.v{background:var(--rose)}
+  .voted-note{margin-top:14px;text-align:center;font-size:13.5px;color:var(--green);font-weight:700;display:none}
+  .voted-note.show{display:block}
+</style>
+</head>
+<body data-lang="en" data-page="vote">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<main class="page">
+  <section class="wrap">
+    <div class="kicker pop">Step 4 · โหวตสด · live</div>
+    <h1 class="big pop bi" style="font-size:clamp(26px,5vw,40px)"><span class="en">Pivot or <span class="em">persevere?</span></span><span class="th">พิวอต หรือ <span class="em">ไปต่อ?</span></span></h1>
+
+    <div class="waiting pop" id="waiting">
+      <span class="em">🎤</span>
+      <div class="bi"><span class="en">Waiting for the facilitator to put a team on stage…</span><span class="th">รอผู้สอนนำทีมขึ้นเวที…</span></div>
+      <div class="bi" style="margin-top:8px;font-size:13px;color:var(--text3)"><span class="en">Keep this page open — it updates automatically.</span><span class="th">เปิดหน้านี้ไว้ — จะอัปเดตอัตโนมัติ</span></div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="teamcard">
+        <div class="who bi inl"><span class="en">Now presenting</span><span class="th">กำลังพรีเซนต์</span></div>
+        <h2 id="tTeam">—</h2>
+        <div class="mini" id="tMini"></div>
+      </div>
+      <div class="field" style="margin-top:16px"><label class="bi"><span class="en">Your reason <span class="hintlbl">(optional)</span></span><span class="th">เหตุผลของคุณ (ไม่บังคับ)</span></label><input class="in" id="reason" maxlength="160" placeholder="Why? / เพราะอะไร?" /></div>
+      <div class="vote-grid">
+        <button class="vote-btn persevere" id="vP"><div class="vi">🚀</div><div class="vt bi inl"><span class="en">Persevere</span><span class="th">ไปต่อ</span></div><div class="vs bi inl"><span class="en">stay the course</span><span class="th">เดินหน้าต่อ</span></div></button>
+        <button class="vote-btn pivot" id="vV"><div class="vi">🔀</div><div class="vt bi inl"><span class="en">Pivot</span><span class="th">พิวอต</span></div><div class="vs bi inl"><span class="en">change direction</span><span class="th">เปลี่ยนทิศ</span></div></button>
+      </div>
+      <div class="voted-note" id="votedNote"></div>
+      <div class="tallybar" id="bar" style="display:none"><div class="seg p" id="segP" style="width:50%">0</div><div class="seg v" id="segV" style="width:50%">0</div></div>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var subsCache=[], activeId=null, currentSub=null;
+  var voted={}; try{ voted=JSON.parse(localStorage.getItem('kmitl:voted')||'{}'); }catch(e){}
+
+  function refreshSubs(){ return window.DB.listSubmissions().then(function(s){ subsCache=s||[]; }); }
+
+  function renderTeam(sub){
+    $('tTeam').textContent=sub.team||'—';
+    var parts=[];
+    if(sub.problem) parts.push('<div><b>'+(KX.TH()?'ปัญหา: ':'Problem: ')+'</b>'+KX.esc(sub.problem)+'</div>');
+    if(sub.customer) parts.push('<div style="margin-top:6px"><b>'+(KX.TH()?'ลูกค้า: ':'Customer: ')+'</b>'+KX.esc(sub.customer)+'</div>');
+    if(sub.risk) parts.push('<div style="margin-top:6px"><b>'+(KX.TH()?'สมมติฐานเสี่ยงสุด: ':'Riskiest: ')+'</b>'+KX.esc(sub.risk)+'</div>');
+    $('tMini').innerHTML=parts.join('');
+  }
+  function setVotedUI(isVoted){
+    $('vP').disabled=isVoted; $('vV').disabled=isVoted;
+    var n=$('votedNote');
+    if(isVoted){ n.classList.add('show'); n.innerHTML=KX.bi('✓ Vote recorded — thanks!','✓ บันทึกโหวตแล้ว — ขอบคุณ!'); $('bar').style.display='flex'; }
+    else{ n.classList.remove('show'); $('bar').style.display='none'; }
+  }
+  function tally(){
+    if(!activeId) return;
+    window.DB.listVotes(activeId).then(function(v){
+      var p=v.filter(function(x){return x.choice==='persevere';}).length;
+      var pv=v.filter(function(x){return x.choice==='pivot';}).length;
+      var tot=p+pv, pp=tot?Math.round(p/tot*100):50, vp=100-pp; if(!tot){pp=50;vp=50;}
+      $('segP').style.width=pp+'%'; $('segV').style.width=vp+'%';
+      $('segP').textContent=p?(p+(pp>16?(KX.TH()?' ไปต่อ':' persevere'):'')):'';
+      $('segV').textContent=pv?(pv+(vp>16?(KX.TH()?' พิวอต':' pivot'):'')):'';
+    });
+  }
+  var casting=false;
+  function cast(choice){
+    if(!activeId||voted[activeId]||casting) return;
+    casting=true;
+    var thisId=activeId, reason=$('reason').value.trim();
+    $('vP').disabled=true; $('vV').disabled=true;
+    $(choice==='persevere'?'vP':'vV').classList.add('sel');
+    // only mark voted AFTER the server confirms — a local-only vote is invisible to the room
+    window.DB.castVote(thisId, choice, reason).then(function(){
+      voted[thisId]=choice; localStorage.setItem('kmitl:voted',JSON.stringify(voted));
+      casting=false;
+      if(activeId===thisId){ setVotedUI(true); tally(); }
+    }).catch(function(e){
+      casting=false;
+      if(activeId===thisId){ $(choice==='persevere'?'vP':'vV').classList.remove('sel'); setVotedUI(false); }
+      KX.toast((KX.TH()?'โหวตไม่สำเร็จ แตะอีกครั้ง: ':'Vote failed — tap again: ')+e.message,'bad');
+    });
+  }
+  $('vP').addEventListener('click',function(){cast('persevere');});
+  $('vV').addEventListener('click',function(){cast('pivot');});
+
+  function showActive(id){
+    var myId=id; activeId=id;
+    $('vP').classList.remove('sel'); $('vV').classList.remove('sel'); casting=false;
+    if(!id){ currentSub=null; $('stage').classList.remove('show'); $('waiting').style.display=''; return; }
+    setVotedUI(!!voted[id]);
+    if(voted[id]) $(voted[id]==='persevere'?'vP':'vV').classList.add('sel');
+    var sub=subsCache.filter(function(s){return s.id===id;})[0];
+    var prep=sub?Promise.resolve(sub):refreshSubs().then(function(){return subsCache.filter(function(s){return s.id===id;})[0];});
+    prep.then(function(s){
+      if(activeId!==myId) return;             // a newer switch superseded this one
+      if(!s){ currentSub=null; activeId=null; $('stage').classList.remove('show'); $('waiting').style.display=''; return; } // team was removed
+      currentSub=s; $('waiting').style.display='none'; $('stage').classList.add('show');
+      renderTeam(s);
+      if(voted[id]) tally();
+    });
+  }
+
+  function poll(){
+    window.DB.getActive().then(function(id){
+      if(id!==activeId){ showActive(id); }
+      else if(activeId && voted[activeId]){ tally(); }
+    });
+  }
+  refreshSubs().then(poll);
+  setInterval(poll, 2500); // ponytail: 2.5s poll keeps the room in sync without websockets
+  KX.onLang(function(){ if(currentSub) renderTeam(currentSub); tally(); });
+})();
+</script>
+</body>
+</html>

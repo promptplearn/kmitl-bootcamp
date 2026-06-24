@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Submit your product</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wrap{max-width:760px;margin:0 auto}
+  .donecard{border:1px solid var(--line2);background:var(--panel);border-radius:var(--r);padding:24px;margin-top:18px;display:none}
+  .donecard.show{display:block}
+  .donecard .ttl{font-family:var(--mono);font-size:12px;color:var(--clay);letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+  .drow{display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+  .drow:first-of-type{border-top:none;margin-top:8px}
+  .drow .k{flex:0 0 140px;font-size:12.5px;font-weight:700;color:var(--text2)}
+  .drow .k .th{display:block;font-weight:500;color:var(--text3);font-size:11px}
+  .drow .v{flex:1;font-size:15px;color:var(--text);white-space:pre-wrap;word-break:break-word}
+  .feedback{margin-top:14px;border-radius:12px;padding:13px 15px;font-size:13.5px;line-height:1.5}
+  .feedback.warn{background:var(--amber);color:#241a06}
+  .feedback.good{background:var(--green-dim);border:1px solid rgba(127,207,160,.4);color:var(--green)}
+  .feedback ul{margin:6px 0 0 18px}
+  .prefill{font-size:12.5px;color:var(--text3);margin-top:6px}
+  .prefill a{color:var(--clay2);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body data-lang="en" data-page="submit">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<main class="page">
+  <section class="wrap">
+    <div class="kicker pop">Step 3 · ส่งงาน · one card per team</div>
+    <h1 class="big pop bi"><span class="en">Submit your <span class="em">product</span></span><span class="th">ส่ง<span class="em">ผลงาน</span>ของคุณ</span></h1>
+    <p class="lede pop bi"><span class="en">One submission per team. This is the MVP card you built in the lab — it lands on the present board for the room to see and judge. Keep it sharp.</span><span class="th">ทีมละหนึ่งครั้ง นี่คือการ์ด MVP ที่คุณทำในแล็บ — มันจะขึ้นบอร์ดให้ทั้งห้องดูและตัดสิน ทำให้คม</span></p>
+
+    <div class="card pop" style="margin-top:22px">
+      <div class="field"><label class="bi"><span class="en">Team name <span class="hintlbl">— what we call you on the board</span></span><span class="th">ชื่อทีม — ชื่อที่จะขึ้นบอร์ด</span></label><input class="in" id="team" placeholder="e.g. Pet Connect" maxlength="60" /></div>
+      <div class="grid2">
+        <div class="field"><label class="bi"><span class="en">1 · The problem <span class="hintlbl">— a real, specific pain</span></span><span class="th">1 · ปัญหา — ที่เจ็บจริงและเฉพาะ</span></label><textarea class="in" id="problem" maxlength="400" placeholder="Durian exporters can't verify ripeness per crate, so rejected shipments cost millions."></textarea></div>
+        <div class="field"><label class="bi"><span class="en">2 · The customer <span class="hintlbl">— who exactly (not “everyone”)</span></span><span class="th">2 · ลูกค้า — ใครกันแน่ (ไม่ใช่ ‘ทุกคน’)</span></label><textarea class="in" id="customer" maxlength="300" placeholder="Mid-size durian packhouses exporting to China."></textarea></div>
+      </div>
+      <div class="field"><label class="bi"><span class="en">3 · Riskiest assumption <span class="hintlbl">— the one thing that must be true</span></span><span class="th">3 · สมมติฐานเสี่ยงสุด — สิ่งเดียวที่ต้องเป็นจริง</span></label><textarea class="in" id="risk" maxlength="300" placeholder="Packhouses will trust a sucrose-based reading enough to sort by it."></textarea></div>
+      <div class="grid2">
+        <div class="field"><label class="bi"><span class="en">4 · Your MVP level <span class="hintlbl">— smallest test</span></span><span class="th">4 · ระดับ MVP — ทดสอบเล็กสุด</span></label>
+          <select class="in" id="mvp_level">
+            <option value="">— choose / เลือก —</option>
+            <option value="L1 · Demand test (landing / waitlist)">L1 · Demand test (landing / waitlist)</option>
+            <option value="L2 · Prototype (clickable mockup)">L2 · Prototype (clickable mockup)</option>
+            <option value="L3 · Functional (single feature / concierge)">L3 · Functional (single feature / concierge)</option>
+            <option value="L4 · Marketable (smallest paid version)">L4 · Marketable (smallest paid version)</option>
+          </select>
+        </div>
+        <div class="field"><label class="bi"><span class="en">5 · Success metric <span class="hintlbl">— a number that proves it</span></span><span class="th">5 · ตัวชี้วัด — ตัวเลขที่พิสูจน์ได้</span></label><input class="in" id="metric" maxlength="200" placeholder="20% of visitors join the waitlist in 1 week." /></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label class="bi"><span class="en">Your edge <span class="hintlbl">— why you, not others</span></span><span class="th">จุดแข็ง — ทำไมต้องเป็นคุณ</span></label><input class="in" id="pitch" maxlength="220" placeholder="Computer-vision IP that gets smarter with every crate graded." /></div>
+        <div class="field"><label class="bi"><span class="en">Demo link <span class="hintlbl">— your Claude Artifact / mockup (optional)</span></span><span class="th">ลิงก์เดโม่ — Artifact / ม็อกอัพ (ไม่บังคับ)</span></label><input class="in" id="demo_url" maxlength="500" placeholder="https://claude.site/artifacts/..." /></div>
+      </div>
+      <button class="btn" id="go" style="width:100%"><span class="bi inl"><span class="en">Submit to the board</span><span class="th">ส่งขึ้นบอร์ด</span></span></button>
+      <div class="prefill" id="prefill"></div>
+    </div>
+
+    <div class="donecard" id="done">
+      <div class="ttl bi inl"><span class="en">✓ Submitted · you're on the board</span><span class="th">✓ ส่งแล้ว · คุณอยู่บนบอร์ดแล้ว</span></div>
+      <div class="drow"><div class="k">Team<span class="th">ทีม</span></div><div class="v" id="dTeam"></div></div>
+      <div class="drow"><div class="k">Problem<span class="th">ปัญหา</span></div><div class="v" id="dProblem"></div></div>
+      <div class="drow"><div class="k">Customer<span class="th">ลูกค้า</span></div><div class="v" id="dCustomer"></div></div>
+      <div class="drow"><div class="k">Riskiest assumption<span class="th">สมมติฐานเสี่ยงสุด</span></div><div class="v" id="dRisk"></div></div>
+      <div class="drow"><div class="k">MVP<span class="th">MVP</span></div><div class="v" id="dLevel"></div></div>
+      <div class="drow"><div class="k">Success =<span class="th">สำเร็จเมื่อ</span></div><div class="v" id="dMetric"></div></div>
+      <div id="dFeedback"></div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn ghost sm" href="vote.html"><span class="bi inl"><span class="en">→ Go to live vote</span><span class="th">→ ไปหน้าโหวตสด</span></span></a>
+        <button class="btn ghost sm" id="edit"><span class="bi inl"><span class="en">Edit &amp; resubmit</span><span class="th">แก้แล้วส่งใหม่</span></span></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var fields=['team','problem','customer','risk','mvp_level','metric','pitch','demo_url'];
+
+  // Prefill from ?team=...&problem=... (lab can deep-link here)
+  var q=new URLSearchParams(location.search);
+  fields.forEach(function(f){ if(q.get(f)) $(f).value=q.get(f); });
+
+  // Restore this team's last draft so a refresh doesn't lose work
+  try{ var d=JSON.parse(localStorage.getItem('kmitl:draft')||'{}'); fields.forEach(function(f){ if(!$(f).value && d[f]) $(f).value=d[f]; }); }catch(e){}
+  function saveDraft(){ var d={}; fields.forEach(function(f){ d[f]=$(f).value; }); localStorage.setItem('kmitl:draft',JSON.stringify(d)); }
+  fields.forEach(function(f){ $(f).addEventListener('input',saveDraft); });
+
+  function validate(c){
+    var f=[],bi=KX.bi;
+    if(!c.problem) f.push(bi('Add the problem — a specific pain in a real situation.','ใส่ปัญหา — เจ็บอะไร ในสถานการณ์จริง'));
+    if(!c.customer) f.push(bi('Name the customer — a specific, reachable group.','ระบุลูกค้า — กลุ่มที่เฉพาะและเข้าถึงได้'));
+    else if(/every\s?one|everybody|\ball\b|anyone|ทุกคน|ใครก็ได้|คนทั่วไป/i.test(c.customer)) f.push(bi('“Everyone” is no one — narrow to one specific segment.','‘ทุกคน’ = ไม่มีใคร — แคบลงเหลือกลุ่มเดียว'));
+    if(!c.risk) f.push(bi('State your riskiest assumption — the one thing that, if false, kills it.','ระบุสมมติฐานเสี่ยงสุด — สิ่งเดียวที่ถ้าผิดแล้วจบ'));
+    if(!c.mvp_level) f.push(bi('Pick an MVP level — the smallest test, not a finished app.','เลือกระดับ MVP — ทดสอบเล็กสุด'));
+    if(!c.metric) f.push(bi('Add a success metric.','ใส่ตัวชี้วัดความสำเร็จ'));
+    else if(!/\d|%|percent|rate|ratio|จำนวน|ราย|คน|บาท|เปอร์เซ็น|อัตรา/i.test(c.metric)) f.push(bi('Make the metric measurable — put a number or % on it.','ทำให้วัดได้ — ใส่ตัวเลขหรือ %'));
+    if(/^L4/.test(c.mvp_level)) f.push(bi('Level 4 is usually too big for a first test — can a demand test or prototype prove the same assumption faster?','ระดับ 4 มักใหญ่ไป — demand test หรือ prototype พิสูจน์ได้ไวกว่าไหม'));
+    return f;
+  }
+
+  var go=$('go');
+  var myId=localStorage.getItem('kmitl:my_submission')||'';   // idempotency: one card per device
+  function btnLabel(){ return myId
+    ? '<span class="bi inl"><span class="en">Update my submission</span><span class="th">อัปเดตผลงาน</span></span>'
+    : '<span class="bi inl"><span class="en">Submit to the board</span><span class="th">ส่งขึ้นบอร์ด</span></span>'; }
+  function renderDone(c){
+    $('dTeam').textContent=c.team;
+    $('dProblem').textContent=c.problem||'—';
+    $('dCustomer').textContent=c.customer||'—';
+    $('dRisk').textContent=c.risk||'—';
+    $('dLevel').textContent=c.mvp_level||'—';
+    $('dMetric').textContent=c.metric||'—';
+    var flags=validate(c),fb=$('dFeedback');
+    if(flags.length){ fb.className='feedback warn'; fb.innerHTML='<b>'+(KX.TH()?'ส่งแล้ว — แต่ลับให้คมก่อนพิทช์:':'Submitted — but sharpen before you pitch:')+'</b><ul><li>'+flags.join('</li><li>')+'</li></ul>'; }
+    else{ fb.className='feedback good'; fb.innerHTML='✓ '+KX.bi('Sharp and testable. Good luck on stage.','คมและทดสอบได้ ขอให้โชคดีบนเวที'); }
+    document.querySelector('.card').style.display='none';
+    $('done').classList.add('show');
+  }
+
+  go.addEventListener('click',function(){
+    var c={};fields.forEach(function(f){ c[f]=$(f).value.trim(); });
+    if(!c.team){ KX.toast(KX.TH()?'ใส่ชื่อทีมก่อน':'Add a team name first','bad'); $('team').focus(); return; }
+    if(!c.problem||!c.customer||!c.risk||!c.mvp_level){ KX.toast(KX.TH()?'กรอกปัญหา ลูกค้า สมมติฐาน และระดับ MVP':'Fill problem, customer, assumption & MVP level','bad'); return; }
+    // block javascript:/data: links from ever reaching the board href
+    if(c.demo_url && !/^https?:\/\//i.test(c.demo_url)){ c.demo_url=''; KX.toast(KX.TH()?'ลิงก์เดโม่ต้องขึ้นต้นด้วย http(s) — ตัดออกแล้ว':'Demo link must start with http(s) — removed','bad'); }
+
+    go.disabled=true; go.innerHTML='<span class="bi inl"><span class="en">Sending…</span><span class="th">กำลังส่ง…</span></span>';
+    var write = myId ? window.DB.updateCard(myId,c) : window.DB.submitCard(c);
+    write.then(function(row){
+      myId=(row&&row.id)||myId; localStorage.setItem('kmitl:my_submission',myId);
+      localStorage.setItem('kmitl:my_card',JSON.stringify(c));
+      renderDone(c);
+      KX.toast(KX.TH()?'ขึ้นบอร์ดแล้ว 🎉':'On the board 🎉','good');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }).catch(function(e){
+      go.disabled=false; go.innerHTML=btnLabel();
+      KX.toast((KX.TH()?'ส่งไม่สำเร็จ ลองอีกครั้ง: ':'Failed — try again: ')+e.message,'bad');
+    });
+  });
+
+  $('edit').addEventListener('click',function(){
+    $('done').classList.remove('show');
+    document.querySelector('.card').style.display='';
+    go.disabled=false; go.innerHTML=btnLabel();
+  });
+
+  // already submitted on this device? restore the done card so a reload can't create a duplicate
+  if(myId){
+    var mc=null; try{ mc=JSON.parse(localStorage.getItem('kmitl:my_card')||'null'); }catch(e){}
+    go.innerHTML=btnLabel();
+    if(mc){ fields.forEach(function(f){ if(mc[f]!=null) $(f).value=mc[f]; }); renderDone(mc); }
+  }
+})();
+</script>
+</body>
+</html>

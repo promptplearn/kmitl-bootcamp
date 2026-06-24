@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Idea Lab — 15 AI Products + Claude Prompt Pack</title>
+<meta name="description" content="15 fundable AI product seeds for Thailand, a Claude-chat prompt pack to find your MVP, and a group pitch structure. Bilingual EN/TH." />
+<meta name="theme-color" content="#15161c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#15161c;--panel:#1d1f28;--panel-soft:#21242e;--panel2:#16171d;
+    --line:rgba(255,255,255,0.08);--line2:rgba(217,119,87,0.4);
+    --clay:#D97757;--clay2:#E5926F;--clay-dim:rgba(217,119,87,0.13);
+    --blue:#7BA9F2;--green:#7FCFA0;--green-dim:rgba(127,207,160,.13);--amber:#E6B566;--rose:#E58A8A;--purple:#B79CF0;
+    --text:#ECE9E2;--text2:#A6A39A;--text3:#6f6d66;
+    --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:'Outfit',-apple-system,system-ui,sans-serif;
+    --thai:'Noto Sans Thai','Sukhumvit Set','Thonburi',var(--sans);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(217,119,87,0.28)}
+  .th{font-family:var(--thai)}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 75%);opacity:.55}
+  .bg-glow{position:absolute;width:80vw;height:60vw;left:50%;top:-30%;transform:translateX(-50%);background:radial-gradient(circle,rgba(217,119,87,.13),transparent 62%);filter:blur(24px)}
+
+  .bi{display:flex;flex-direction:column;gap:.14em}
+  .bi.inl{display:inline-flex}
+  body[data-lang="en"] .bi .th{font-size:.66em;opacity:.6;font-weight:500}
+  body[data-lang="th"] .bi{flex-direction:column-reverse}
+  body[data-lang="th"] .bi .en{font-size:.66em;opacity:.6;font-weight:500}
+
+  header.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line);background:rgba(21,22,28,.9);backdrop-filter:blur(14px)}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14.5px;color:var(--text);text-decoration:none}
+  .brand .star{color:var(--clay);font-size:17px}
+  .brand .who{color:var(--text2);font-weight:500;font-size:12.5px;font-family:var(--mono)}
+  .navlinks{display:flex;gap:4px}
+  .navlinks a{font-size:12.5px;color:var(--text2);text-decoration:none;padding:6px 11px;border-radius:8px;font-weight:600}
+  .navlinks a:hover{background:var(--panel-soft);color:var(--text)}
+  @media(max-width:680px){.navlinks{display:none}}
+  .spacer{flex:1}
+  .lang-toggle{display:inline-flex;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .lt{cursor:pointer;border:none;background:transparent;color:var(--text2);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:8px;font-family:inherit}
+  .lt.active{background:var(--clay-dim);color:var(--clay2)}
+  .lt .thai{font-family:var(--thai)}
+
+  main{position:relative;z-index:5;max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 90px}
+  section{padding-top:54px}
+  .kicker{font-size:12px;font-weight:700;color:var(--clay);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+  h1{font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  h1 .em{color:var(--clay)}
+  h2{font-size:clamp(24px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+  h2 .em{color:var(--clay)}
+  .lede{margin-top:18px;max-width:68ch;color:var(--text2);font-size:clamp(15.5px,1.7vw,18.5px)}
+  .lede b{color:var(--text)}
+
+  /* hero */
+  .hero{padding-top:46px}
+  .banner{margin-top:26px;display:flex;gap:16px;flex-wrap:wrap}
+  .bcard{flex:1;min-width:260px;border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--panel)}
+  .bcard.own{border-color:rgba(127,207,160,.4)}
+  .bcard.stuck{border-color:var(--line2)}
+  .bcard .bt{font-weight:800;font-size:15.5px;margin-bottom:5px}
+  .bcard.own .bt{color:var(--green)}.bcard.stuck .bt{color:var(--clay2)}
+  .bcard .bd{font-size:14px;color:var(--text2)}
+  .howrow{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13.5px;color:var(--text2)}
+  .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel-soft);border-radius:99px;padding:7px 14px;font-weight:600;font-size:13px}
+  .pill .e{font-size:15px}
+  .arrowmini{color:var(--text3)}
+
+  /* filter chips */
+  .filters{margin-top:24px;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text2);font-family:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:99px;transition:.14s}
+  .chip:hover{border-color:var(--line2)}
+  .chip.on{background:var(--clay-dim);border-color:var(--clay);color:var(--clay2)}
+  .chip .th{font-weight:500}
+
+  /* cards grid */
+  .grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:18px;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .card .top{display:flex;align-items:flex-start;gap:11px}
+  .card .ico{font-size:30px;line-height:1;flex:0 0 auto}
+  .card .nm{font-weight:800;font-size:17px;line-height:1.2}
+  .card .cat{margin-top:3px;font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--clay2);font-family:var(--mono);text-transform:uppercase}
+  .card .one{margin-top:12px;font-size:14px;color:var(--text);line-height:1.5}
+  .card .one .th{color:var(--text2)}
+  .card .more{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .card.open .more{max-height:680px}
+  .card .more-inner{padding-top:14px;margin-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:11px}
+  .field-mini .lab{font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:3px}
+  .field-mini .val{font-size:13px;color:var(--text2);line-height:1.5}
+  .field-mini .val .th{display:block;color:var(--text3);margin-top:2px}
+  .field-mini.fund .val{color:var(--green)}
+  .field-mini.fund .val .th{color:rgba(127,207,160,.7)}
+  .field-mini.risk .val{color:var(--amber)}
+  .field-mini.risk .val .th{color:rgba(230,181,102,.7)}
+  .card .toggle{margin-top:14px;cursor:pointer;background:var(--panel-soft);border:1px solid var(--line);color:var(--text2);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px;border-radius:10px;text-align:center;transition:.14s}
+  .card .toggle:hover{border-color:var(--line2);color:var(--text)}
+
+  /* prompt pack */
+  .prompts{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+  .prompt{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:hidden}
+  .prompt .ph{display:flex;align-items:center;gap:13px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--panel-soft)}
+  .prompt .pnum{flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:var(--clay);color:#2a140c;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
+  .prompt .ptt{flex:1}
+  .prompt .ptt .pt{font-weight:800;font-size:15.5px}
+  .prompt .ptt .ps{font-size:12px;color:var(--text2);margin-top:1px}
+  .prompt .tooltag{flex:0 0 auto;font-size:10.5px;font-weight:800;letter-spacing:.03em;border-radius:7px;padding:4px 9px;font-family:var(--mono)}
+  .tooltag.search{background:rgba(123,169,242,.14);color:var(--blue)}
+  .tooltag.artifact{background:rgba(183,156,240,.16);color:var(--purple)}
+  .tooltag.chat{background:var(--panel2);color:var(--text3);border:1px solid var(--line)}
+  .prompt .pbody{padding:16px 18px}
+  .prompt pre{font-family:var(--mono);font-size:12.8px;line-height:1.62;color:#D9E2EC;white-space:pre-wrap;word-break:break-word}
+  .prompt .pbody .ph-acc{color:var(--clay2);font-weight:700}
+  .prompt .pfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 18px 16px;flex-wrap:wrap}
+  .prompt .tip{font-size:12px;color:var(--text3);max-width:74%}
+  .prompt .tip b{color:var(--text2)}
+  .copybtn{cursor:pointer;background:linear-gradient(180deg,var(--clay2),var(--clay));border:none;color:#2a140c;font-weight:800;font-size:12.5px;font-family:inherit;padding:9px 16px;border-radius:10px;transition:.14s;white-space:nowrap}
+  .copybtn:hover{transform:translateY(-1px)}
+  .copybtn.done{background:var(--green);color:#10110f}
+
+  /* present */
+  .steps{margin-top:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.steps{grid-template-columns:1fr}}
+  .step{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:18px 16px}
+  .step .sn{width:30px;height:30px;border-radius:50%;background:var(--clay-dim);color:var(--clay2);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step .sh{margin-top:11px;font-weight:800;font-size:15px}
+  .step .sd{margin-top:6px;font-size:13px;color:var(--text2);line-height:1.5}
+  .pitchbox{margin-top:22px;border:1px solid var(--line2);background:var(--panel);border-radius:18px;padding:22px}
+  .pitchbox h4{font-size:13px;font-weight:800;color:var(--clay2);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+  .pitchbox .pl{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+  .pitchbox .pl:first-of-type{border-top:none}
+  .pitchbox .pl .n{flex:0 0 24px;color:var(--clay);font-weight:800}
+  .pitchbox .pl .t .th{display:block;font-size:12.5px;color:var(--text2);margin-top:1px}
+
+  footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:var(--text3);font-size:13px;text-align:center}
+  footer b{color:var(--text2)}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<header class="top">
+  <a class="brand" href="index.html"><span class="star">✶</span> Idea Lab <span class="who">· KMITL bootcamp</span></a>
+  <nav class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="learn.html">Learn</a>
+    <a href="#ideas">15 Ideas</a>
+    <a href="#prompts">Prompt Pack</a>
+    <a href="submit.html">Submit →</a>
+  </nav>
+  <div class="spacer"></div>
+  <div class="lang-toggle">
+    <button class="lt active" data-lang="en">EN</button>
+    <button class="lt" data-lang="th"><span class="thai">ไทย</span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="kicker">15 AI products · find your MVP · pitch it</div>
+    <h1 class="bi"><span class="en">15 fundable ideas. <span class="em">Find the MVP. Pitch it.</span></span><span class="th">15 ไอเดียที่ขอทุนได้ <span class="em">หา MVP แล้วพิทช์</span></span></h1>
+    <p class="lede bi">
+      <span class="en">A starter pool of AI product seeds built for Thailand — each one innovation-grade, not “open a shop.” You only need <b>Claude chat</b>. Pick one (or use your own), run the prompt pack to find your MVP, build a demo, and present in your group.</span>
+      <span class="th">คลังไอเดียผลิตภัณฑ์ AI สำหรับไทย — ทุกอันเป็นนวัตกรรม ไม่ใช่ ‘เปิดร้าน’ ใช้แค่ <b>Claude chat</b> เลือกหนึ่งอัน (หรือใช้ของตัวเอง) รันชุดพรอมป์เพื่อหา MVP สร้างเดโม่ แล้วพรีเซนต์เป็นกลุ่ม</span>
+    </p>
+    <div class="banner">
+      <div class="bcard own">
+        <div class="bt bi inl"><span class="en">✓ Have your own idea?</span><span class="th">✓ มีไอเดียของตัวเอง?</span></div>
+        <div class="bd bi"><span class="en">Use it. Your research is your unfair advantage — funders reward what only you can do. These 15 are a backup, not a replacement.</span><span class="th">ใช้เลย งานวิจัยคือข้อได้เปรียบที่ลอกยาก ผู้ให้ทุนให้รางวัลกับสิ่งที่มีแค่คุณทำได้ 15 อันนี้เป็นแค่ตัวสำรอง</span></div>
+      </div>
+      <div class="bcard stuck">
+        <div class="bt bi inl"><span class="en">◇ Stuck or starting cold?</span><span class="th">◇ ติด หรือเริ่มจากศูนย์?</span></div>
+        <div class="bd bi"><span class="en">Grab any card below. By the end you’ll have a real MVP and a pitch — same finish line as everyone else.</span><span class="th">หยิบการ์ดไหนก็ได้ด้านล่าง จบแล้วคุณจะมี MVP จริงและพิทช์ เส้นชัยเดียวกับทุกคน</span></div>
+      </div>
+    </div>
+    <div class="howrow">
+      <span class="pill"><span class="e">💡</span> <span class="bi inl"><span class="en">Pick an idea</span><span class="th">เลือกไอเดีย</span></span></span>
+      <span class="arrowmini">→</span>
+      <span class="pill"><span class="e">🔎</span> <span class="bi inl"><span class="en">Research + MVP via Claude</span><span class="th">รีเสิร์ช + MVP ด้วย Claude</span></span></span>
+      <span class="arrowmini">→</span>
+      <span class="pill"><span class="e">🛠️</span> <span class="bi inl"><span class="en">Build a demo (Artifact)</span><span class="th">สร้างเดโม่ (Artifact)</span></span></span>
+      <span class="arrowmini">→</span>
+      <span class="pill"><span class="e">🎤</span> <span class="bi inl"><span class="en">Present 90 sec</span><span class="th">พิทช์ 90 วิ</span></span></span>
+    </div>
+  </section>
+
+  <!-- IDEAS -->
+  <section id="ideas">
+    <div class="kicker">The idea bank · คลังไอเดีย</div>
+    <h2 class="bi"><span class="en">Pick a product <span class="em">to build today</span></span><span class="th">เลือกผลิตภัณฑ์ <span class="em">มาสร้างวันนี้</span></span></h2>
+    <p class="lede bi"><span class="en">Tap a card to see the problem, who pays, why it’s fundable, and a starter MVP angle. The MVP is <b>yours to finalize</b> with the prompts.</span><span class="th">แตะการ์ดเพื่อดูปัญหา ใครจ่าย ทำไมขอทุนได้ และแนวทาง MVP เริ่มต้น ส่วน MVP <b>คุณเป็นคนสรุปเอง</b>ด้วยชุดพรอมป์</span></p>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section id="prompts">
+    <div class="kicker">Claude chat only · ใช้แค่ Claude chat</div>
+    <h2 class="bi"><span class="en">The prompt pack <span class="em">— run them in order</span></span><span class="th">ชุดพรอมป์ <span class="em">— รันตามลำดับ</span></span></h2>
+    <p class="lede bi"><span class="en">Paste your chosen card (or your own idea) into Prompt 1, then go down the list. <b>Prompt 2 needs Web Search ON. Prompt 5 builds your demo as an Artifact</b> you can click and show. You can paste in Thai — just add “ตอบเป็นไทย”.</span><span class="th">วางการ์ดที่เลือก (หรือไอเดียตัวเอง) ลงพรอมป์ 1 แล้วไล่ลงไป <b>พรอมป์ 2 ต้องเปิด Web Search · พรอมป์ 5 จะสร้างเดโม่เป็น Artifact</b> ที่กดและโชว์ได้ พิมพ์ไทยได้ แค่เติม “ตอบเป็นไทย”</span></p>
+    <div class="prompts" id="prompts-list"></div>
+  </section>
+
+  <!-- PRESENT -->
+  <section id="present">
+    <div class="kicker">In your group · เป็นกลุ่ม</div>
+    <h2 class="bi"><span class="en">Present it <span class="em">in 90 seconds</span></span><span class="th">พรีเซนต์ <span class="em">ใน 90 วินาที</span></span></h2>
+    <div class="steps">
+      <div class="step"><div class="sn">1</div><div class="sh bi inl"><span class="en">Pick</span><span class="th">เลือก</span></div><div class="sd bi"><span class="en">Your own idea, or one card from the bank. Decide in 2 minutes.</span><span class="th">ไอเดียตัวเอง หรือหนึ่งการ์ด ตัดสินใน 2 นาที</span></div></div>
+      <div class="step"><div class="sn">2</div><div class="sh bi inl"><span class="en">Run prompts</span><span class="th">รันพรอมป์</span></div><div class="sd bi"><span class="en">1 → 6 in one Claude chat. Research, MVP, then build the demo.</span><span class="th">1 → 6 ในแชท Claude เดียว รีเสิร์ช MVP แล้วสร้างเดโม่</span></div></div>
+      <div class="step"><div class="sn">3</div><div class="sh bi inl"><span class="en">Show &amp; tell</span><span class="th">โชว์และเล่า</span></div><div class="sd bi"><span class="en">90-second pitch + open your Artifact demo on screen.</span><span class="th">พิทช์ 90 วิ + เปิดเดโม่ Artifact บนจอ</span></div></div>
+      <div class="step"><div class="sn">4</div><div class="sh bi inl"><span class="en">Get judged</span><span class="th">ถูกตัดสิน</span></div><div class="sd bi"><span class="en">The room votes pivot or persevere, and scores you on the rubric.</span><span class="th">ห้องโหวตพิวอตหรือไปต่อ และให้คะแนนตามรูบริก</span></div></div>
+    </div>
+    <div class="pitchbox">
+      <h4 class="bi inl"><span class="en">The 90-second script · say these five lines</span><span class="th">สคริปต์ 90 วินาที · พูดห้าบรรทัดนี้</span></h4>
+      <div class="pl"><span class="n">1</span><span class="t bi"><span class="en">“We help <b>[who pays]</b> do <b>[what]</b> using <b>[how]</b>.”</span><span class="th">“เราช่วย [คนจ่าย] ทำ [อะไร] ด้วย [วิธีไหน]”</span></span></div>
+      <div class="pl"><span class="n">2</span><span class="t bi"><span class="en">“Unlike what’s out there, we…” <span style="color:var(--text3)">(your edge)</span></span><span class="th">“ต่างจากที่มีอยู่ เราคือ…” (จุดแข็ง)</span></span></div>
+      <div class="pl"><span class="n">3</span><span class="t bi"><span class="en">“The market is <b>[a real number]</b>.”</span><span class="th">“ตลาดมีขนาด [ตัวเลขจริง]”</span></span></div>
+      <div class="pl"><span class="n">4</span><span class="t bi"><span class="en">“Now is the time because…”</span><span class="th">“ตอนนี้คือจังหวะเพราะ…”</span></span></div>
+      <div class="pl"><span class="n">5</span><span class="t bi"><span class="en">“Our riskiest assumption is <b>[X]</b> — we’ll test it by <b>[Y]</b>.” Then show the demo.</span><span class="th">“สมมติฐานเสี่ยงสุดคือ [X] — เราจะทดสอบด้วย [Y]” แล้วโชว์เดโม่</span></span></div>
+    </div>
+    <div style="margin-top:26px;text-align:center">
+      <a href="submit.html" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(180deg,var(--clay2),var(--clay));color:#2a140c;font-weight:800;font-size:17px;padding:14px 30px;border-radius:13px;text-decoration:none;box-shadow:0 8px 26px rgba(217,119,87,.30)">
+        <span class="bi inl"><span class="en">Got your card ready? Submit it →</span><span class="th">การ์ดพร้อมแล้ว? ส่งเลย →</span></span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="bi inl"><span class="en"><b>One Claude chat is all you need.</b> Build small, launch fast, learn from real people.</span><span class="th"><b>ใช้แค่ Claude chat แชทเดียว</b> สร้างเล็ก ปล่อยไว เรียนจากคนจริง</span></span>
+    <div style="margin-top:8px;opacity:.7">KMITL · AI-Driven Entrepreneurship Bootcamp · Idea Lab</div>
+  </footer>
+
+</main>
+
+<script>
+(function(){
+  /* ---------- 15 product seeds ---------- */
+  var IDEAS=[
+    {ico:'🥭',cat:'Agri & Food',group:'agri',
+      nm:{en:'AgriGrade AI',th:'AgriGrade AI'},
+      one:{en:'Phone-photo quality grading for fruit exporters — instant grade, defect &amp; price tier.',th:'ถ่ายรูปผลไม้แล้วให้เกรดคุณภาพทันที พร้อมตรวจตำหนิและช่วงราคา สำหรับผู้ส่งออก'},
+      problem:{en:'Packhouses grade produce by eye — slow, inconsistent, and rejected export shipments cost millions.',th:'ล้งคัดเกรดด้วยสายตา ช้า ไม่สม่ำเสมอ และของที่ถูกตีกลับทำให้เสียเงินมหาศาล'},
+      pays:{en:'Durian/mango/longan packhouses &amp; exporters (per-crate or subscription).',th:'ล้งและผู้ส่งออกทุเรียน/มะม่วง/ลำไย (รายลังหรือรายเดือน)'},
+      fund:{en:'Computer-vision IP, gets smarter with data, sells to every packhouse — defensible &amp; scalable.',th:'เทคโนโลยี CV ที่ฉลาดขึ้นเรื่อย ๆ ขายได้ทุกล้ง ลอกยากและขยายได้'},
+      mvp:{en:'Demand-test landing page + a mocked “upload photo → grade card” screen.',th:'หน้าแลนดิ้ง + หน้าจอจำลอง “อัปรูป → การ์ดเกรด”'},
+      risk:{en:'Will exporters trust a photo grade enough to sort and price by it?',th:'ผู้ส่งออกจะเชื่อเกรดจากรูปพอจะใช้คัดและตั้งราคาไหม'}},
+
+    {ico:'🦐',cat:'Agri & Food',group:'agri',
+      nm:{en:'AquaSense',th:'AquaSense'},
+      one:{en:'AI water-quality &amp; feeding advisor for shrimp/fish farms — predicts disease before loss.',th:'ผู้ช่วย AI ดูคุณภาพน้ำและการให้อาหารฟาร์มกุ้ง/ปลา ทำนายโรคก่อนเสียหาย'},
+      problem:{en:'A single disease outbreak can wipe a pond. Farmers react too late and overfeed, wasting cost.',th:'โรคระบาดครั้งเดียวล้างบ่อได้ เกษตรกรรู้ช้าและให้อาหารเกิน เปลืองต้นทุน'},
+      pays:{en:'Shrimp/fish farm operators &amp; cooperatives (monthly per pond).',th:'เจ้าของฟาร์มกุ้ง/ปลาและสหกรณ์ (รายเดือนต่อบ่อ)'},
+      fund:{en:'Predictive model + sensor data; Thailand is a top global aquaculture exporter — huge, real market.',th:'โมเดลทำนาย + ข้อมูลเซ็นเซอร์ ไทยเป็นผู้ส่งออกสัตว์น้ำอันดับต้นโลก ตลาดใหญ่จริง'},
+      mvp:{en:'Clickable dashboard mockup: water readings → risk alert + feeding suggestion.',th:'ม็อกอัพแดชบอร์ด: ค่าน้ำ → แจ้งเตือนความเสี่ยง + คำแนะนำการให้อาหาร'},
+      risk:{en:'Can early signals predict outbreaks accurately enough to act on?',th:'สัญญาณช่วงต้นทำนายการระบาดได้แม่นพอให้ลงมือไหม'}},
+
+    {ico:'👵',cat:'Health & Aging',group:'health',
+      nm:{en:'Sook — elder care',th:'สุข — ดูแลผู้สูงวัย'},
+      one:{en:'AI companion + medication &amp; fall monitoring for aging-at-home, with a caregiver dashboard.',th:'เพื่อน AI + เตือนยาและตรวจจับการล้ม สำหรับผู้สูงวัยที่อยู่บ้าน พร้อมแดชบอร์ดผู้ดูแล'},
+      problem:{en:'Thailand is an aged society; families can’t watch elders 24/7, and missed meds or falls turn into ER visits.',th:'ไทยเป็นสังคมสูงวัย ครอบครัวเฝ้าตลอดไม่ได้ ลืมกินยาหรือล้มกลายเป็นเข้าห้องฉุกเฉิน'},
+      pays:{en:'Adult children &amp; care homes (subscription); LINE alerts to caregivers.',th:'ลูกหลานและศูนย์ดูแล (รายเดือน) แจ้งเตือนผ่าน LINE'},
+      fund:{en:'Rides the silver-economy wave (NIA priority); recurring revenue; sticky.',th:'อยู่บนคลื่นเศรษฐกิจผู้สูงวัย (NIA สนับสนุน) รายได้ต่อเนื่อง เลิกใช้ยาก'},
+      mvp:{en:'Clickable caregiver app + LINE alert mock; fake-door signup for families.',th:'แอปผู้ดูแลกดได้ + จำลองแจ้งเตือน LINE; หน้าสมัครหลอกสำหรับครอบครัว'},
+      risk:{en:'Will families pay monthly for peace of mind vs free reminders?',th:'ครอบครัวจะจ่ายรายเดือนเพื่อความสบายใจแทนแอปเตือนฟรีไหม'}},
+
+    {ico:'🌾',cat:'Climate & Energy',group:'climate',
+      nm:{en:'RiceCarbon',th:'RiceCarbon'},
+      one:{en:'AI measurement &amp; verification that turns water-saving rice farming into sellable carbon credits.',th:'AI วัดและยืนยันผล เปลี่ยนการทำนาประหยัดน้ำให้เป็นคาร์บอนเครดิตที่ขายได้'},
+      problem:{en:'Rice paddies emit huge methane; farmers could earn carbon income but verification is too costly &amp; manual.',th:'นาข้าวปล่อยมีเทนมหาศาล เกษตรกรหารายได้คาร์บอนได้แต่การตรวจสอบแพงและทำมือ'},
+      pays:{en:'Carbon-credit buyers &amp; agribusinesses; farmers earn a share.',th:'ผู้ซื้อคาร์บอนเครดิตและธุรกิจเกษตร เกษตรกรได้ส่วนแบ่ง'},
+      fund:{en:'Novel MRV tech, climate-funded tailwind, real new revenue stream — highly fundable.',th:'เทคโนโลยี MRV ใหม่ มีแรงหนุนจากทุนสภาพภูมิอากาศ รายได้ใหม่จริง ขอทุนได้สูง'},
+      mvp:{en:'Landing page for farmer co-ops + a mock “credits earned” dashboard.',th:'หน้าแลนดิ้งสำหรับสหกรณ์ + แดชบอร์ดจำลอง “เครดิตที่ได้”'},
+      risk:{en:'Can satellite + field data verify reductions credibly enough for buyers?',th:'ข้อมูลดาวเทียม + ภาคสนามยืนยันการลดได้น่าเชื่อพอสำหรับผู้ซื้อไหม'}},
+
+    {ico:'🏭',cat:'Industry & Logistics',group:'industry',
+      nm:{en:'Saang — machine health',th:'เสียง — สุขภาพเครื่องจักร'},
+      one:{en:'Predicts factory machine failure from a phone-mic recording — no expensive sensors.',th:'ทำนายเครื่องจักรพังจากเสียงที่อัดด้วยไมค์มือถือ ไม่ต้องใช้เซ็นเซอร์แพง'},
+      problem:{en:'SME factories can’t afford industrial sensor systems, so machines fail unexpectedly and halt production.',th:'โรงงาน SME ซื้อระบบเซ็นเซอร์อุตสาหกรรมไม่ไหว เครื่องเลยพังกะทันหันและหยุดสายผลิต'},
+      pays:{en:'Small/medium manufacturers (per machine, monthly).',th:'ผู้ผลิตขนาดเล็ก-กลาง (รายเครื่อง รายเดือน)'},
+      fund:{en:'Audio-AI lowers the cost barrier 10× — opens a market big players ignore. Defensible &amp; scalable.',th:'AI เสียงลดต้นทุน 10 เท่า เปิดตลาดที่เจ้าใหญ่มองข้าม ลอกยากและขยายได้'},
+      mvp:{en:'Demo screen: upload a sound clip → “healthy / warning / replace” + a landing page.',th:'หน้าจอเดโม่: อัปคลิปเสียง → “ปกติ / เตือน / เปลี่ยน” + หน้าแลนดิ้ง'},
+      risk:{en:'Can a phone mic capture enough signal to predict failure reliably?',th:'ไมค์มือถือจับสัญญาณพอจะทำนายการพังได้น่าเชื่อถือไหม'}},
+
+    {ico:'🏥',cat:'Health & Aging',group:'health',
+      nm:{en:'Mor-Dee — clinic triage',th:'หมอดี — คัดกรองคลินิก'},
+      one:{en:'Thai-language AI symptom intake + smart queue that routes patients by priority.',th:'AI รับอาการเป็นภาษาไทย + คิวอัจฉริยะ จัดลำดับผู้ป่วยตามความเร่งด่วน'},
+      problem:{en:'Rural clinics are overwhelmed; patients wait hours and urgent cases get missed in a first-come queue.',th:'คลินิกชนบทคนล้น ผู้ป่วยรอเป็นชั่วโมง เคสด่วนถูกมองข้ามในคิวมาก่อนได้ก่อน'},
+      pays:{en:'Clinics, community hospitals, pharmacy chains (per site).',th:'คลินิก โรงพยาบาลชุมชน เครือร้านยา (รายสาขา)'},
+      fund:{en:'Thai-NLP triage IP + public-health impact; scalable across thousands of sites.',th:'เทคโนโลยีคัดกรอง NLP ไทย + ผลกระทบสาธารณสุข ขยายได้หลายพันสาขา'},
+      mvp:{en:'Clickable intake chat → priority + queue board mock; pilot landing for one clinic.',th:'แชตรับอาการกดได้ → กระดานลำดับ+คิว; หน้าแลนดิ้งนำร่องหนึ่งคลินิก'},
+      risk:{en:'Will clinics trust an AI to triage urgency safely?',th:'คลินิกจะเชื่อ AI ให้คัดกรองความเร่งด่วนอย่างปลอดภัยไหม'}},
+
+    {ico:'🥵',cat:'Climate & Energy',group:'climate',
+      nm:{en:'HeatGuard',th:'HeatGuard'},
+      one:{en:'AI heat-stress early warning for outdoor workers — wearable + weather + body signals.',th:'AI เตือนภาวะเครียดจากความร้อนล่วงหน้าสำหรับคนทำงานกลางแจ้ง รวมอุปกรณ์สวม + อากาศ + สัญญาณร่างกาย'},
+      problem:{en:'Construction &amp; farm workers collapse from heat as temperatures rise; employers face liability &amp; lost days.',th:'คนงานก่อสร้างและเกษตรล้มจากความร้อนเมื่ออุณหภูมิสูงขึ้น นายจ้างเสี่ยงความรับผิดและเสียวันทำงาน'},
+      pays:{en:'Construction firms, farms, factories (per worker / B2B safety).',th:'บริษัทก่อสร้าง ฟาร์ม โรงงาน (รายคน / ความปลอดภัย B2B)'},
+      fund:{en:'Climate-driven, timely, occupational-safety angle; recurring B2B revenue.',th:'ขับเคลื่อนด้วยสภาพภูมิอากาศ ทันเวลา มุมความปลอดภัยในงาน รายได้ B2B ต่อเนื่อง'},
+      mvp:{en:'Supervisor dashboard mock: worker risk levels + alerts; B2B fake-door page.',th:'ม็อกแดชบอร์ดหัวหน้างาน: ระดับความเสี่ยงคนงาน + แจ้งเตือน; หน้า B2B หลอก'},
+      risk:{en:'Will employers buy prevention before an incident forces them to?',th:'นายจ้างจะซื้อการป้องกันก่อนเกิดเหตุไหม'}},
+
+    {ico:'🍱',cat:'Agri & Food',group:'agri',
+      nm:{en:'Set-Zero',th:'Set-Zero'},
+      one:{en:'AI for canteens &amp; restaurants that cuts food waste by predicting prep quantities.',th:'AI สำหรับโรงอาหารและร้านอาหาร ลดขยะอาหารด้วยการทำนายปริมาณที่ต้องเตรียม'},
+      problem:{en:'Kitchens over-prepare and bin huge amounts daily — pure lost money and emissions.',th:'ครัวเตรียมเกินและทิ้งทุกวันจำนวนมาก เสียเงินและปล่อยคาร์บอนเปล่า ๆ'},
+      pays:{en:'University canteens, hotels, restaurant chains (subscription).',th:'โรงอาหารมหาลัย โรงแรม เครือร้านอาหาร (รายเดือน)'},
+      fund:{en:'Demand-forecasting IP + clear ROI + sustainability story; repeatable across sites.',th:'เทคโนโลยีพยากรณ์ความต้องการ + ROI ชัด + เรื่องความยั่งยืน ขายซ้ำได้หลายสาขา'},
+      mvp:{en:'Mock dashboard: today\'s waste log → tomorrow\'s prep plan + savings; KMITL canteen pilot page.',th:'ม็อกแดชบอร์ด: บันทึกขยะวันนี้ → แผนเตรียมพรุ่งนี้ + เงินที่ประหยัด; หน้านำร่องโรงอาหาร สจล.'},
+      risk:{en:'Will kitchens change daily prep based on a prediction?',th:'ครัวจะเปลี่ยนการเตรียมรายวันตามคำทำนายไหม'}},
+
+    {ico:'🎓',cat:'Software, Edu & Fintech',group:'soft',
+      nm:{en:'SkillBridge',th:'SkillBridge'},
+      one:{en:'Turns a student\'s projects into employer-matched micro-credentials + AI interview prep.',th:'เปลี่ยนโปรเจกต์ของนักศึกษาเป็นใบรับรองย่อยที่จับคู่นายจ้าง + ติวสัมภาษณ์ด้วย AI'},
+      problem:{en:'Graduates have skills but can\'t prove them in a way employers trust; hiring misses real talent.',th:'บัณฑิตมีทักษะแต่พิสูจน์ในแบบที่นายจ้างเชื่อไม่ได้ การจ้างพลาดคนเก่งจริง'},
+      pays:{en:'Employers (matching fee) &amp; universities (career services).',th:'นายจ้าง (ค่าจับคู่) และมหาลัย (บริการจัดหางาน)'},
+      fund:{en:'Two-sided AI marketplace; network effects; scalable across campuses.',th:'มาร์เก็ตเพลส AI สองฝั่ง มีผลเครือข่าย ขยายได้หลายมหาลัย'},
+      mvp:{en:'Clickable profile → skill badges + matched roles; landing for one faculty.',th:'โปรไฟล์กดได้ → ตราทักษะ + ตำแหน่งที่จับคู่; หน้าแลนดิ้งหนึ่งคณะ'},
+      risk:{en:'Will employers trust AI-verified credentials over a CV?',th:'นายจ้างจะเชื่อใบรับรองที่ AI ยืนยันมากกว่าเรซูเม่ไหม'}},
+
+    {ico:'🛵',cat:'Industry & Logistics',group:'industry',
+      nm:{en:'Song-Wai',th:'ส่งไว'},
+      one:{en:'AI route &amp; load optimization for last-mile motorbike fleets in dense Thai cities.',th:'AI จัดเส้นทางและโหลดสำหรับฟลีตมอเตอร์ไซค์ส่งของในเมืองไทยที่จราจรหนาแน่น'},
+      problem:{en:'Small delivery operators plan routes by gut — wasted fuel, late drops, idle riders.',th:'ผู้ให้บริการส่งของรายเล็กวางเส้นทางด้วยความรู้สึก เปลืองน้ำมัน ส่งช้า ไรเดอร์ว่างงาน'},
+      pays:{en:'SME logistics &amp; local merchants with riders (per-rider SaaS).',th:'โลจิสติกส์ SME และร้านค้าที่มีไรเดอร์ (SaaS รายไรเดอร์)'},
+      fund:{en:'Optimization IP tuned for Thai traffic; clear cost savings; scalable software.',th:'เทคโนโลยีออปติไมซ์จูนสำหรับจราจรไทย ประหยัดต้นทุนชัด ซอฟต์แวร์ขยายได้'},
+      mvp:{en:'Map mock: 10 stops → optimized order + time saved; SME fake-door page.',th:'ม็อกแผนที่: 10 จุด → ลำดับที่ดีที่สุด + เวลาที่ประหยัด; หน้า SME หลอก'},
+      risk:{en:'Is the saving big enough that small operators switch tools?',th:'ประหยัดมากพอให้รายเล็กเปลี่ยนเครื่องมือไหม'}},
+
+    {ico:'🌱',cat:'Software, Edu & Fintech',group:'soft',
+      nm:{en:'FarmCredit AI',th:'FarmCredit AI'},
+      one:{en:'Credit scoring for smallholder farmers from satellite + yield data — unlocks micro-loans.',th:'ให้คะแนนเครดิตเกษตรกรรายย่อยจากข้อมูลดาวเทียม + ผลผลิต ปลดล็อกสินเชื่อย่อย'},
+      problem:{en:'Farmers have no formal credit history, so banks won\'t lend — they\'re stuck with loan sharks.',th:'เกษตรกรไม่มีประวัติเครดิตทางการ ธนาคารไม่ปล่อยกู้ ต้องพึ่งหนี้นอกระบบ'},
+      pays:{en:'Lenders &amp; agri-cooperatives (per assessment / API).',th:'ผู้ปล่อยกู้และสหกรณ์เกษตร (รายการประเมิน / API)'},
+      fund:{en:'Alt-data credit model — genuinely novel, financial-inclusion impact, scalable API.',th:'โมเดลเครดิตจากข้อมูลทางเลือก ใหม่จริง ช่วยเข้าถึงการเงิน ขยายเป็น API ได้'},
+      mvp:{en:'Mock “farm → credit score + loan offer” screen; lender landing page.',th:'หน้าจอจำลอง “ฟาร์ม → คะแนนเครดิต + ข้อเสนอสินเชื่อ”; หน้าแลนดิ้งผู้ปล่อยกู้'},
+      risk:{en:'Does satellite + yield data actually predict repayment?',th:'ข้อมูลดาวเทียม + ผลผลิตทำนายการชำระคืนได้จริงไหม'}},
+
+    {ico:'🦟',cat:'Health & Aging',group:'health',
+      nm:{en:'DengueCast',th:'DengueCast'},
+      one:{en:'District-level dengue outbreak prediction from climate, cases &amp; mobility — for health offices &amp; citizens.',th:'ทำนายการระบาดไข้เลือดออกระดับอำเภอ จากอากาศ จำนวนเคส และการเดินทาง สำหรับสาธารณสุขและประชาชน'},
+      problem:{en:'Outbreaks are fought reactively after people are already sick; prevention is blind without forecasts.',th:'รับมือการระบาดหลังคนป่วยแล้ว การป้องกันมืดบอดถ้าไม่มีการพยากรณ์'},
+      pays:{en:'Provincial health offices, municipalities, insurers (data subscription).',th:'สำนักงานสาธารณสุขจังหวัด เทศบาล บริษัทประกัน (สมัครรับข้อมูล)'},
+      fund:{en:'Predictive public-health data product; high impact; repeatable nationwide.',th:'ผลิตภัณฑ์ข้อมูลสาธารณสุขเชิงทำนาย ผลกระทบสูง ขยายทั่วประเทศได้'},
+      mvp:{en:'Mock risk map by district + alert; landing page for a health office.',th:'ม็อกแผนที่ความเสี่ยงรายอำเภอ + แจ้งเตือน; หน้าแลนดิ้งสำหรับ สสจ.'},
+      risk:{en:'Is the forecast accurate &amp; early enough to drive action?',th:'พยากรณ์แม่นและล่วงหน้าพอจะกระตุ้นการลงมือไหม'}},
+
+    {ico:'🗣️',cat:'Software, Edu & Fintech',group:'soft',
+      nm:{en:'ThaiVoice CX',th:'ThaiVoice CX'},
+      one:{en:'Thai-language voice AI that answers calls, books, and qualifies leads for small businesses.',th:'AI เสียงภาษาไทย รับสาย จองคิว และคัดกรองลูกค้า สำหรับธุรกิจขนาดเล็ก'},
+      problem:{en:'Clinics &amp; shops miss calls and lose bookings; hiring phone staff is expensive.',th:'คลินิกและร้านค้าพลาดสายและเสียการจอง จ้างพนักงานรับสายแพง'},
+      pays:{en:'Clinics, salons, dealerships, SMEs (monthly per line).',th:'คลินิก ร้านเสริมสวย โชว์รูม SME (รายเดือนต่อสาย)'},
+      fund:{en:'Thai voice-NLP moat; clear ROI (captured bookings); scalable SaaS.',th:'กำแพง NLP เสียงไทย ROI ชัด (จองที่ได้กลับมา) SaaS ขยายได้'},
+      mvp:{en:'Scripted voice/chat demo + a “bookings captured” dashboard mock; SME landing.',th:'เดโม่เสียง/แชตตามสคริปต์ + ม็อก “การจองที่ได้”; หน้าแลนดิ้ง SME'},
+      risk:{en:'Will customers accept talking to an AI receptionist in Thai?',th:'ลูกค้าจะยอมคุยกับ AI รับสายภาษาไทยไหม'}},
+
+    {ico:'☀️',cat:'Climate & Energy',group:'climate',
+      nm:{en:'SolarMatch',th:'SolarMatch'},
+      one:{en:'Snap a roof + a power bill → instant solar sizing, ROI, and a financing match.',th:'ถ่ายรูปหลังคา + บิลค่าไฟ → คำนวณขนาดโซลาร์ ROI และจับคู่สินเชื่อทันที'},
+      problem:{en:'Going solar is confusing &amp; quotes take weeks; most SMEs &amp; homes give up before installing.',th:'การติดโซลาร์ซับซ้อนและขอใบเสนอราคาเป็นสัปดาห์ ส่วนใหญ่ยอมแพ้ก่อนติด'},
+      pays:{en:'Solar installers (qualified leads) &amp; financiers (referral).',th:'ผู้ติดตั้งโซลาร์ (ลูกค้าที่คัดแล้ว) และผู้ให้สินเชื่อ (ค่าแนะนำ)'},
+      fund:{en:'AI sizing + lead engine in a booming energy market; clear unit economics.',th:'AI คำนวณ + เครื่องหาลูกค้าในตลาดพลังงานที่โต เศรษฐศาสตร์ต่อหน่วยชัด'},
+      mvp:{en:'Mock “bill + roof photo → instant quote” flow; installer fake-door page.',th:'จำลอง “บิล + รูปหลังคา → ใบเสนอราคาทันที”; หน้าผู้ติดตั้งหลอก'},
+      risk:{en:'Can a photo + bill produce a quote accurate enough to trust?',th:'รูป + บิล สร้างใบเสนอราคาแม่นพอให้เชื่อไหม'}},
+
+    {ico:'🌿',cat:'Agri & Food',group:'agri',
+      nm:{en:'HerbTrace',th:'HerbTrace'},
+      one:{en:'AI traceability + quality verification for Thai herbal &amp; cosmetic exports — proof of origin &amp; potency.',th:'AI ตรวจสอบย้อนกลับ + ยืนยันคุณภาพสมุนไพรและเครื่องสำอางไทยส่งออก พิสูจน์แหล่งที่มาและสารสำคัญ'},
+      problem:{en:'Herbal exporters can\'t prove provenance or active-compound levels, so buyers won\'t pay premium.',th:'ผู้ส่งออกสมุนไพรพิสูจน์แหล่งที่มาและระดับสารสำคัญไม่ได้ ผู้ซื้อเลยไม่ยอมจ่ายพรีเมียม'},
+      pays:{en:'Herbal/cosmetic exporters &amp; brands (per batch / subscription).',th:'ผู้ส่งออกและแบรนด์สมุนไพร/เครื่องสำอาง (รายล็อต / รายเดือน)'},
+      fund:{en:'Traceability + compound-prediction IP unlocks premium export pricing; defensible.',th:'เทคโนโลยีตรวจสอบย้อนกลับ + ทำนายสารสำคัญ ปลดล็อกราคาส่งออกพรีเมียม ลอกยาก'},
+      mvp:{en:'Mock product page with a verified origin/potency badge + buyer-facing landing.',th:'ม็อกหน้าสินค้าพร้อมตรายืนยันแหล่งที่มา/สารสำคัญ + หน้าแลนดิ้งสำหรับผู้ซื้อ'},
+      risk:{en:'Will overseas buyers pay more for verified provenance?',th:'ผู้ซื้อต่างประเทศจะจ่ายเพิ่มเพื่อแหล่งที่มาที่ยืนยันแล้วไหม'}}
+  ];
+
+  var CATS=[
+    {id:'all',en:'All 15',th:'ทั้งหมด 15'},
+    {id:'agri',en:'Agri &amp; Food',th:'เกษตร &amp; อาหาร'},
+    {id:'health',en:'Health &amp; Aging',th:'สุขภาพ &amp; สูงวัย'},
+    {id:'climate',en:'Climate &amp; Energy',th:'สภาพอากาศ &amp; พลังงาน'},
+    {id:'industry',en:'Industry &amp; Logistics',th:'อุตสาหกรรม &amp; โลจิสติกส์'},
+    {id:'soft',en:'Software, Edu &amp; Fintech',th:'ซอฟต์แวร์ &amp; ฟินเทค'}
+  ];
+
+  function bi(o){return '<span class="bi inl"><span class="en">'+o.en+'</span><span class="th">'+o.th+'</span></span>';}
+  function biCol(o){return '<span class="bi"><span class="en">'+o.en+'</span><span class="th">'+o.th+'</span></span>';}
+
+  /* filters */
+  var fEl=document.getElementById('filters'),cur='all';
+  fEl.innerHTML=CATS.map(function(c,i){return '<button class="chip'+(i===0?' on':'')+'" data-f="'+c.id+'">'+bi(c)+'</button>';}).join('');
+  /* grid */
+  var gEl=document.getElementById('grid');
+  function L(en){var labs={problem:{en:'The problem',th:'ปัญหา'},pays:{en:'Who pays',th:'ใครจ่าย'},fund:{en:'Why fundable',th:'ทำไมขอทุนได้'},mvp:{en:'Starter MVP angle',th:'แนวทาง MVP เริ่มต้น'},risk:{en:'Riskiest assumption',th:'สมมติฐานเสี่ยงสุด'}};return labs[en];}
+  function renderGrid(){
+    gEl.innerHTML=IDEAS.map(function(d,i){
+      if(cur!=='all'&&d.group!==cur)return '';
+      return '<div class="card" data-i="'+i+'">'
+        +'<div class="top"><span class="ico">'+d.ico+'</span><div><div class="nm">'+ (document.body.dataset.lang==='th'?d.nm.th:d.nm.en) +'</div><div class="cat">'+d.cat+'</div></div></div>'
+        +'<div class="one">'+biCol(d.one)+'</div>'
+        +'<div class="more"><div class="more-inner">'
+          +'<div class="field-mini"><div class="lab">'+ (document.body.dataset.lang==='th'?L('problem').th:L('problem').en) +'</div><div class="val">'+biCol(d.problem)+'</div></div>'
+          +'<div class="field-mini"><div class="lab">'+ (document.body.dataset.lang==='th'?L('pays').th:L('pays').en) +'</div><div class="val">'+biCol(d.pays)+'</div></div>'
+          +'<div class="field-mini fund"><div class="lab">'+ (document.body.dataset.lang==='th'?L('fund').th:L('fund').en) +'</div><div class="val">'+biCol(d.fund)+'</div></div>'
+          +'<div class="field-mini"><div class="lab">'+ (document.body.dataset.lang==='th'?L('mvp').th:L('mvp').en) +'</div><div class="val">'+biCol(d.mvp)+'</div></div>'
+          +'<div class="field-mini risk"><div class="lab">'+ (document.body.dataset.lang==='th'?L('risk').th:L('risk').en) +'</div><div class="val">'+biCol(d.risk)+'</div></div>'
+        +'</div></div>'
+        +'<button class="toggle">'+ bi({en:'Details ▾',th:'รายละเอียด ▾'}) +'</button>'
+      +'</div>';
+    }).join('');
+  }
+  renderGrid();
+  fEl.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;[].slice.call(fEl.children).forEach(function(x){x.classList.toggle('on',x.dataset.f===cur);});renderGrid();});
+  gEl.addEventListener('click',function(e){var t=e.target.closest('.toggle');if(!t)return;var c=t.closest('.card');c.classList.toggle('open');t.innerHTML=c.classList.contains('open')?bi({en:'Hide ▴',th:'ซ่อน ▴'}):bi({en:'Details ▾',th:'รายละเอียด ▾'});});
+
+  /* ---------- prompt pack ---------- */
+  var PROMPTS=[
+    {n:1,tag:'chat',tt:{en:'Sharpen &amp; pressure-test',th:'ลับคมและซักไอเดีย'},sub:{en:'Claude as a skeptical investor',th:'ให้ Claude เป็นนักลงทุนจอมหิน'},
+     tip:{en:'Paste a card here, or your own idea. Be ready to be told it\'s reselling.',th:'วางการ์ดหรือไอเดียตัวเอง เตรียมโดนบอกว่าซื้อมาขายไป'},
+     body:'You are a sharp, skeptical startup investor. Here is my idea:\n[PASTE A CARD ABOVE, OR YOUR OWN IDEA]\n\n1. Restate it in one sentence: "We help [who pays] do [what] using [how]."\n2. Attack it: Who is the REAL paying customer vs the user? What is the single riskiest assumption that, if false, kills it? Is it genuinely innovative, or just buying-and-reselling?\n3. Give me the single sharpest version of this idea.\nBe blunt. (Reply in Thai if I write ตอบเป็นไทย.)'},
+    {n:2,tag:'search',tt:{en:'Market &amp; competitor scan',th:'สแกนตลาดและคู่แข่ง'},sub:{en:'Turn Web Search ON for this one',th:'เปิด Web Search สำหรับข้อนี้'},
+     tip:{en:'AI is shaky on market size — treat every number as a draft and verify.',th:'AI ไม่แม่นเรื่องขนาดตลาด ถือว่าทุกตัวเลขเป็นร่างและตรวจซ้ำ'},
+     body:'[Turn on Web Search first.]\nAct as a market analyst. For [MY IDEA] in Thailand & SEA, return:\n1. Market size — rough TAM / SAM / SOM, show every assumption.\n2. Top 5 competitors — strengths, weaknesses, pricing.\n3. The gap none of them fills.\n4. Top 3 risks.\nCite sources with links, and flag which numbers are weak guesses I must verify myself.'},
+    {n:3,tag:'chat',tt:{en:'Customer + riskiest assumption',th:'ลูกค้า + สมมติฐานเสี่ยงสุด'},sub:{en:'Build one sharp ICP',th:'สร้าง ICP ที่คมหนึ่งอัน'},
+     tip:{en:'The riskiest assumption is gold — it tells you what the MVP must test first.',th:'สมมติฐานเสี่ยงสุดคือทอง บอกว่า MVP ต้องทดสอบอะไรก่อน'},
+     body:'Act as a startup coach. My problem hypothesis: [X].\n1. Give the top 3 customer segments.\n2. Build ONE detailed Ideal Customer Profile: who they are, their top 3 pains, what they do today, their willingness to pay, and where to reach them.\n3. End with the single riskiest assumption I must validate before building anything.'},
+    {n:4,tag:'chat',tt:{en:'Find your MVP',th:'หา MVP ของคุณ'},sub:{en:'The smallest test of your assumption',th:'การทดสอบเล็กสุดของสมมติฐาน'},
+     tip:{en:'Force it small. One test, one metric, buildable in the next hour.',th:'บังคับให้เล็ก หนึ่งทดสอบ หนึ่งตัวชี้วัด สร้างได้ในชั่วโมงถัดไป'},
+     body:'Given my idea [X] and my riskiest assumption [A], design the smallest MVP that tests that assumption in a 2-hour build.\nChoose ONE level: (1) demand-test landing page, (2) clickable prototype, (3) single working feature, or (4) concierge-by-hand.\nTell me exactly what to build, what to leave out, and the ONE success metric (with a number) that proves it worked.'},
+    {n:5,tag:'artifact',tt:{en:'Build the demo',th:'สร้างเดโม่'},sub:{en:'Claude builds it as a clickable Artifact',th:'Claude สร้างเป็น Artifact ที่กดได้'},
+     tip:{en:'This is your demo for the pitch — Claude renders it on the right. Iterate by chatting “change X”.',th:'นี่คือเดโม่สำหรับพิทช์ Claude เรนเดอร์ด้านขวา ปรับโดยพิมพ์ “เปลี่ยน X”'},
+     body:'Build my MVP as a single self-contained HTML file I can show as a demo. Pick ONE:\n(a) Landing page: hero headline + subtitle + email signup button + 3 feature cards + one testimonial.\n(b) App mockup: top nav bar, one main screen, realistic sample data.\nUse clean, modern design with Thai + English text. Make it an Artifact I can click and present. Then ask me what to change.'},
+    {n:6,tag:'chat',tt:{en:'Pitch it',th:'พิทช์'},sub:{en:'90-second script + 6-slide outline',th:'สคริปต์ 90 วิ + โครง 6 สไลด์'},
+     tip:{en:'Reviewers want who pays and why now — not how the tech works.',th:'กรรมการอยากรู้ใครจ่ายและทำไมตอนนี้ ไม่ใช่เทคทำงานยังไง'},
+     body:'Write my 90-second pitch and a 6-slide outline for [IDEA].\nPitch lines: (1) We help [who] do [what]; (2) Unlike others, we…; (3) The market is…; (4) Why now…; (5) Our riskiest assumption + how we\'ll test it.\nSlides (one line each): Problem, Solution, Why-now, Market, Demo, The Ask.\nLead with the problem and the money, not the technology. (ตอบเป็นไทยได้)'}
+  ];
+  function fmtBody(s){return s.replace(/\[([^\]]+)\]/g,'<span class="ph-acc">[$1]</span>');}
+  var plEl=document.getElementById('prompts-list');
+  plEl.innerHTML=PROMPTS.map(function(p){
+    var tagtxt=p.tag==='search'?'WEB SEARCH ON':(p.tag==='artifact'?'BUILDS ARTIFACT':'CLAUDE CHAT');
+    return '<div class="prompt"><div class="ph"><div class="pnum">'+p.n+'</div>'
+      +'<div class="ptt"><div class="pt">'+biCol(p.tt)+'</div><div class="ps">'+biCol(p.sub)+'</div></div>'
+      +'<div class="tooltag '+p.tag+'">'+tagtxt+'</div></div>'
+      +'<div class="pbody"><pre data-raw="'+encodeURIComponent(p.body)+'">'+fmtBody(p.body)+'</pre></div>'
+      +'<div class="pfoot"><div class="tip">'+biCol(p.tip)+'</div><button class="copybtn">'+ (document.body.dataset.lang==='th'?'คัดลอก':'Copy prompt') +'</button></div></div>';
+  }).join('');
+  plEl.addEventListener('click',function(e){
+    var b=e.target.closest('.copybtn');if(!b)return;
+    var raw=decodeURIComponent(b.closest('.prompt').querySelector('pre').dataset.raw);
+    var done=function(){var th=document.body.dataset.lang==='th';b.textContent=th?'คัดลอกแล้ว ✓':'Copied ✓';b.classList.add('done');setTimeout(function(){b.textContent=th?'คัดลอก':'Copy prompt';b.classList.remove('done');},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(raw).then(done,function(){fallback(raw,done);});}
+    else fallback(raw,done);
+  });
+  function fallback(txt,cb){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);cb();}
+
+  /* language toggle */
+  var lts=[].slice.call(document.querySelectorAll('.lt'));
+  lts.forEach(function(b){b.addEventListener('click',function(){
+    document.body.dataset.lang=b.dataset.lang;
+    lts.forEach(function(x){x.classList.toggle('active',x===b);});
+    renderGrid();
+    /* refresh dynamic button/label text */
+    [].slice.call(document.querySelectorAll('.copybtn')).forEach(function(cb){if(!cb.classList.contains('done'))cb.textContent=b.dataset.lang==='th'?'คัดลอก':'Copy prompt';});
+  });});
+})();
+</script>
+<script>
+/* sync EN/TH choice across the whole site */
+(function(){
+  try{var l=localStorage.getItem('kmitl:lang');if(l)document.body.dataset.lang=l;}catch(e){}
+  [].slice.call(document.querySelectorAll('.lt')).forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===document.body.dataset.lang);
+    b.addEventListener('click',function(){try{localStorage.setItem('kmitl:lang',b.dataset.lang);}catch(e){}});
+  });
+})();
+</script>
+</body>
+</html>
