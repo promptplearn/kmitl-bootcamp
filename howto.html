@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · How it works</title>
+<meta name="description" content="A 2-minute walkthrough: take one idea (Pet Connect) from the lesson to a graded pitch, using the site end-to-end." />
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  main.page{max-width:1040px}
+  .player{margin-top:14px}
+  .stage{position:relative;border:1px solid var(--line);background:var(--panel2);border-radius:var(--r);overflow:hidden;height:clamp(260px,54vh,600px)}
+  /* clean capture mode for MP4 frame rendering (?cap=1) */
+  body.cap header.xtop,body.cap .kicker,body.cap h1.big,body.cap .lede,body.cap .ctrls,body.cap .pbar,body.cap .dots,body.cap .endcta{display:none!important}
+  body.cap main.page{padding-top:20px;max-width:1180px}
+  body.cap .stage{height:600px}
+  body.cap .cap{margin-top:22px}
+  .stage img{width:100%;height:100%;object-fit:contain;display:block;background:#0f1014}
+  .scene-card{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8% 10%;background:radial-gradient(ellipse 80% 70% at 50% 30%,rgba(217,119,87,.10),transparent 70%),var(--panel)}
+  .scene-card.show{display:flex}
+  .scene-card .ic{font-size:54px;line-height:1}
+  .scene-card .ct{font-size:clamp(20px,3vw,30px);font-weight:800;margin-top:14px;letter-spacing:-.01em}
+  .scene-card .cd{font-size:clamp(14px,1.8vw,17px);color:var(--text2);max-width:60ch;margin-top:12px;line-height:1.55}
+  .scene-card .em{color:var(--clay)}
+  .imgwrap{position:absolute;inset:0;display:none}
+  .imgwrap.show{display:block}
+  .stepbadge{position:absolute;top:12px;left:14px;z-index:3;font-family:var(--mono);font-size:12px;font-weight:800;letter-spacing:.05em;color:#2a140c;background:var(--clay);border-radius:8px;padding:5px 11px}
+  .extbadge{position:absolute;top:12px;right:14px;z-index:3;font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--blue);background:rgba(123,169,242,.16);border-radius:8px;padding:5px 11px;display:none}
+  /* caption strip */
+  .cap{margin-top:16px;min-height:64px;text-align:center}
+  .cap .t{font-size:clamp(17px,2.2vw,23px);font-weight:800;letter-spacing:-.01em}
+  .cap .t .em{color:var(--clay)}
+  .cap .d{font-size:clamp(13.5px,1.6vw,16px);color:var(--text2);margin-top:6px;max-width:70ch;margin-left:auto;margin-right:auto;line-height:1.5}
+  /* progress + controls */
+  .pbar{height:4px;border-radius:99px;background:var(--panel-soft);overflow:hidden;margin-top:16px}
+  .pbar .fill{height:100%;background:var(--clay);width:0;transition:width .25s linear}
+  .ctrls{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .cbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .cbtn:hover{border-color:var(--line2)}
+  .cbtn.play{width:54px;height:54px;background:linear-gradient(180deg,var(--clay2),var(--clay));color:#2a140c;border:none;box-shadow:0 8px 24px rgba(217,119,87,.3)}
+  .counter{font-family:var(--mono);font-size:13px;color:var(--text3);min-width:54px;text-align:center}
+  .dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .dot{width:9px;height:9px;border-radius:50%;border:none;background:var(--panel-soft);outline:1px solid var(--line);cursor:pointer;padding:0;transition:.2s}
+  .dot.on{background:var(--clay);transform:scale(1.25)}
+  .endcta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+</style>
+</head>
+<body data-lang="en" data-page="howto">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<main class="page">
+  <section>
+    <div class="kicker pop">2-min walkthrough · เดินชมใน 2 นาที</div>
+    <h1 class="big pop bi" style="font-size:clamp(26px,4.4vw,42px)"><span class="en">How it works — <span class="em">one idea, start to pitch</span></span><span class="th">ใช้ยังไง — <span class="em">หนึ่งไอเดีย ตั้งแต่ต้นจนพิทช์</span></span></h1>
+    <p class="lede pop bi"><span class="en">Watch <b>Pet Connect</b> go from the lesson to a graded pitch using this exact site. Then do the same with your idea. Tap ▶ or use the arrows. <a href="howto.mp4" download style="color:var(--clay2);font-weight:700">⬇ Download as video (.mp4)</a></span><span class="th">ดู <b>Pet Connect</b> เดินทางจากบทเรียนสู่การพิทช์ที่ถูกให้คะแนน ด้วยเว็บนี้เป๊ะ ๆ แล้วทำแบบเดียวกันกับไอเดียของคุณ กด ▶ หรือใช้ปุ่มลูกศร <a href="howto.mp4" download style="color:var(--clay2);font-weight:700">⬇ โหลดเป็นวิดีโอ (.mp4)</a></span></p>
+
+    <div class="player pop">
+      <div class="stage" id="stage">
+        <span class="stepbadge" id="stepBadge">1</span>
+        <span class="extbadge" id="extBadge">DO THIS IN YOUR AI TOOL</span>
+        <div class="imgwrap" id="imgWrap"><img id="frame" alt="" /></div>
+        <div class="scene-card" id="card"><div class="ic" id="cardIc">✶</div><div class="ct bi" id="cardTitle"></div><div class="cd bi" id="cardText"></div></div>
+      </div>
+      <div class="cap"><div class="t bi" id="capT"></div><div class="d bi" id="capD"></div></div>
+      <div class="pbar"><div class="fill" id="pfill"></div></div>
+      <div class="ctrls">
+        <button class="cbtn" id="prev" aria-label="Previous">←</button>
+        <button class="cbtn play" id="play" aria-label="Play/Pause">▶</button>
+        <button class="cbtn" id="next" aria-label="Next">→</button>
+        <span class="counter" id="counter">1 / 12</span>
+      </div>
+      <div class="dots" id="dots"></div>
+      <div class="endcta" id="endcta" style="display:none">
+        <a class="btn" href="learn.html"><span class="bi inl"><span class="en">Start the lesson →</span><span class="th">เริ่มบทเรียน →</span></span></a>
+        <a class="btn ghost" href="lab.html"><span class="bi inl"><span class="en">Go to the Idea Lab</span><span class="th">ไปแล็บไอเดีย</span></span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  if(new URLSearchParams(location.search).get('cap')) document.body.classList.add('cap');
+  // type:'img' uses src; type:'card' is a built scene (for external/illustrated steps)
+  var SCENES=[
+    {type:'card',ic:'🐾',ext:false,
+      t:{en:'Meet the example: <span class="em">Pet Connect</span>',th:'ตัวอย่างของเรา: <span class="em">Pet Connect</span>'},
+      d:{en:'An animal blood-donor matching network. We\'ll take it from idea → research → prototype → pitch — all on this site.',th:'เครือข่ายจับคู่ผู้บริจาคเลือดสัตว์ เราจะพามันจากไอเดีย → รีเสิร์ช → โปรโตไทป์ → พิทช์ ทั้งหมดบนเว็บนี้'}},
+    {type:'img',src:'howto/01-hub.png',
+      t:{en:'1 · Start at the hub',th:'1 · เริ่มที่หน้าหลัก'},
+      d:{en:'Everything runs from your phone: Learn → Idea Lab → Submit → Present. Scan the QR to join the room.',th:'ทุกอย่างทำได้จากมือถือ: เรียน → แล็บไอเดีย → ส่งงาน → พรีเซนต์ สแกน QR เพื่อเข้าห้อง'}},
+    {type:'img',src:'howto/02-loop.png',
+      t:{en:'2 · Learn the loop',th:'2 · เรียนรู้ลูป'},
+      d:{en:'Build → Measure → Learn. Ship the smallest test, watch real people, improve. Speed of learning wins.',th:'สร้าง → วัดผล → เรียนรู้ ปล่อยตัวทดสอบเล็กสุด ดูคนจริง แล้วปรับ ความเร็วในการเรียนรู้คือผู้ชนะ'}},
+    {type:'img',src:'howto/03-mvp.png',
+      t:{en:'3 · Pick your MVP',th:'3 · เลือก MVP'},
+      d:{en:'The smallest real thing that tests your riskiest assumption — a landing page, a clickable mockup. Not a finished app.',th:'สิ่งเล็กสุดที่ทดสอบสมมติฐานเสี่ยงสุดได้ — หน้าแลนดิ้ง หรือม็อกอัพกดได้ ไม่ใช่แอปสมบูรณ์'}},
+    {type:'img',src:'howto/04-lab.png',
+      t:{en:'4 · Choose a product',th:'4 · เลือกผลิตภัณฑ์'},
+      d:{en:'Pick one of 15 cards, or add your own. Here we add "Pet Connect" with its problem.',th:'เลือกจาก 15 การ์ด หรือใส่ไอเดียของทีมเอง ตรงนี้เราใส่ "Pet Connect" พร้อมปัญหา'}},
+    {type:'img',src:'howto/05-prompts.png',
+      t:{en:'5 · Prompts auto-fill to <span class="em">your</span> idea',th:'5 · พรอมป์ปรับให้<span class="em">ไอเดียคุณ</span>อัตโนมัติ'},
+      d:{en:'"You\'re building: Pet Connect" — now every prompt carries your product\'s context. Just copy them.',th:'"กำลังทำ: Pet Connect" — ทุกพรอมป์พกบริบทผลิตภัณฑ์ของคุณไปด้วย แค่กดคัดลอก'}},
+    {type:'card',ic:'🔎',ext:true,
+      t:{en:'6 · Run them in your AI portal',th:'6 · รันในพอร์ทัล AI'},
+      d:{en:'Paste each prompt into the uni portal (Claude / GPT) — turn on web search for the market one. You get research, your customer, and your MVP.',th:'วางแต่ละพรอมป์ในพอร์ทัลของมหาลัย (Claude / GPT) เปิด web search สำหรับข้อตลาด จะได้รีเสิร์ช ลูกค้า และ MVP'}},
+    {type:'card',ic:'✨',ext:true,
+      t:{en:'7 · Design the UI in Google Stitch',th:'7 · ออกแบบ UI ใน Google Stitch'},
+      d:{en:'For a software idea, describe your screen in Google Stitch and let it design a real UI — then copy its code.',th:'ถ้าเป็นไอเดียซอฟต์แวร์ อธิบายหน้าจอใน Google Stitch ให้มันออกแบบ UI จริง แล้วคัดลอกโค้ด'}},
+    {type:'img',src:'howto/06-preview.png',
+      t:{en:'8 · Render it on the Preview page',th:'8 · เรนเดอร์ที่หน้า Preview'},
+      d:{en:'Paste that code into Preview → it renders live. Hit Save & share for a link the board can open.',th:'วางโค้ดที่หน้า Preview → เรนเดอร์สด กด Save & share เพื่อได้ลิงก์ที่บอร์ดเปิดได้'}},
+    {type:'img',src:'howto/07-submit.png',
+      t:{en:'9 · Submit your card',th:'9 · ส่งการ์ด'},
+      d:{en:'Pre-filled from your pick — problem, customer, plus your demo link. One submission per team; it lands on the board.',th:'เติมจากที่เลือกไว้ — ปัญหา ลูกค้า และลิงก์เดโม่ ทีมละหนึ่งครั้ง แล้วขึ้นบอร์ด'}},
+    {type:'img',src:'howto/08-board.png',
+      t:{en:'10 · Present, vote &amp; grade',th:'10 · พรีเซนต์ โหวต และให้คะแนน'},
+      d:{en:'Your card goes on the projector with a ▶ demo. The room votes pivot/persevere; the radar shows how fundable it is.',th:'การ์ดขึ้นจอพร้อมปุ่ม ▶ demo ห้องโหวตพิวอต/ไปต่อ เรดาร์บอกว่าขอทุนได้แค่ไหน'}},
+    {type:'card',ic:'🚀',ext:false,
+      t:{en:'That\'s the whole game.',th:'นี่แหละทั้งเกม'},
+      d:{en:'Now do it with your idea — and be ready with a 90-second pitch. Go.',th:'ทีนี้ทำกับไอเดียของคุณ แล้วเตรียมพิทช์ 90 วินาทีไว้ ลุยเลย'}}
+  ];
+
+  var cur=0, timer=null, SEC=6, playing=true, fillT=null;
+  var stage=$('stage'), img=$('frame'), imgWrap=$('imgWrap'), card=$('card');
+  var dots=$('dots');
+  SCENES.forEach(function(_,i){ var d=document.createElement('button'); d.className='dot'+(i?'':' on'); d.addEventListener('click',function(){ go(i,true); }); dots.appendChild(d); });
+  var dotEls=[].slice.call(dots.children);
+
+  function biSet(el,o){ el.innerHTML='<span class="en">'+o.en+'</span><span class="th">'+o.th+'</span>'; }
+  function render(){
+    var s=SCENES[cur];
+    $('stepBadge').textContent=(cur+1);
+    $('extBadge').style.display=s.ext?'block':'none';
+    if(s.type==='img'){ imgWrap.classList.add('show'); card.classList.remove('show'); img.src=s.src; }
+    else { imgWrap.classList.remove('show'); card.classList.add('show'); $('cardIc').textContent=s.ic; biSet($('cardTitle'),s.t); biSet($('cardText'),s.d); }
+    biSet($('capT'),s.t); biSet($('capD'),s.d);
+    dotEls.forEach(function(d,i){ d.classList.toggle('on',i===cur); });
+    $('counter').textContent=(cur+1)+' / '+SCENES.length;
+    $('endcta').style.display=(cur===SCENES.length-1)?'flex':'none';
+  }
+  function go(n,manual){ if(n<0||n>=SCENES.length) return; cur=n; render(); restart(manual); }
+  function tickFill(){ var start=Date.now(); clearInterval(fillT); $('pfill').style.width='0%';
+    fillT=setInterval(function(){ var p=Math.min(1,(Date.now()-start)/(SEC*1000)); $('pfill').style.width=(p*100)+'%'; if(p>=1) clearInterval(fillT); },120); }
+  function restart(manual){ clearTimeout(timer); if(playing){ tickFill(); timer=setTimeout(function(){ if(cur<SCENES.length-1) go(cur+1); else setPlay(false); }, SEC*1000); } else { clearInterval(fillT); } }
+  function setPlay(p){ playing=p; $('play').textContent=p?'❚❚':'▶'; if(p){ if(cur===SCENES.length-1) cur=0; render(); restart(); } else { clearTimeout(timer); clearInterval(fillT); } }
+
+  $('next').addEventListener('click',function(){ go(cur+1,true); });
+  $('prev').addEventListener('click',function(){ go(cur-1,true); });
+  $('play').addEventListener('click',function(){ setPlay(!playing); });
+  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight'){go(cur+1,true);} if(e.key==='ArrowLeft'){go(cur-1,true);} if(e.key===' '){e.preventDefault();setPlay(!playing);} });
+  var tx=null; stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',function(e){ if(tx===null)return; var dx=e.changedTouches[0].clientX-tx; tx=null; if(Math.abs(dx)>50){ dx<0?go(cur+1,true):go(cur-1,true); } },{passive:true});
+  KX.onLang(render);
+  render(); restart();
+})();
+</script>
+</body>
+</html>
