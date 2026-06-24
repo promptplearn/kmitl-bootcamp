@@ -189,6 +189,8 @@
   .bopt .bi2{font-weight:800;font-size:14px;margin-bottom:5px}
   .bopt .bd2{font-size:12.5px;color:var(--text2);line-height:1.5}
   .bopt a{color:var(--clay2);text-decoration:none;font-weight:700}
+  .promptbox-stitch{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:46px 14px 14px;margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--text);line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+  #stitchCopy{position:absolute;top:10px;right:10px}
 </style>
 </head>
 <body data-lang="en">
@@ -286,12 +288,13 @@
     <div class="prompts" id="prompts-list"></div>
 
     <div class="buildcard">
-      <h4 class="bi inl"><span class="en">Build your demo · 3 ways</span><span class="th">ทำเดโม่ · 3 ทาง</span></h4>
-      <div class="bopts">
-        <div class="bopt"><div class="bi2 bi inl"><span class="en">🎨 Image mockup</span><span class="th">🎨 ภาพม็อกอัพ</span></div><div class="bd2 bi"><span class="en">Use Prompt 5 with a Gemini Image model. See <a href="examples.html">worked examples →</a></span><span class="th">ใช้พรอมป์ 5 กับโมเดล Gemini Image · ดู <a href="examples.html">ตัวอย่าง →</a></span></div></div>
-        <div class="bopt"><div class="bi2 bi inl"><span class="en">💻 Clickable HTML</span><span class="th">💻 HTML กดได้</span></div><div class="bd2 bi"><span class="en">Use Prompt 6, paste the code into the <a href="preview.html">Preview page →</a> then Save &amp; share.</span><span class="th">ใช้พรอมป์ 6 วางโค้ดที่ <a href="preview.html">หน้า Preview →</a> แล้วกด Save &amp; share</span></div></div>
-        <div class="bopt"><div class="bi2 bi inl"><span class="en">✨ Polished UI (Stitch)</span><span class="th">✨ UI สวย (Stitch)</span></div><div class="bd2 bi"><span class="en">Design a real UI at <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a>, then paste its share link as your demo.</span><span class="th">ออกแบบ UI ที่ <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a> แล้ววางลิงก์แชร์เป็นเดโม่</span></div></div>
+      <h4 class="bi inl"><span class="en">Build your demo · pick by product type</span><span class="th">ทำเดโม่ · เลือกตามประเภทผลิตภัณฑ์</span></h4>
+      <div class="bopts" style="grid-template-columns:1fr 1fr">
+        <div class="bopt"><div class="bi2 bi inl"><span class="en">🔧 Hardware / tangible</span><span class="th">🔧 ฮาร์ดแวร์ / จับต้องได้</span></div><div class="bd2 bi"><span class="en">Use <b>Prompt 5</b> with a <b>Gemini Image</b> model for a product render + app screen. See <a href="examples.html">worked examples →</a></span><span class="th">ใช้ <b>พรอมป์ 5</b> กับโมเดล <b>Gemini Image</b> เพื่อสร้างภาพผลิตภัณฑ์ + หน้าจอแอป · ดู <a href="examples.html">ตัวอย่าง →</a></span></div></div>
+        <div class="bopt" style="border-color:var(--line2)"><div class="bi2 bi inl"><span class="en">✨ Software / platform — use Google Stitch</span><span class="th">✨ ซอฟต์แวร์ / แพลตฟอร์ม — ใช้ Google Stitch</span></div><div class="bd2 bi"><span class="en"><b>1.</b> Design your UI at <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a> (prompt below). <b>2.</b> <b>Copy its code</b> → paste into the <a href="preview.html">Preview page →</a> → <b>Save &amp; share</b>. That link is your demo on the board.</span><span class="th"><b>1.</b> ออกแบบ UI ที่ <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a> (พรอมป์ด้านล่าง) <b>2.</b> <b>คัดลอกโค้ด</b> → วางที่ <a href="preview.html">หน้า Preview →</a> → กด <b>Save &amp; share</b> ลิงก์นั้นคือเดโม่บนบอร์ด</span></div></div>
       </div>
+      <div class="promptbox-stitch" id="stitchBox"><button class="btn sm" id="stitchCopy"><span class="bi inl"><span class="en">Copy Stitch prompt</span><span class="th">คัดลอกพรอมป์ Stitch</span></span></button><span id="stitchTxt"></span></div>
+      <div class="bd2 bi" style="margin-top:12px;color:var(--text3)"><span class="en">💡 <b>Preview is your renderer + board bridge</b> — both Stitch code and chat HTML go through it. No Google login? Use <b>Prompt 6</b> to get HTML from the chat, same Preview step.</span><span class="th">💡 <b>หน้า Preview คือตัวเรนเดอร์และสะพานสู่บอร์ด</b> — ทั้งโค้ดจาก Stitch และ HTML จากแชทผ่านที่นี่ ไม่มีบัญชี Google? ใช้ <b>พรอมป์ 6</b> ขอ HTML จากแชท แล้วผ่าน Preview เหมือนกัน</span></div>
       <div style="margin-top:16px;text-align:center"><a class="btn" href="submit.html"><span class="bi inl"><span class="en">Got your card &amp; demo? Submit →</span><span class="th">การ์ดกับเดโม่พร้อมแล้ว? ส่งเลย →</span></span></a></div>
     </div>
   </section>
@@ -541,6 +544,7 @@
       +'</div>';
     }).join('');
   }
+  try{var _sl=localStorage.getItem('kmitl:lang'); if(_sl)document.body.dataset.lang=_sl;}catch(e){}
   renderGrid(); renderChosenBar(); renderProgRail();
   fEl.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;[].slice.call(fEl.children).forEach(function(x){x.classList.toggle('on',x.dataset.f===cur);});renderGrid();});
   gEl.addEventListener('click',function(e){
@@ -608,6 +612,20 @@
   }).join('');
   }
   renderPrompts();
+
+  /* ---- Google Stitch guided prompt (copied with the chosen-product context) ---- */
+  var STITCH={
+    en:'Design a clean, modern [mobile app screen OR web dashboard] for the product above.\nShow the MAIN screen with realistic Thai sample data, clear primary buttons, a top nav/header, and rounded cards.\nStyle: friendly, professional, light theme, good spacing — make it look like a real product.',
+    th:'ออกแบบหน้าจอ [แอปมือถือ หรือ แดชบอร์ดเว็บ] ที่สะอาดและทันสมัยสำหรับผลิตภัณฑ์ด้านบน\nโชว์หน้าจอหลัก พร้อมข้อมูลตัวอย่างภาษาไทยที่สมจริง ปุ่มหลักที่ชัดเจน แถบนำทาง/ส่วนหัว และการ์ดมุมโค้ง\nสไตล์: เป็นมิตร ดูมืออาชีพ โทนสว่าง เว้นระยะสวยงาม ให้ดูเหมือนผลิตภัณฑ์จริง'
+  };
+  function renderStitch(){ document.getElementById('stitchTxt').textContent=(document.body.dataset.lang==='th'?STITCH.th:STITCH.en); }
+  renderStitch();
+  document.getElementById('stitchCopy').addEventListener('click',function(){
+    var t=(document.body.dataset.lang==='th'?STITCH.th:STITCH.en), out=(chosen?contextBlock():'')+t, b=this;
+    var fin=function(){ b.innerHTML='<span class="bi inl"><span class="en">Copied ✓</span><span class="th">คัดลอกแล้ว ✓</span></span>'; setTimeout(function(){ b.innerHTML='<span class="bi inl"><span class="en">Copy Stitch prompt</span><span class="th">คัดลอกพรอมป์ Stitch</span></span>'; },1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(out).then(fin,function(){fallback(out,fin);}); } else fallback(out,fin);
+  });
+
   plEl.addEventListener('click',function(e){
     var b=e.target.closest('.copybtn');if(!b)return;
     var raw=(chosen?contextBlock():'')+decodeURIComponent(b.closest('.prompt').querySelector('pre').dataset.raw);
@@ -622,7 +640,7 @@
   lts.forEach(function(b){b.addEventListener('click',function(){
     document.body.dataset.lang=b.dataset.lang;
     lts.forEach(function(x){x.classList.toggle('active',x===b);});
-    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts();
+    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts(); renderStitch();
     /* refresh dynamic button/label text */
     [].slice.call(document.querySelectorAll('.copybtn')).forEach(function(cb){if(!cb.classList.contains('done'))cb.textContent=b.dataset.lang==='th'?'คัดลอก':'Copy prompt';});
   });});
