@@ -80,10 +80,17 @@
 <script src="config.js"></script>
 <script src="db.js"></script>
 <script src="common.js"></script>
+<script src="viz.js"></script>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
   var fields=['team','problem','customer','risk','mvp_level','metric','pitch','demo_url'];
+  // decorate the product-card rows with line icons (additive, visual only)
+  var rowIcon={dProblem:'problem',dCustomer:'customer',dRisk:'risk',dLevel:'target',dMetric:'metric'};
+  Object.keys(rowIcon).forEach(function(id){
+    var v=$(id); if(!v) return; var k=v.previousElementSibling;
+    if(k&&window.KV&&!k.querySelector('svg')) k.insertAdjacentHTML('afterbegin','<span style="color:var(--clay2);margin-right:6px;vertical-align:-2px">'+KV.icon(rowIcon[id],15)+'</span>');
+  });
 
   // Prefill from ?team=...&problem=... (lab can deep-link here)
   var q=new URLSearchParams(location.search);

@@ -108,11 +108,17 @@
         </div>
         <div>
           <div style="font-size:12.5px;font-weight:800;color:var(--clay2);font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px" class="bi inl"><span class="en">Grade it — with logic</span><span class="th">ให้คะแนน — อย่างมีตรรกะ</span></div>
+          <div id="rRadar" style="max-width:230px;margin:2px auto 10px"></div>
           <div class="rubric" id="rubric"></div>
           <div class="result">
-            <div class="scoreline"><div class="num"><span id="rTotal">0</span><small>/100</small></div><div class="tierbadge" id="rTier">—</div></div>
-            <div class="meter"><div class="mfill" id="rMeter" style="width:0%;background:var(--rose)"></div></div>
-            <div class="weak" id="rWeak"></div>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+              <div id="rGauge" style="width:170px;flex:0 0 auto"></div>
+              <div style="flex:1;min-width:150px">
+                <div class="tierbadge" id="rTier">—</div>
+                <span id="rTotal" style="display:none">0</span>
+                <div class="weak" id="rWeak" style="margin-top:10px"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,6 +142,7 @@
 <script src="db.js"></script>
 <script src="common.js"></script>
 <script src="qrcode.min.js"></script>
+<script src="viz.js"></script>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
@@ -180,7 +187,7 @@
     var s=curScores(),total=0; CRIT.forEach(function(c){ total+=((s[c.id]||0)/3)*c.w; }); total=Math.round(total);
     $('rTotal').textContent=total;
     var t=tierFor(total); var tb=$('rTier'); tb.innerHTML=KX.bi(t.en,t.th); tb.style.background=t.bg; tb.style.color=t.col;
-    var m=$('rMeter'); m.style.width=total+'%'; m.style.background=t.mc;
+    if(window.KV){ KV.gauge($('rGauge'),total); KV.radar($('rRadar'),{problem:s.problem||0,customer:s.customer||0,innovation:s.innovation||0,mvp:s.mvp||0,assumption:s.assumption||0,evidence:s.evidence||0}); }
     var ranked=CRIT.map(function(c){return{c:c,score:s[c.id]||0};}).filter(function(x){return x.score<3;}).sort(function(a,b){return (a.score-b.score)||(b.c.w-a.c.w);});
     var weak=$('rWeak');
     if(!ranked.length){ weak.innerHTML='<b>'+KX.bi('Every criterion is strong. Go pitch it.','ทุกข้อแข็งหมด ไปพิทช์เลย')+'</b>'; return; }

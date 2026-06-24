@@ -52,6 +52,7 @@
       <span class="en">Learn the lean startup, turn your idea into an MVP with AI, submit it, and present live. Everything runs from your phone. <b>Pick where you are below.</b></span>
       <span class="th">เรียนลีนสตาร์ทอัพ เปลี่ยนไอเดียเป็น MVP ด้วย AI ส่งงาน แล้วพรีเซนต์สด ทุกอย่างทำได้จากมือถือ <b>เลือกจุดที่คุณอยู่ด้านล่าง</b></span>
     </p>
+    <div id="hubRibbon" style="margin-top:28px"></div>
   </section>
 
   <section>
@@ -122,6 +123,7 @@
 <script src="db.js"></script>
 <script src="common.js"></script>
 <script src="qrcode.min.js"></script>
+<script src="viz.js"></script>
 <script>
 (function(){
   var url = location.href.replace(/index\.html.*$/,"").replace(/[?#].*$/,"");
@@ -133,6 +135,11 @@
   var note=document.getElementById('modeNote');
   if((window.DB.mode||'').indexOf('live')===0){ note.innerHTML=KX.bi('● Live mode — submissions &amp; votes sync across phones.','● โหมดสด — งานและโหวตซิงก์ข้ามมือถือ'); note.style.color='var(--green)'; }
   else{ note.innerHTML=KX.bi('● Local mode — add Supabase keys in config.js to sync across devices.','● โหมดโลคัล — ใส่คีย์ Supabase ใน config.js เพื่อซิงก์ข้ามเครื่อง'); note.style.color='var(--amber)'; }
+})();
+</script>
+<script>
+(function(){
+  try{ if(window.KV){ KV.ribbon(document.getElementById('hubRibbon'),'learn'); } }catch(e){}
 })();
 </script>
 </body>

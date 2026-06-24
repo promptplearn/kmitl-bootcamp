@@ -69,8 +69,10 @@
 <script src="config.js"></script>
 <script src="db.js"></script>
 <script src="common.js"></script>
+<script src="viz.js"></script>
 <script>
 (function(){
+  var ic=function(n){return window.KV?'<span style="color:var(--clay2);margin-right:6px;vertical-align:-2px">'+KV.icon(n,15)+'</span>':'';};
   var $=function(id){return document.getElementById(id);};
   var subsCache=[], activeId=null, currentSub=null;
   var voted={}; try{ voted=JSON.parse(localStorage.getItem('kmitl:voted')||'{}'); }catch(e){}
@@ -80,9 +82,9 @@
   function renderTeam(sub){
     $('tTeam').textContent=sub.team||'—';
     var parts=[];
-    if(sub.problem) parts.push('<div><b>'+(KX.TH()?'ปัญหา: ':'Problem: ')+'</b>'+KX.esc(sub.problem)+'</div>');
-    if(sub.customer) parts.push('<div style="margin-top:6px"><b>'+(KX.TH()?'ลูกค้า: ':'Customer: ')+'</b>'+KX.esc(sub.customer)+'</div>');
-    if(sub.risk) parts.push('<div style="margin-top:6px"><b>'+(KX.TH()?'สมมติฐานเสี่ยงสุด: ':'Riskiest: ')+'</b>'+KX.esc(sub.risk)+'</div>');
+    if(sub.problem) parts.push('<div>'+ic('problem')+'<b>'+(KX.TH()?'ปัญหา: ':'Problem: ')+'</b>'+KX.esc(sub.problem)+'</div>');
+    if(sub.customer) parts.push('<div style="margin-top:6px">'+ic('customer')+'<b>'+(KX.TH()?'ลูกค้า: ':'Customer: ')+'</b>'+KX.esc(sub.customer)+'</div>');
+    if(sub.risk) parts.push('<div style="margin-top:6px">'+ic('risk')+'<b>'+(KX.TH()?'สมมติฐานเสี่ยงสุด: ':'Riskiest: ')+'</b>'+KX.esc(sub.risk)+'</div>');
     $('tMini').innerHTML=parts.join('');
   }
   function setVotedUI(isVoted){
