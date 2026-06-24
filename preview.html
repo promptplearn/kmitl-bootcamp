@@ -46,19 +46,19 @@
 
 <main class="page">
   <section class="wrap">
-    <div class="kicker pop">Step 2b · พรีวิวเดโม่ · render your mockup</div>
-    <h1 class="big pop bi" style="font-size:clamp(26px,4.5vw,44px)"><span class="en">Render your <span class="em">demo</span></span><span class="th">เรนเดอร์<span class="em">เดโม่</span>ของคุณ</span></h1>
-    <p class="lede pop bi"><span class="en">The uni AI can <b>write</b> HTML but can't <b>show</b> it. So: ask Claude/GPT for a single-file HTML mockup, copy all the code, paste it below — and it renders live, ready to present.</span><span class="th">AI ของมหาลัย <b>เขียน</b> HTML ได้ แต่ <b>แสดงผล</b>ไม่ได้ วิธีก็คือ ขอให้ Claude/GPT ทำม็อกอัพ HTML ไฟล์เดียว แล้วคัดลอกโค้ดทั้งหมดมาวางด้านล่าง เดี๋ยวมันจะเรนเดอร์สดให้เลย พร้อมพรีเซนต์ทันที</span></p>
+    <div class="kicker pop">Step 2b · เผยแพร่เดโม่ · publish to the board</div>
+    <h1 class="big pop bi" style="font-size:clamp(26px,4.5vw,44px)"><span class="en">Publish your <span class="em">prototype</span></span><span class="th">เผยแพร่<span class="em">เดโม่</span>ของคุณ</span></h1>
+    <p class="lede pop bi"><span class="en">Build your UI in <b><a href="https://stitch.withgoogle.com" target="_blank" rel="noopener" style="color:var(--clay2)">Google Stitch</a></b> (or any builder), then <b>paste its code</b> here. This renders it and gives you a <b>shareable link that opens on the board</b>. No builder? You can also paste HTML from the AI chat.</span><span class="th">สร้าง UI ใน <b><a href="https://stitch.withgoogle.com" target="_blank" rel="noopener" style="color:var(--clay2)">Google Stitch</a></b> (หรือเครื่องมืออะไรก็ได้) แล้ว <b>เอาโค้ดมาวาง</b>ที่นี่ มันจะเรนเดอร์ให้ พร้อม <b>ลิงก์ที่เปิดบนบอร์ดได้</b> ไม่มีเครื่องมือ? วาง HTML จากแชท AI ก็ได้</span></p>
 
     <div class="steps3 pop">
-      <div class="s3"><span class="n">1</span> <b class="bi inl"><span class="en">Ask</span><span class="th">ขอ</span></b> — <span class="bi inl"><span class="en">use the prompt below in the portal (Claude / GPT)</span><span class="th">ใช้พรอมป์ด้านล่างในพอร์ทัล (Claude / GPT)</span></span></div>
-      <div class="s3"><span class="n">2</span> <b class="bi inl"><span class="en">Paste</span><span class="th">วาง</span></b> — <span class="bi inl"><span class="en">copy ALL the HTML, paste it on the left</span><span class="th">คัดลอก HTML ทั้งหมด วางทางซ้าย</span></span></div>
-      <div class="s3"><span class="n">3</span> <b class="bi inl"><span class="en">Present</span><span class="th">พรีเซนต์</span></b> — <span class="bi inl"><span class="en">tap Fullscreen and show the room</span><span class="th">กดเต็มจอ แล้วโชว์ทั้งห้อง</span></span></div>
+      <div class="s3"><span class="n">1</span> <b class="bi inl"><span class="en">Build</span><span class="th">สร้าง</span></b> — <span class="bi inl"><span class="en">design your UI in Google Stitch (prompt is in the Idea Lab)</span><span class="th">ออกแบบ UI ใน Google Stitch (พรอมป์อยู่ในแล็บไอเดีย)</span></span></div>
+      <div class="s3"><span class="n">2</span> <b class="bi inl"><span class="en">Paste the code</span><span class="th">วางโค้ด</span></b> — <span class="bi inl"><span class="en">copy Stitch's code (or chat HTML) on the left</span><span class="th">คัดลอกโค้ดจาก Stitch (หรือ HTML จากแชท) วางทางซ้าย</span></span></div>
+      <div class="s3"><span class="n">3</span> <b class="bi inl"><span class="en">Save &amp; share</span><span class="th">บันทึก &amp; แชร์</span></b> — <span class="bi inl"><span class="en">get a link → paste it in Submit → it opens on the board</span><span class="th">ได้ลิงก์ → วางในหน้าส่งงาน → เปิดบนบอร์ด</span></span></div>
     </div>
 
     <div class="split pop">
       <div class="pane">
-        <div class="ph"><span class="bi inl"><span class="en">⌨ Paste your HTML</span><span class="th">⌨ วาง HTML</span></span><span class="sp"></span><button class="btn ghost sm" id="clear"><span class="bi inl"><span class="en">Clear</span><span class="th">ล้าง</span></span></button></div>
+        <div class="ph"><span class="bi inl"><span class="en">⌨ Paste your code (Stitch or HTML)</span><span class="th">⌨ วางโค้ด (Stitch หรือ HTML)</span></span><span class="sp"></span><button class="btn ghost sm" id="clear"><span class="bi inl"><span class="en">Clear</span><span class="th">ล้าง</span></span></button></div>
         <textarea id="code" placeholder="<!DOCTYPE html>&#10;<html>...paste the whole file here...</html>" spellcheck="false"></textarea>
       </div>
       <div class="pane">
@@ -81,7 +81,7 @@
     </div>
 
     <details class="howto pop">
-      <summary class="bi inl"><span class="en">📋 The prompt that gets good single-file HTML</span><span class="th">📋 พรอมป์ที่ได้ HTML ไฟล์เดียวที่ดี</span></summary>
+      <summary class="bi inl"><span class="en">📋 No builder? Fallback: get HTML from the AI chat</span><span class="th">📋 ไม่มีเครื่องมือ? ทางเลือก: ขอ HTML จากแชท AI</span></summary>
       <div class="howc">
         <p style="font-size:13px;color:var(--text2)" class="bi"><span class="en">Paste your idea where it says [your idea], run it in the portal, then copy the whole code block it returns.</span><span class="th">วางไอเดียของเราตรงช่อง [ไอเดียของคุณ] รันในพอร์ทัล แล้วคัดลอกบล็อกโค้ดทั้งหมดที่ได้กลับมา</span></p>
         <div class="promptbox" id="ptext"><button class="btn sm copyb" id="copyP"><span class="bi inl"><span class="en">Copy</span><span class="th">คัดลอก</span></span></button>Build a single, self-contained HTML file for a clickable mockup of: [your idea].

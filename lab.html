@@ -496,7 +496,7 @@
   function setChosen(c){
     chosen=c;
     if(c) localStorage.setItem('kmitl:chosen',JSON.stringify(c)); else localStorage.removeItem('kmitl:chosen');
-    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts();
+    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts(); renderStitch();
   }
   function contextBlock(){
     if(!chosen) return '';
@@ -549,7 +549,7 @@
   fEl.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;[].slice.call(fEl.children).forEach(function(x){x.classList.toggle('on',x.dataset.f===cur);});renderGrid();});
   gEl.addEventListener('click',function(e){
     var p=e.target.closest('.pick');
-    if(p){ var d=IDEAS[+p.dataset.pick]; setChosen({i:+p.dataset.pick,custom:false,name:d.nm,one:d.one,problem:d.problem,pays:d.pays,risk:d.risk,mvp:d.mvp});
+    if(p){ var d=IDEAS[+p.dataset.pick]; setChosen({i:+p.dataset.pick,custom:false,group:d.group,name:d.nm,one:d.one,problem:d.problem,pays:d.pays,risk:d.risk,mvp:d.mvp});
       document.getElementById('prompts').scrollIntoView({behavior:'smooth'}); return; }
     var t=e.target.closest('.toggle');if(!t)return;var c=t.closest('.card');c.classList.toggle('open');t.innerHTML=c.classList.contains('open')?bi({en:'Hide ▴',th:'ซ่อน ▴'}):bi({en:'Details ▾',th:'รายละเอียด ▾'});
   });
@@ -560,7 +560,7 @@
   document.getElementById('ownSave').addEventListener('click',function(){
     var nm=document.getElementById('ownName').value.trim(), one=document.getElementById('ownOne').value.trim(), pr=document.getElementById('ownProblem').value.trim();
     if(!nm){ document.getElementById('ownName').focus(); return; }
-    setChosen({i:-1,custom:true,name:{en:nm,th:nm},one:{en:one,th:one},problem:{en:pr,th:pr},pays:{en:'',th:''},risk:{en:'',th:''}});
+    setChosen({i:-1,custom:true,group:'',name:{en:nm,th:nm},one:{en:one,th:one},problem:{en:pr,th:pr},pays:{en:'',th:''},risk:{en:'',th:''}});
     document.getElementById('ownForm').classList.remove('show');
     document.getElementById('prompts').scrollIntoView({behavior:'smooth'});
   });
@@ -613,15 +613,28 @@
   }
   renderPrompts();
 
-  /* ---- Google Stitch guided prompt (copied with the chosen-product context) ---- */
-  var STITCH={
-    en:'Design a clean, modern [mobile app screen OR web dashboard] for the product above.\nShow the MAIN screen with realistic Thai sample data, clear primary buttons, a top nav/header, and rounded cards.\nStyle: friendly, professional, light theme, good spacing — make it look like a real product.',
-    th:'ออกแบบหน้าจอ [แอปมือถือ หรือ แดชบอร์ดเว็บ] ที่สะอาดและทันสมัยสำหรับผลิตภัณฑ์ด้านบน\nโชว์หน้าจอหลัก พร้อมข้อมูลตัวอย่างภาษาไทยที่สมจริง ปุ่มหลักที่ชัดเจน แถบนำทาง/ส่วนหัว และการ์ดมุมโค้ง\nสไตล์: เป็นมิตร ดูมืออาชีพ โทนสว่าง เว้นระยะสวยงาม ให้ดูเหมือนผลิตภัณฑ์จริง'
-  };
-  function renderStitch(){ document.getElementById('stitchTxt').textContent=(document.body.dataset.lang==='th'?STITCH.th:STITCH.en); }
+  /* ---- Google Stitch guided prompt — auto-tailored to the chosen product ---- */
+  function stitchScreen(g){
+    if(g==='soft'||g==='industry') return {en:'web dashboard',th:'แดชบอร์ดเว็บ'};
+    if(g==='health'||g==='agri'||g==='climate') return {en:'mobile app',th:'แอปมือถือ'};
+    return {en:'app screen (mobile or web — pick what fits)',th:'หน้าจอแอป (มือถือหรือเว็บ — เลือกที่เหมาะ)'};
+  }
+  function stitchPrompt(){
+    var th=document.body.dataset.lang==='th';
+    if(chosen){
+      var sc=stitchScreen(chosen.group), nm=L2(chosen.name), one=L2(chosen.one), forwhat=nm+(one?' — '+one:'');
+      return th
+        ? 'ออกแบบ '+sc.th+' ที่สะอาดและทันสมัยสำหรับ: '+forwhat+'\nโชว์หน้าจอหลัก พร้อมข้อมูลตัวอย่างภาษาไทยที่สมจริง ปุ่มหลักที่ชัดเจน แถบนำทาง/ส่วนหัว และการ์ดมุมโค้ง\nสไตล์: เป็นมิตร ดูมืออาชีพ โทนสว่าง ให้ดูเหมือนผลิตภัณฑ์จริง'
+        : 'Design a clean, modern '+sc.en+' for: '+forwhat+'\nShow the MAIN screen with realistic Thai sample data, clear primary buttons, a top nav/header, and rounded cards.\nStyle: friendly, professional, light theme — make it look like a real product.';
+    }
+    return th
+      ? 'ออกแบบหน้าจอแอป/แดชบอร์ดที่สะอาดและทันสมัยสำหรับไอเดียของทีม (เลือกผลิตภัณฑ์ด้านบนก่อน เพื่อให้พรอมป์เติมรายละเอียดให้)\nโชว์หน้าจอหลัก พร้อมข้อมูลตัวอย่างภาษาไทยที่สมจริง ปุ่มหลักชัดเจน และการ์ดมุมโค้ง'
+      : 'Design a clean, modern app screen / dashboard for your idea (pick a product above first so this fills in the details).\nShow the MAIN screen with realistic Thai sample data, clear primary buttons, and rounded cards.';
+  }
+  function renderStitch(){ document.getElementById('stitchTxt').textContent=stitchPrompt(); }
   renderStitch();
   document.getElementById('stitchCopy').addEventListener('click',function(){
-    var t=(document.body.dataset.lang==='th'?STITCH.th:STITCH.en), out=(chosen?contextBlock():'')+t, b=this;
+    var out=stitchPrompt(), b=this;
     var fin=function(){ b.innerHTML='<span class="bi inl"><span class="en">Copied ✓</span><span class="th">คัดลอกแล้ว ✓</span></span>'; setTimeout(function(){ b.innerHTML='<span class="bi inl"><span class="en">Copy Stitch prompt</span><span class="th">คัดลอกพรอมป์ Stitch</span></span>'; },1600); };
     if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(out).then(fin,function(){fallback(out,fin);}); } else fallback(out,fin);
   });
