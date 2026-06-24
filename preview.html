@@ -9,7 +9,7 @@
 <style>
   .wrap{max-width:1080px;margin:0 auto}
   .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
-  @media(max-width:860px){.split{grid-template-columns:1fr}}
+  @media(max-width:700px){.split{grid-template-columns:1fr}}
   .pane{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);overflow:hidden}
   .pane .ph{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--panel-soft);font-weight:700;font-size:13px}
   .pane .ph .sp{flex:1}
@@ -23,12 +23,22 @@
   .howto>summary::before{content:"▸";transition:transform .2s}
   .howto[open]>summary::before{transform:rotate(90deg)}
   .howc{padding:0 16px 16px}
-  .promptbox{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 14px 14px;font-family:var(--mono);font-size:12.5px;color:var(--text2);line-height:1.55;white-space:pre-wrap;margin-top:8px}
+  .promptbox{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:46px 14px 14px;font-family:var(--mono);font-size:12.5px;color:var(--text2);line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}
   .copyb{position:absolute;top:10px;right:10px}
   .steps3{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
   .s3{flex:1;min-width:180px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2)}
   .s3 b{color:var(--text)}
   .s3 .n{font-family:var(--mono);color:var(--clay2);font-weight:700}
+  /* faux-fullscreen present mode (works on iOS where iframe requestFullscreen doesn't) */
+  .framewrap.present{position:fixed;inset:0;z-index:9999;min-height:0;border-radius:0}
+  #exitFull{display:none;position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:10000}
+  body.presenting #exitFull{display:inline-flex}
+  /* phone: shorter panes (so editor + preview both fit) + 16px to stop iOS focus-zoom */
+  @media(max-width:700px){
+    textarea#code{min-height:180px;font-size:16px}
+    #frame,.framewrap{min-height:220px}
+    .s3{min-width:100%}
+  }
 </style>
 </head>
 <body data-lang="en" data-page="preview">
@@ -53,7 +63,7 @@
       </div>
       <div class="pane">
         <div class="ph"><span class="bi inl"><span class="en">▶ Live preview</span><span class="th">▶ พรีวิวสด</span></span><span class="sp"></span><button class="btn sm" id="full"><span class="bi inl"><span class="en">⛶ Fullscreen</span><span class="th">⛶ เต็มจอ</span></span></button></div>
-        <div class="framewrap">
+        <div class="framewrap" id="framewrap">
           <iframe id="frame" sandbox="allow-scripts allow-popups allow-modals allow-forms" title="preview"></iframe>
           <div class="empty bi" id="emptyNote"><span class="en">Your rendered demo appears here.</span><span class="th">เดโม่ที่เรนเดอร์จะปรากฏที่นี่</span></div>
         </div>
@@ -76,6 +86,7 @@ Output ONLY the HTML code, nothing else.</div>
     </details>
   </section>
 </main>
+<button class="btn" id="exitFull"><span class="bi inl"><span class="en">✕ Exit</span><span class="th">✕ ออก</span></span></button>
 
 <script src="config.js"></script>
 <script src="db.js"></script>
@@ -95,10 +106,12 @@ Output ONLY the HTML code, nothing else.</div>
   code.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(render,350); });
   try{ var saved=localStorage.getItem(KEY); if(saved){ code.value=saved; render(); } }catch(e){}
   document.getElementById('clear').addEventListener('click',function(){ code.value=''; render(); code.focus(); });
-  document.getElementById('full').addEventListener('click',function(){
-    var el=frame; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    else KX.toast(KX.TH()?'เบราว์เซอร์ไม่รองรับเต็มจอ':'Fullscreen not supported','bad');
-  });
+  // faux-fullscreen: a CSS overlay (works on iOS Safari, where iframe requestFullscreen does not)
+  var fw=document.getElementById('framewrap'), exitB=document.getElementById('exitFull');
+  function present(on){ fw.classList.toggle('present',on); document.body.classList.toggle('presenting',on); }
+  document.getElementById('full').addEventListener('click',function(){ present(true); });
+  exitB.addEventListener('click',function(){ present(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') present(false); });
   document.getElementById('copyP').addEventListener('click',function(e){
     var btn=e.currentTarget, txt=document.getElementById('ptext').innerText.replace(/^Copy\s*|^คัดลอก\s*/,'').trim();
     navigator.clipboard.writeText(txt).then(function(){ KX.toast(KX.TH()?'คัดลอกพรอมป์แล้ว':'Prompt copied','good'); });

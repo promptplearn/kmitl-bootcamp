@@ -154,6 +154,18 @@
 
   footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:var(--text3);font-size:13px;text-align:center}
   footer b{color:var(--text2)}
+  /* phone polish: bigger tap targets, stacked prompt footer, no TH-mode clip */
+  @media(max-width:600px){
+    .card .toggle{padding:12px}
+    .chip{padding:11px 15px}
+    .prompt .pfoot{flex-direction:column;align-items:stretch;gap:10px}
+    .prompt .tip{max-width:100%}
+    .copybtn{width:100%;padding:12px}
+    .prompt pre{font-size:13.5px;line-height:1.65}
+    .brand .who{display:none}
+    .howrow .arrowmini{display:none}
+  }
+  .card.open .more{max-height:1400px}
 </style>
 </head>
 <body data-lang="en">

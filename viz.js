@@ -24,7 +24,7 @@
   .kv-pop{opacity:0;animation:kv-grow .5s ease forwards}
   .kv-float{animation:kv-float 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion: reduce){.kv-spin,.kv-node,.kv-draw,.kv-float{animation:none}.kv-draw{stroke-dashoffset:0}.kv-pop{opacity:1}}
-  .kv-cap{font-family:var(--mono,monospace);font-size:11px;fill:var(--t2);font-weight:700;letter-spacing:.04em}
+  .kv-cap{font-family:var(--mono,monospace);font-size:12px;fill:var(--t2);font-weight:700;letter-spacing:.04em}
   .kv-lab{font-family:var(--sans,sans-serif);font-weight:800;fill:var(--tx)}
   /* journey ribbon */
   .kv-ribbon{display:flex;align-items:center;gap:0;max-width:760px;margin:0 auto}
@@ -83,7 +83,7 @@
       return '<g class="kv-node n' + (i + 1) + '" style="transform-origin:' + x + 'px ' + y + 'px">' +
         '<circle cx="' + x + '" cy="' + y + '" r="34" fill="var(--panel,#1d1f28)" stroke="' + n.col + '" stroke-width="2"/>' +
         '<g transform="translate(' + (x - 11) + ',' + (y - 17) + ')" stroke="' + n.col + '">' + icon(n.ic, 22, n.col).replace(/^<svg[^>]*>/, '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="' + n.col + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">') + '</g>' +
-        '<text x="' + x + '" y="' + (y + 26) + '" text-anchor="middle" class="kv-lab" font-size="13" fill="' + n.col + '">' + n.lab + '</text>' +
+        '<text x="' + x + '" y="' + (y + 26) + '" text-anchor="middle" class="kv-lab" font-size="15" fill="' + n.col + '">' + n.lab + '</text>' +
         '</g>';
     }).join("");
     // 3 curved arrows clockwise between nodes
@@ -128,7 +128,7 @@
         '<rect x="' + (i * cw + pad) + '" y="' + vy + '" width="' + (cw - pad * 2) + '" height="' + ch + '" rx="14" fill="' + (on ? "var(--clay-dim,rgba(217,119,87,.13))" : "var(--panel,#1d1f28)") + '" stroke="' + (on ? "var(--clay)" : "var(--line)") + '" stroke-width="' + (on ? 2 : 1) + '"/>' +
         '<text x="' + cxc + '" y="' + (vy + 20) + '" text-anchor="middle" class="kv-cap" fill="var(--text3)">' + s.n + '</text>' +
         '<g transform="translate(' + (vcx - 16 * sc).toFixed(1) + ',' + (vcy - 16 * sc).toFixed(1) + ') scale(' + sc.toFixed(2) + ')" stroke="' + s.col + '"><g class="kv-float" style="animation-delay:' + (i * 0.3) + 's">' + V[s.v] + '</g></g>' +
-        '<text x="' + cxc + '" y="' + (baseY - 12) + '" text-anchor="middle" class="kv-lab" font-size="13" fill="' + s.col + '">' + s.lab + '</text>' +
+        '<text x="' + cxc + '" y="' + (baseY - 12) + '" text-anchor="middle" class="kv-lab" font-size="15" fill="' + s.col + '">' + s.lab + '</text>' +
         '</g>';
     }).join("");
     var arrow = '<path d="M' + pad + ' ' + (baseY + 18) + ' H' + (W - pad) + '" stroke="var(--line)" stroke-width="2" marker-end="url(#kvarrow2)"/>' +
@@ -163,7 +163,7 @@
     var labels = axes.map(function (ax, i) {
       var p = pt(i, R + 22), anchor = Math.abs(p[0] - cx) < 8 ? "middle" : (p[0] > cx ? "start" : "end");
       var v = Math.max(0, Math.min(max, (values && values[ax.k]) || 0));
-      return '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] + 4).toFixed(1) + '" text-anchor="' + anchor + '" class="kv-lab" font-size="11.5" fill="var(--text2)">' + ax.en + '</text>';
+      return '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] + 4).toFixed(1) + '" text-anchor="' + anchor + '" class="kv-lab" font-size="12.5" fill="var(--text2)">' + ax.en + '</text>';
     }).join("");
     var dataPts = axes.map(function (ax, i) { var v = Math.max(0, Math.min(max, (values && values[ax.k]) || 0)); return pt(i, R * v / max).map(function (x) { return x.toFixed(1); }).join(","); }).join(" ");
     var dots = axes.map(function (ax, i) { var v = Math.max(0, Math.min(max, (values && values[ax.k]) || 0)); var p = pt(i, R * v / max); return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3.2" fill="var(--clay2)"/>'; }).join("");
@@ -230,7 +230,7 @@
       // slow: one long bar -> skull
       '<text x="6" y="34" class="kv-cap" fill="var(--rose)">THE SLOW WAY</text>' +
       '<rect x="6" y="42" width="520" height="22" rx="11" fill="var(--rose-dim,rgba(229,138,138,.13))" stroke="var(--rose)" stroke-width="1.5"/>' +
-      '<text x="266" y="57" text-anchor="middle" font-size="12" font-weight="700" fill="var(--rose)">build in secret · 6 months</text>' +
+      '<text x="266" y="57" text-anchor="middle" font-size="14" font-weight="700" fill="var(--rose)">build in secret · 6 months</text>' +
       '<text x="556" y="60" font-size="22">💀</text>' +
       // lean: small loops
       '<text x="6" y="100" class="kv-cap" fill="var(--green)">THE LEAN WAY</text>';

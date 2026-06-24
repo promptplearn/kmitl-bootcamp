@@ -18,11 +18,11 @@
   .stage h2{font-size:clamp(24px,3vw,34px);font-weight:800;overflow-wrap:anywhere}
   .stage .demo{font-size:13px;color:var(--blue);text-decoration:none;font-weight:700}
   .stagegrid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;margin-top:16px}
-  @media(max-width:900px){.stagegrid{grid-template-columns:1fr}}
+  @media(max-width:1024px){.stagegrid{grid-template-columns:1fr}}
   .facts{display:flex;flex-direction:column;gap:9px}
   .fact{font-size:15px;line-height:1.5}
   .fact .fk{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--text3);font-family:var(--mono);text-transform:uppercase;display:block;margin-bottom:2px}
-  .fact .fv{color:var(--text)}
+  .fact .fv{color:var(--text);overflow-wrap:anywhere}
   /* tally */
   .tallywrap .tlabel{display:flex;justify-content:space-between;font-size:12.5px;color:var(--text2);font-weight:700}
   .tallybar{display:flex;height:42px;border-radius:11px;overflow:hidden;margin-top:8px;border:1px solid var(--line);background:var(--panel2)}
@@ -70,7 +70,17 @@
   .qrfloat #qr img,.qrfloat #qr canvas{width:100%;height:100%}
   .qrfloat .qt{font-size:11.5px;color:var(--text2);max-width:120px;line-height:1.4}
   .qrfloat .qt b{color:var(--text)}
-  @media(max-width:640px){.qrfloat{display:none}}
+  @media(max-width:1024px){.qrfloat{display:none}}
+  /* tablet/phone: rubric 2-up + bigger touch targets, no nested scroll-trap */
+  @media(max-width:768px){
+    .reasons{max-height:none;overflow:visible}
+    .sbtn{min-height:46px;padding:10px 6px}
+    .delx{min-width:46px;min-height:46px}
+  }
+  @media(max-width:560px){
+    .score-row{grid-template-columns:repeat(2,1fr)}
+    .stagegrid{gap:14px}
+  }
 </style>
 </head>
 <body data-lang="en" data-page="board">

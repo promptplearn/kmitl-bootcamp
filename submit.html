@@ -22,6 +22,13 @@
   .feedback ul{margin:6px 0 0 18px}
   .prefill{font-size:12.5px;color:var(--text3);margin-top:6px}
   .prefill a{color:var(--clay2);text-decoration:none;font-weight:600}
+  /* phone: stack the done-card rows so values aren't squeezed into a sliver */
+  @media(max-width:620px){
+    .drow{flex-direction:column;gap:4px}
+    .drow .k{flex:0 0 auto}
+    .donecard{padding:18px}
+    .grid2{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body data-lang="en" data-page="submit">
