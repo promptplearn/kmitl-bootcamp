@@ -11,6 +11,7 @@
 
   var NAV = [
     { id: "home",   href: "index.html",  en: "Home",     th: "หน้าหลัก" },
+    { id: "icebreaker", href: "icebreaker.html", en: "Warm-up", th: "วอร์มอัพ" },
     { id: "learn",  href: "learn.html",  en: "Learn",    th: "เรียน" },
     { id: "lab",    href: "lab.html",    en: "Idea Lab", th: "แล็บไอเดีย" },
     { id: "preview",href: "preview.html",en: "Preview",  th: "พรีวิว" },

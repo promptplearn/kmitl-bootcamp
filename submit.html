@@ -38,12 +38,12 @@
   <section class="wrap">
     <div class="kicker pop">Step 3 · ส่งงาน · one card per team</div>
     <h1 class="big pop bi"><span class="en">Submit your <span class="em">product</span></span><span class="th">ส่ง<span class="em">ผลงาน</span>ของคุณ</span></h1>
-    <p class="lede pop bi"><span class="en">One submission per team. This is the MVP card you built in the lab — it lands on the present board for the room to see and judge. Keep it sharp.</span><span class="th">ทีมละหนึ่งครั้ง นี่คือการ์ด MVP ที่คุณทำในแล็บ — มันจะขึ้นบอร์ดให้ทั้งห้องดูและตัดสิน ทำให้คม</span></p>
+    <p class="lede pop bi"><span class="en">One submission per team. This is the MVP card you built in the lab — it lands on the present board for the room to see and judge. Keep it sharp.</span><span class="th">ทีมละหนึ่งครั้ง นี่คือการ์ด MVP ที่เราทำกันในแล็บ — มันจะขึ้นบอร์ดให้ทั้งห้องได้ดูและช่วยกันตัดสิน ทำให้มันคมเข้าไว้</span></p>
 
     <div class="card pop" style="margin-top:22px">
       <div class="field"><label class="bi"><span class="en">Team name <span class="hintlbl">— what we call you on the board</span></span><span class="th">ชื่อทีม — ชื่อที่จะขึ้นบอร์ด</span></label><input class="in" id="team" placeholder="e.g. Pet Connect" maxlength="60" /></div>
       <div class="grid2">
-        <div class="field"><label class="bi"><span class="en">1 · The problem <span class="hintlbl">— a real, specific pain</span></span><span class="th">1 · ปัญหา — ที่เจ็บจริงและเฉพาะ</span></label><textarea class="in" id="problem" maxlength="400" placeholder="Durian exporters can't verify ripeness per crate, so rejected shipments cost millions."></textarea></div>
+        <div class="field"><label class="bi"><span class="en">1 · The problem <span class="hintlbl">— a real, specific pain</span></span><span class="th">1 · ปัญหา — ความเจ็บปวดที่เกิดขึ้นจริงและเฉพาะเจาะจง</span></label><textarea class="in" id="problem" maxlength="400" placeholder="Durian exporters can't verify ripeness per crate, so rejected shipments cost millions."></textarea></div>
         <div class="field"><label class="bi"><span class="en">2 · The customer <span class="hintlbl">— who exactly (not “everyone”)</span></span><span class="th">2 · ลูกค้า — ใครกันแน่ (ไม่ใช่ ‘ทุกคน’)</span></label><textarea class="in" id="customer" maxlength="300" placeholder="Mid-size durian packhouses exporting to China."></textarea></div>
       </div>
       <div class="field"><label class="bi"><span class="en">3 · Riskiest assumption <span class="hintlbl">— the one thing that must be true</span></span><span class="th">3 · สมมติฐานเสี่ยงสุด — สิ่งเดียวที่ต้องเป็นจริง</span></label><textarea class="in" id="risk" maxlength="300" placeholder="Packhouses will trust a sucrose-based reading enough to sort by it."></textarea></div>
@@ -103,6 +103,17 @@
   var q=new URLSearchParams(location.search);
   fields.forEach(function(f){ if(q.get(f)) $(f).value=q.get(f); });
 
+  // Carry the product chosen in the Idea Lab → pre-fill the card
+  try{
+    var ch=JSON.parse(localStorage.getItem('kmitl:chosen')||'null');
+    if(ch){ var th=document.body.dataset.lang==='th', pick=function(o){return o?(th?(o.th||o.en):(o.en||o.th)):'';};
+      if(!$('problem').value) $('problem').value=pick(ch.problem);
+      if(!$('customer').value) $('customer').value=pick(ch.pays);
+      if(!$('risk').value) $('risk').value=pick(ch.risk);
+      if(!$('pitch').value) $('pitch').value=pick(ch.one);
+    }
+  }catch(e){}
+
   // Restore this team's last draft so a refresh doesn't lose work
   try{ var d=JSON.parse(localStorage.getItem('kmitl:draft')||'{}'); fields.forEach(function(f){ if(!$(f).value && d[f]) $(f).value=d[f]; }); }catch(e){}
   function saveDraft(){ var d={}; fields.forEach(function(f){ d[f]=$(f).value; }); localStorage.setItem('kmitl:draft',JSON.stringify(d)); }
@@ -110,7 +121,7 @@
 
   function validate(c){
     var f=[],bi=KX.bi;
-    if(!c.problem) f.push(bi('Add the problem — a specific pain in a real situation.','ใส่ปัญหา — เจ็บอะไร ในสถานการณ์จริง'));
+    if(!c.problem) f.push(bi('Add the problem — a specific pain in a real situation.','ใส่ปัญหาหน่อย — เจ็บตรงไหน ในสถานการณ์จริง'));
     if(!c.customer) f.push(bi('Name the customer — a specific, reachable group.','ระบุลูกค้า — กลุ่มที่เฉพาะและเข้าถึงได้'));
     else if(/every\s?one|everybody|\ball\b|anyone|ทุกคน|ใครก็ได้|คนทั่วไป/i.test(c.customer)) f.push(bi('“Everyone” is no one — narrow to one specific segment.','‘ทุกคน’ = ไม่มีใคร — แคบลงเหลือกลุ่มเดียว'));
     if(!c.risk) f.push(bi('State your riskiest assumption — the one thing that, if false, kills it.','ระบุสมมติฐานเสี่ยงสุด — สิ่งเดียวที่ถ้าผิดแล้วจบ'));

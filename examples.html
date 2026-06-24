@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Image-prompt examples</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  main.page{max-width:920px}
+  .ex{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:20px;margin-top:16px}
+  .ex .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.04em;font-family:var(--mono);color:var(--green);background:var(--green-dim);border-radius:7px;padding:3px 9px}
+  .ex h3{font-size:18px;font-weight:800;margin-top:10px}
+  .ex .what{font-size:13.5px;color:var(--text2);margin-top:6px}
+  .pbox{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:46px 14px 14px;font-size:13px;color:var(--text);line-height:1.55;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .cpy{position:absolute;top:10px;right:10px}
+  .tip{margin-top:12px;font-size:13px;color:var(--clay2);line-height:1.55}
+</style>
+</head>
+<body data-lang="en" data-page="">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+<main class="page">
+  <section>
+    <div class="kicker pop">Worked examples · ตัวอย่าง · Gemini Image</div>
+    <h1 class="big pop bi"><span class="en">Image-prompt <span class="em">examples</span></span><span class="th">ตัวอย่าง<span class="em">พรอมป์สร้างภาพ</span></span></h1>
+    <p class="lede pop bi"><span class="en">Switch to a <b>Gemini Image</b> model in the portal, paste a prompt, then swap in your own details. Hardware → product render + app screen; platform → UI screenshot; food → packaging shot.</span><span class="th">สลับไปโมเดล <b>Gemini Image</b> ในพอร์ทัล วางพรอมป์ แล้วปรับรายละเอียดเป็นของทีมเรา · ฮาร์ดแวร์ → ภาพผลิตภัณฑ์ + จอแอป · แพลตฟอร์ม → ภาพหน้าจอ · อาหาร → ภาพแพ็กเกจ</span></p>
+    <div id="list"></div>
+  </section>
+</main>
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var EX=[
+    {tag:'HARDWARE / AGRI', name:'Durian Ripeness Sensor',
+     what:'A photorealistic render of the clip-on stalk sensor with its RFID tag on a durian, plus a small companion-app screen.',
+     prompt:'Photorealistic product render, studio lighting, clean light-gray seamless background. A compact electronic sensor device (matte white and dark-gray ABS housing, rounded edges, single status LED) clipped onto the green woody stalk of a fresh spiky durian fruit. A small printed RFID smart tag (white label with a subtle antenna pattern and a QR/serial code) is adhered to the durian husk. Beside the fruit, a smartphone displays a clean companion app: a circular gauge reading "Ripeness 87%", a line "Sucrose: 14.2 Brix", a green "Ready to harvest" pill, and tag ID "DRN-00428". Soft realistic shadows, shallow depth of field, premium agri-tech aesthetic, green-and-white accents, 4K, no text artifacts.',
+     tip:'ลองสั่งให้ภาพมีทั้งตัวเซนเซอร์ติดที่ขั้วทุเรียนและจอแอปเล็ก ๆ คู่กัน เพื่อให้กรรมการเห็นทั้งฮาร์ดแวร์และการใช้งานจริงในภาพเดียว'},
+    {tag:'PLATFORM / HEALTH', name:'Pet Connect',
+     what:'A modern UI screenshot of the vet blood-donor dashboard + a LINE-style mini-app for owners, with real Thai sample data.',
+     prompt:'Clean modern SaaS UI screenshot, desktop web dashboard for a veterinary blood-donor matching network, light theme with soft red and white accents and rounded cards. Header reads "Pet Connect — เครือข่ายบริจาคเลือดสัตว์เลี้ยง". Left sidebar: Dashboard, Donors, Matches, Clinics. Main panel shows a donor-match table with Thai rows: "เจ้าก้อนหิน (สุนัข, DEA 1.1+, กรุ๊ป A)", "มะลิ (แมว, กรุ๊ป B)", "ทองคำ (สุนัข, DEA 1.1−)", each with a distance like "2.4 กม." and a green "จับคู่ได้" badge; a small map pinned to "โรงพยาบาลสัตว์ ลาดกระบัง". Beside it, a smartphone shows a LINE-style mini-app: a pet card "สุนัข พันธุ์โกลเด้น อายุ 3 ปี", a green "ลงทะเบียนเป็นผู้บริจาค" button, and a match notification. Crisp typography, realistic spacing, 4K, no lorem ipsum, no garbled text.',
+     tip:'ใส่ข้อมูลตัวอย่างเป็นภาษาไทยจริง เช่น ชื่อสัตว์ กรุ๊ปเลือด ชื่อโรงพยาบาล จะทำให้หน้าจอดูน่าเชื่อถือเหมือนใช้งานจริง'},
+    {tag:'PLATFORM / INDUSTRY', name:'Corrosion AI',
+     what:'A modern analytics dashboard for corrosion prediction on rigs/pipelines, with a risk heat map and Thai asset labels.',
+     prompt:'Clean modern industrial analytics dashboard, UI screenshot, dark-blue professional theme with teal and amber accents, rounded data cards. Title: "Corrosion AI — ระบบพยากรณ์การกัดกร่อน". Top KPI cards: "สินทรัพย์เฝ้าระวัง 142", "จุดเสี่ยงสูง 7", "ความแม่นยำโมเดล 94%". Center: a schematic side-view of an offshore oil rig and pipeline network overlaid with a color-coded corrosion risk heat map (green-yellow-red) and pins "Riser-A03: เสี่ยงสูง", "Pipeline P-12: ปานกลาง". A line chart "อัตราการกัดกร่อนคาดการณ์ (mm/ปี)" over 12 months. Right panel: an alert list with a red "ตรวจสอบเร่งด่วน" badge for "แท่นขุดเจาะ อ่าวไทย B". Crisp enterprise data-viz spacing, soft glow on charts, 4K, no garbled text.',
+     tip:'ขอให้ภาพมีทั้ง heat map บนแท่น/ท่อ และกราฟพยากรณ์ พร้อมป้ายชื่อสินทรัพย์ภาษาไทย จะสื่อว่าเป็นแพลตฟอร์มอุตสาหกรรมจริง ไม่ใช่กราฟลอย ๆ'},
+    {tag:'FOOD / TANGIBLE', name:'Golden Snail High-Protein Food',
+     what:'An appetizing product-and-packaging hero shot of the high-protein food made from golden apple snail meat.',
+     prompt:'Appetizing CPG product photography, soft natural daylight, clean light-wood and white tabletop. A modern retail pouch/jar of high-protein food made from golden apple snail meat, minimalist eco-friendly packaging in cream and green with a clear product name, a "High Protein • ย่อยง่าย" badge and a protein callout "โปรตีนสูง 22g". Beside it, a small white bowl shows the finished product — tender, lightly seasoned protein pieces, garnished with fresh herbs, clean and appetizing (not slimy). A few golden apple snail shells and green rice-field leaves placed tastefully as context. Shallow depth of field, warm inviting tones, premium health-food aesthetic, 4K, no garbled text.',
+     tip:'เน้นให้ตัวอาหารดูสะอาดน่าทาน คู่กับแพ็กเกจที่บอกจุดเด่น "โปรตีนสูง ย่อยง่าย" ชัด ๆ ส่วนเปลือกหอยใส่แค่พอเป็นบริบท อย่าให้ดูเลอะ'}
+  ];
+  document.getElementById('list').innerHTML=EX.map(function(e,i){
+    return '<div class="ex pop"><span class="tag">'+e.tag+'</span><h3>'+KX.esc(e.name)+'</h3>'+
+      '<div class="what">'+KX.esc(e.what)+'</div>'+
+      '<div class="pbox"><button class="btn sm cpy" data-i="'+i+'"><span class="bi inl"><span class="en">Copy</span><span class="th">คัดลอก</span></span></button>'+KX.esc(e.prompt)+'</div>'+
+      '<div class="tip th">💡 '+KX.esc(e.tip)+'</div></div>';
+  }).join('');
+  document.getElementById('list').addEventListener('click',function(ev){
+    var b=ev.target.closest('.cpy'); if(!b) return;
+    navigator.clipboard.writeText(EX[+b.dataset.i].prompt).then(function(){ KX.toast(KX.TH()?'คัดลอกพรอมป์แล้ว':'Prompt copied','good'); });
+  });
+})();
+</script>
+</body>
+</html>

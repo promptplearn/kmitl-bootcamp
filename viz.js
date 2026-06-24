@@ -246,9 +246,9 @@
   // ---------- pivot diagrams ----------
   function pivots(el) {
     var items = [
-      { ic: "👤", en: "Customer pivot", th: "เปลี่ยนลูกค้า", d: "same product, new buyer", dt: "ของเดิม คนซื้อใหม่" },
+      { ic: "👤", en: "Customer pivot", th: "เปลี่ยนลูกค้า", d: "same product, new buyer", dt: "สินค้าเดิม ผู้ซื้อใหม่" },
       { ic: "🎯", en: "Problem pivot", th: "เปลี่ยนปัญหา", d: "same customer, new pain", dt: "ลูกค้าเดิม ปัญหาใหม่" },
-      { ic: "💰", en: "Model pivot", th: "เปลี่ยนโมเดล", d: "same value, new way to earn", dt: "คุณค่าเดิม วิธีหาเงินใหม่" }
+      { ic: "💰", en: "Model pivot", th: "เปลี่ยนโมเดล", d: "same value, new way to earn", dt: "คุณค่าเดิม วิธีหารายได้ใหม่" }
     ];
     var html = '<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">' + items.map(function (it, i) {
       return '<div class="kv-pop" style="animation-delay:' + (i * .1) + 's;flex:1;min-width:150px;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel-soft,#21242e);text-align:center">' +

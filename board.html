@@ -138,7 +138,7 @@
     <h2 class="mid pop bi" style="margin-top:34px;font-size:clamp(20px,3vw,28px)"><span class="en">All submissions</span><span class="th">ผลงานทั้งหมด</span></h2>
     <div class="gal" id="gal"></div>
     <div class="empty" id="empty" style="display:none">
-      <div class="bi"><span class="en">No submissions yet. Teams submit from the <b>Submit</b> page — they'll appear here live.</span><span class="th">ยังไม่มีผลงาน ทีมส่งจากหน้า <b>ส่งงาน</b> แล้วจะขึ้นที่นี่แบบสด</span></div>
+      <div class="bi"><span class="en">No submissions yet. Teams submit from the <b>Submit</b> page — they'll appear here live.</span><span class="th">ยังไม่มีผลงานส่งเข้ามา ให้ทีมส่งจากหน้า <b>ส่งงาน</b> แล้วผลงานจะขึ้นมาที่นี่แบบเรียลไทม์</span></div>
     </div>
   </section>
 </main>
@@ -166,17 +166,17 @@
     var ok=false;
     try{ if(window.QRCode){ new QRCode($('qr'),{text:base+'vote.html',width:74,height:74,correctLevel:QRCode.CorrectLevel.M}); ok=true; } }catch(e){}
     if(!ok){ $('qr').innerHTML='<span style="color:#15161c;font-size:9px;text-align:center;line-height:1.2;padding:3px;word-break:break-all">'+base.replace(/^https?:\/\//,'')+'vote.html</span>'; }
-    if(/^(file:|https?:\/\/(localhost|127\.0\.0\.1))/.test(base)){ KX.toast(KX.TH()?'เปิดผ่าน URL จริง ไม่ใช่ localhost เพื่อให้มือถือสแกนได้':'Use the deployed URL, not localhost, so phones can scan','bad'); }
+    if(/^(file:|https?:\/\/(localhost|127\.0\.0\.1))/.test(base)){ KX.toast(KX.TH()?'เปิดด้วย URL ที่ deploy แล้ว ไม่ใช่ localhost มือถือถึงจะสแกนได้':'Use the deployed URL, not localhost, so phones can scan','bad'); }
   })();
 
   /* ---- rubric (ported from the lesson) ---- */
   var CRIT=[
-    {id:'problem',w:20,en:'Problem is real &amp; specific',th:'ปัญหาจริงและเฉพาะ',fix:{en:'Talk to 3 real people with this pain. Specific beats broad.',th:'คุยกับคนที่เจ็บจริง 3 คน เฉพาะดีกว่ากว้าง'}},
-    {id:'customer',w:15,en:'Customer is named &amp; reachable',th:'ลูกค้าชัดและเข้าถึงได้',fix:{en:'Replace “everyone” with one segment you can find this week.',th:'แทน ‘ทุกคน’ ด้วยกลุ่มเดียวที่หาเจอสัปดาห์นี้'}},
-    {id:'innovation',w:20,en:'Innovation / defensibility',th:'นวัตกรรม / ลอกยาก',fix:{en:'Name what you do that the market lacks. Reselling isn\'t fundable.',th:'ระบุสิ่งที่ตลาดยังไม่มี ซื้อมาขายไปขอทุนไม่ได้'}},
-    {id:'mvp',w:15,en:'MVP is minimal AND testable',th:'MVP เล็กสุดและทดสอบได้',fix:{en:'Cut to the one test of the riskiest assumption. Ship in days.',th:'ตัดเหลือทดสอบสมมติฐานเสี่ยงสุดอย่างเดียว ปล่อยใน 2–3 วัน'}},
-    {id:'assumption',w:15,en:'Riskiest assumption named &amp; tested',th:'ระบุและทดสอบสมมติฐานเสี่ยงสุด',fix:{en:'Write the one thing that, if false, kills it — then test it.',th:'เขียนสิ่งเดียวที่ถ้าผิดแล้วจบ แล้วทดสอบ'}},
-    {id:'evidence',w:15,en:'Evidence over opinion — real metric',th:'หลักฐานเหนือความเห็น — ตัวเลขจริง',fix:{en:'Define the number that proves success; let data drive the pivot call.',th:'กำหนดตัวเลขที่พิสูจน์สำเร็จ ให้ข้อมูลตัดสินพิวอต'}}
+    {id:'problem',w:20,en:'Problem is real &amp; specific',th:'ปัญหาเป็นเรื่องจริงและเฉพาะเจาะจง',fix:{en:'Talk to 3 real people with this pain. Specific beats broad.',th:'ลองคุยกับคนที่เจอปัญหานี้จริง ๆ สัก 3 คน เจาะจงดีกว่ากว้าง ๆ'}},
+    {id:'customer',w:15,en:'Customer is named &amp; reachable',th:'ลูกค้าชัดเจนและเข้าถึงได้',fix:{en:'Replace “everyone” with one segment you can find this week.',th:'เปลี่ยนจาก ‘ทุกคน’ ให้เหลือกลุ่มเดียวที่เราหาเจอได้ภายในสัปดาห์นี้'}},
+    {id:'innovation',w:20,en:'Innovation / defensibility',th:'นวัตกรรม / ลอกเลียนได้ยาก',fix:{en:'Name what you do that the market lacks. Reselling isn\'t fundable.',th:'บอกให้ชัดว่าเราทำอะไรที่ตลาดยังไม่มี แค่ซื้อมาขายไปขอทุนไม่ได้'}},
+    {id:'mvp',w:15,en:'MVP is minimal AND testable',th:'MVP เล็กที่สุดและทดสอบได้จริง',fix:{en:'Cut to the one test of the riskiest assumption. Ship in days.',th:'ตัดให้เหลือทดสอบสมมติฐานที่เสี่ยงที่สุดอย่างเดียว แล้วปล่อยภายในไม่กี่วัน'}},
+    {id:'assumption',w:15,en:'Riskiest assumption named &amp; tested',th:'ระบุและทดสอบสมมติฐานที่เสี่ยงที่สุด',fix:{en:'Write the one thing that, if false, kills it — then test it.',th:'เขียนสิ่งเดียวที่ถ้าผิดแล้วโปรเจกต์จบ แล้วลองทดสอบดู'}},
+    {id:'evidence',w:15,en:'Evidence over opinion — real metric',th:'หลักฐานสำคัญกว่าความเห็น — ตัวเลขจริง',fix:{en:'Define the number that proves success; let data drive the pivot call.',th:'กำหนดตัวเลขที่บอกว่าสำเร็จ แล้วให้ข้อมูลเป็นตัวตัดสินว่าจะพิวอตไหม'}}
   ];
   var SLAB=[{v:0,en:'Missing',th:'ไม่มี'},{v:1,en:'Weak',th:'อ่อน'},{v:2,en:'Solid',th:'ดี'},{v:3,en:'Strong',th:'แข็ง'}];
   function curScores(){ if(!activeId) return {}; return grades[activeId] || (grades[activeId]={}); }
@@ -188,10 +188,10 @@
     }).join('');
   }
   function tierFor(t){
-    if(t>=80)return{en:'Fundable — ready to pitch',th:'พร้อมขอทุน',col:'var(--green)',bg:'var(--green-dim)',mc:'var(--green)'};
-    if(t>=60)return{en:'Promising — sharpen weak spots',th:'มีแวว — ลับจุดอ่อน',col:'var(--clay2)',bg:'var(--clay-dim)',mc:'var(--clay)'};
-    if(t>=40)return{en:'Early — validate first',th:'ยังเริ่ม — ตรวจสอบก่อน',col:'var(--amber)',bg:'rgba(230,181,102,.14)',mc:'var(--amber)'};
-    return{en:'Back to the loop',th:'กลับเข้าลูป',col:'var(--rose)',bg:'var(--rose-dim)',mc:'var(--rose)'};
+    if(t>=80)return{en:'Fundable — ready to pitch',th:'พร้อมขอทุน — พิทช์ได้เลย',col:'var(--green)',bg:'var(--green-dim)',mc:'var(--green)'};
+    if(t>=60)return{en:'Promising — sharpen weak spots',th:'มีแวว — ลับจุดอ่อนให้คมขึ้น',col:'var(--clay2)',bg:'var(--clay-dim)',mc:'var(--clay)'};
+    if(t>=40)return{en:'Early — validate first',th:'ยังช่วงเริ่มต้น — ลองตรวจสอบก่อน',col:'var(--amber)',bg:'rgba(230,181,102,.14)',mc:'var(--amber)'};
+    return{en:'Back to the loop',th:'กลับไปวนคิดใหม่อีกรอบ',col:'var(--rose)',bg:'var(--rose-dim)',mc:'var(--rose)'};
   }
   function recompute(){
     var s=curScores(),total=0; CRIT.forEach(function(c){ total+=((s[c.id]||0)/3)*c.w; }); total=Math.round(total);
@@ -200,8 +200,8 @@
     if(window.KV){ KV.gauge($('rGauge'),total); KV.radar($('rRadar'),{problem:s.problem||0,customer:s.customer||0,innovation:s.innovation||0,mvp:s.mvp||0,assumption:s.assumption||0,evidence:s.evidence||0}); }
     var ranked=CRIT.map(function(c){return{c:c,score:s[c.id]||0};}).filter(function(x){return x.score<3;}).sort(function(a,b){return (a.score-b.score)||(b.c.w-a.c.w);});
     var weak=$('rWeak');
-    if(!ranked.length){ weak.innerHTML='<b>'+KX.bi('Every criterion is strong. Go pitch it.','ทุกข้อแข็งหมด ไปพิทช์เลย')+'</b>'; return; }
-    weak.innerHTML='<b>'+KX.bi('Fix first:','แก้ก่อน:')+'</b>'+ranked.slice(0,2).map(function(x){return '<div class="wf">'+KX.bi(x.c.en,x.c.th)+' — '+KX.bi(x.c.fix.en,x.c.fix.th)+'</div>';}).join('');
+    if(!ranked.length){ weak.innerHTML='<b>'+KX.bi('Every criterion is strong. Go pitch it.','ครบทุกข้อเลย ไปพิทช์ได้เลย')+'</b>'; return; }
+    weak.innerHTML='<b>'+KX.bi('Fix first:','แก้ตรงนี้ก่อน:')+'</b>'+ranked.slice(0,2).map(function(x){return '<div class="wf">'+KX.bi(x.c.en,x.c.th)+' — '+KX.bi(x.c.fix.en,x.c.fix.th)+'</div>';}).join('');
   }
   $('rubric').addEventListener('click',function(e){
     var b=e.target.closest('.sbtn'); if(!b||!activeId) return;

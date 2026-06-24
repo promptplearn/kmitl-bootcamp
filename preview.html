@@ -48,7 +48,7 @@
   <section class="wrap">
     <div class="kicker pop">Step 2b · พรีวิวเดโม่ · render your mockup</div>
     <h1 class="big pop bi" style="font-size:clamp(26px,4.5vw,44px)"><span class="en">Render your <span class="em">demo</span></span><span class="th">เรนเดอร์<span class="em">เดโม่</span>ของคุณ</span></h1>
-    <p class="lede pop bi"><span class="en">The uni AI can <b>write</b> HTML but can't <b>show</b> it. So: ask Claude/GPT for a single-file HTML mockup, copy all the code, paste it below — and it renders live, ready to present.</span><span class="th">AI ของมหาลัย <b>เขียน</b> HTML ได้ แต่ <b>แสดงผล</b>ไม่ได้ วิธีคือ: ขอให้ Claude/GPT เขียนม็อกอัพ HTML ไฟล์เดียว คัดลอกโค้ดทั้งหมด วางด้านล่าง แล้วมันจะเรนเดอร์สด พร้อมพรีเซนต์</span></p>
+    <p class="lede pop bi"><span class="en">The uni AI can <b>write</b> HTML but can't <b>show</b> it. So: ask Claude/GPT for a single-file HTML mockup, copy all the code, paste it below — and it renders live, ready to present.</span><span class="th">AI ของมหาลัย <b>เขียน</b> HTML ได้ แต่ <b>แสดงผล</b>ไม่ได้ วิธีก็คือ ขอให้ Claude/GPT ทำม็อกอัพ HTML ไฟล์เดียว แล้วคัดลอกโค้ดทั้งหมดมาวางด้านล่าง เดี๋ยวมันจะเรนเดอร์สดให้เลย พร้อมพรีเซนต์ทันที</span></p>
 
     <div class="steps3 pop">
       <div class="s3"><span class="n">1</span> <b class="bi inl"><span class="en">Ask</span><span class="th">ขอ</span></b> — <span class="bi inl"><span class="en">use the prompt below in the portal (Claude / GPT)</span><span class="th">ใช้พรอมป์ด้านล่างในพอร์ทัล (Claude / GPT)</span></span></div>
@@ -62,7 +62,7 @@
         <textarea id="code" placeholder="<!DOCTYPE html>&#10;<html>...paste the whole file here...</html>" spellcheck="false"></textarea>
       </div>
       <div class="pane">
-        <div class="ph"><span class="bi inl"><span class="en">▶ Live preview</span><span class="th">▶ พรีวิวสด</span></span><span class="sp"></span><button class="btn sm" id="full"><span class="bi inl"><span class="en">⛶ Fullscreen</span><span class="th">⛶ เต็มจอ</span></span></button></div>
+        <div class="ph"><span class="bi inl"><span class="en">▶ Live preview</span><span class="th">▶ พรีวิวสด</span></span><span class="sp"></span><button class="btn sm" id="save"><span class="bi inl"><span class="en">🔗 Save &amp; share</span><span class="th">🔗 บันทึก &amp; แชร์</span></span></button><button class="btn ghost sm" id="full" style="margin-left:8px"><span class="bi inl"><span class="en">⛶ Full</span><span class="th">⛶ เต็มจอ</span></span></button></div>
         <div class="framewrap" id="framewrap">
           <iframe id="frame" sandbox="allow-scripts allow-popups allow-modals allow-forms" title="preview"></iframe>
           <div class="empty bi" id="emptyNote"><span class="en">Your rendered demo appears here.</span><span class="th">เดโม่ที่เรนเดอร์จะปรากฏที่นี่</span></div>
@@ -70,10 +70,20 @@
       </div>
     </div>
 
+    <div class="card accent" id="sharebox" style="display:none;margin-top:16px">
+      <div style="font-weight:800;font-size:14px" class="bi inl"><span class="en">🔗 Your demo link — paste this into Submit</span><span class="th">🔗 ลิงก์เดโม่ของคุณ — เอาไปวางในหน้าส่งงาน</span></div>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center">
+        <input class="in" id="sharelink" readonly style="flex:1;min-width:220px;font-family:var(--mono);font-size:13px" />
+        <button class="btn sm" id="copylink"><span class="bi inl"><span class="en">Copy link</span><span class="th">คัดลอกลิงก์</span></span></button>
+        <a class="btn ghost sm" href="submit.html"><span class="bi inl"><span class="en">→ Submit</span><span class="th">→ ส่งงาน</span></span></a>
+      </div>
+      <div class="bi" style="font-size:12.5px;color:var(--text3);margin-top:9px"><span class="en">The board opens this link when your team is on stage — it renders your demo live.</span><span class="th">บอร์ดจะเปิดลิงก์นี้ตอนทีมเราขึ้นเวที แล้วเดโม่จะเรนเดอร์สด ๆ</span></div>
+    </div>
+
     <details class="howto pop">
       <summary class="bi inl"><span class="en">📋 The prompt that gets good single-file HTML</span><span class="th">📋 พรอมป์ที่ได้ HTML ไฟล์เดียวที่ดี</span></summary>
       <div class="howc">
-        <p style="font-size:13px;color:var(--text2)" class="bi"><span class="en">Paste your idea where it says [your idea], run it in the portal, then copy the whole code block it returns.</span><span class="th">วางไอเดียตรง [ไอเดียของคุณ] รันในพอร์ทัล แล้วคัดลอกบล็อกโค้ดทั้งหมดที่ได้</span></p>
+        <p style="font-size:13px;color:var(--text2)" class="bi"><span class="en">Paste your idea where it says [your idea], run it in the portal, then copy the whole code block it returns.</span><span class="th">วางไอเดียของเราตรงช่อง [ไอเดียของคุณ] รันในพอร์ทัล แล้วคัดลอกบล็อกโค้ดทั้งหมดที่ได้กลับมา</span></p>
         <div class="promptbox" id="ptext"><button class="btn sm copyb" id="copyP"><span class="bi inl"><span class="en">Copy</span><span class="th">คัดลอก</span></span></button>Build a single, self-contained HTML file for a clickable mockup of: [your idea].
 Requirements:
 - Everything inline — CSS in a &lt;style&gt; tag, JS in a &lt;script&gt; tag.
@@ -81,7 +91,7 @@ Requirements:
 - It must work offline as one saved .html file.
 - Modern, clean, mobile-friendly. Make the key buttons actually do something on click.
 Output ONLY the HTML code, nothing else.</div>
-        <p style="font-size:12.5px;color:var(--text3);margin-top:10px" class="bi"><span class="en">Tip: if it pasted with “&lt;” showing as text or got cut off, ask the portal to “resend the full file in one code block.”</span><span class="th">เคล็ดลับ: ถ้าโค้ดโดนตัดหรือแสดงผิด ให้บอกพอร์ทัลว่า “ส่งไฟล์เต็มในบล็อกโค้ดเดียวอีกครั้ง”</span></p>
+        <p style="font-size:12.5px;color:var(--text3);margin-top:10px" class="bi"><span class="en">Tip: if it pasted with “&lt;” showing as text or got cut off, ask the portal to “resend the full file in one code block.”</span><span class="th">เคล็ดลับ: ถ้าโค้ดถูกตัดขาด หรือ “&lt;” โผล่มาเป็นตัวหนังสือ ให้บอกพอร์ทัลว่า “ส่งไฟล์เต็มในบล็อกโค้ดเดียวอีกครั้ง”</span></p>
       </div>
     </details>
   </section>
@@ -116,6 +126,39 @@ Output ONLY the HTML code, nothing else.</div>
     var btn=e.currentTarget, txt=document.getElementById('ptext').innerText.replace(/^Copy\s*|^คัดลอก\s*/,'').trim();
     navigator.clipboard.writeText(txt).then(function(){ KX.toast(KX.TH()?'คัดลอกพรอมป์แล้ว':'Prompt copied','good'); });
   });
+
+  /* ---- Save & share: store the HTML, hand back a board-openable link ---- */
+  var base=location.href.replace(/preview\.html.*$/,'').replace(/[?#].*$/,'');
+  var saveBtn=document.getElementById('save');
+  saveBtn.addEventListener('click',function(){
+    if(!code.value.trim()){ KX.toast(KX.TH()?'วาง HTML ก่อนนะ':'Paste some HTML first','bad'); return; }
+    saveBtn.disabled=true; saveBtn.innerHTML='<span class="bi inl"><span class="en">Saving…</span><span class="th">กำลังบันทึก…</span></span>';
+    window.DB.saveDemo(code.value).then(function(row){
+      var link=base+'preview.html?id='+(row&&row.id);
+      document.getElementById('sharelink').value=link;
+      document.getElementById('sharebox').style.display='';
+      // hand the link to Submit automatically (pre-fills the demo field there)
+      try{ var d=JSON.parse(localStorage.getItem('kmitl:draft')||'{}'); d.demo_url=link; localStorage.setItem('kmitl:draft',JSON.stringify(d)); }catch(e){}
+      saveBtn.disabled=false; saveBtn.innerHTML='<span class="bi inl"><span class="en">🔗 Save &amp; share</span><span class="th">🔗 บันทึก &amp; แชร์</span></span>';
+      KX.toast(KX.TH()?'บันทึกแล้ว — ลิงก์พร้อมแชร์':'Saved — link ready','good');
+      document.getElementById('sharebox').scrollIntoView({behavior:'smooth',block:'center'});
+    }).catch(function(e){
+      saveBtn.disabled=false; saveBtn.innerHTML='<span class="bi inl"><span class="en">🔗 Save &amp; share</span><span class="th">🔗 บันทึก &amp; แชร์</span></span>';
+      KX.toast((KX.TH()?'บันทึกไม่สำเร็จ: ':'Save failed: ')+e.message,'bad');
+    });
+  });
+  document.getElementById('copylink').addEventListener('click',function(){
+    navigator.clipboard.writeText(document.getElementById('sharelink').value).then(function(){ KX.toast(KX.TH()?'คัดลอกลิงก์แล้ว':'Link copied','good'); });
+  });
+
+  /* ---- viewing a saved demo (board opens preview.html?id=…) ---- */
+  var qid=new URLSearchParams(location.search).get('id');
+  if(qid){
+    window.DB.getDemo(qid).then(function(html){
+      if(html){ code.value=html; render(); present(true); }
+      else KX.toast(KX.TH()?'ไม่พบเดโม่นี้':'Demo not found','bad');
+    }).catch(function(e){ KX.toast((KX.TH()?'โหลดเดโม่ไม่สำเร็จ: ':'Could not load demo: ')+e.message,'bad'); });
+  }
 })();
 </script>
 </body>

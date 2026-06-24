@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Run-of-Show (facilitators)</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  main.page{max-width:980px}
+  table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--clay2)}
+  td b{color:var(--text)}
+  .card ul{margin:0 0 0 18px}.card li{margin:6px 0;font-size:14px;color:var(--text2)}.card li b{color:var(--text)}
+  @media print{.bg,header.xtop{display:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body data-lang="en" data-page="">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+<main class="page">
+<section class="section">
+  <p class="kicker">KMITL · From Lab to Funding · 28 Jun 2026</p>
+  <h1 class="big">Facilitator Run-of-Show</h1>
+  <p class="lede">One room, ~2.5–3 hours, 30–65 students, two facilitators. <b>Prom</b> drives AI tooling, demos &amp; the build/prompts. <b>Chao</b> drives business mindset, the money/grants &amp; grading. Live site: <b>kmitl-bootcamp.vercel.app</b>.</p>
+  <p class="th" style="color:var(--text2)">บทสรุปสำหรับผู้ดำเนินรายการ — งาน 2.5–3 ชม. นักศึกษา 30–65 คน · Prom = เครื่องมือ AI &amp; เดโม, Chao = แนวคิดธุรกิจ &amp; ทุน &amp; การให้คะแนน</p>
+</section>
+
+<section class="section">
+  <h2 class="mid">Before doors open — Setup checklist</h2>
+  <p class="th" style="color:var(--text2)">เช็กลิสต์ก่อนเริ่ม</p>
+  <div class="card">
+    <ul>
+      <li><b>Projector → board.html</b> full-screen. The floating QR (bottom-right) sends students to <b>vote.html</b> — confirm it shows the live URL.</li>
+      <li><b>DELETE the 3 "DEMO ·" rehearsal teams</b> before students arrive — 🗑 on each board card, or the cleanup command. Room must be empty at start.</li>
+      <li><b>Wi-Fi + uni AI portal open</b> (Claude / GPT / Gemini). Remember: <b>plain chat</b> — web search + image gen, <b>NO Artifacts</b>.</li>
+      <li><b>Demo paths ready:</b> Gemini Image, single-file HTML → <b>preview.html</b> (Save &amp; share → link), or Google Stitch share link. Have one prepared example.</li>
+      <li>Open tabs in order: icebreaker → learn → lab → preview → submit → vote → board.</li>
+      <li>Hard-refresh the board once to pull the latest deploy. Reset votes / clear stage.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="mid">Block-by-block — Timed agenda</h2>
+  <p class="th" style="color:var(--text2)">กำหนดการแบบแบ่งช่วง (รวม ~165 นาที)</p>
+  <div class="card">
+    <table>
+      <thead><tr><th>Block</th><th>Min</th><th>Leads</th><th>What happens</th><th>Page</th></tr></thead>
+      <tbody>
+        <tr><td><b>0. Welcome &amp; frame</b><br><span class="th" style="color:var(--text2)">เปิดงาน</span></td><td>5</td><td>Prom + Chao</td><td>Both intro themselves and the arc: today you go from a lab problem to a funded-looking pitch. Point at the board + QR. One rule: build, don't perfect.</td><td>—</td></tr>
+        <tr><td><b>1. Icebreaker</b><br><span class="th" style="color:var(--text2)">ละลายพฤติกรรม</span></td><td>15</td><td>Prom + Chao</td><td>Two-truths about Prom &amp; Chao. Then students post to the "a problem that bugs you" wall — seeds ideas. Read 3–4 aloud.</td><td>icebreaker.html</td></tr>
+        <tr><td><b>2. Lean-startup lesson</b><br><span class="th" style="color:var(--text2)">บทเรียน</span></td><td>25</td><td>Chao</td><td>Walk the 11 slides: problem → customer → MVP → build-measure-learn → the money/grants angle. Prom chips in where AI speeds each step.</td><td>learn.html</td></tr>
+        <tr><td><b>3. Form teams + pick an idea</b><br><span class="th" style="color:var(--text2)">จับกลุ่ม &amp; เลือกไอเดีย</span></td><td>15</td><td>Chao</td><td>Teams of 3–5. Each picks from the 15 ideas (or their own from the wall) and taps <b>Work on this</b>. Chao circulates on customer/problem fit.</td><td>lab.html</td></tr>
+        <tr><td><b>4. AI tooling demo</b><br><span class="th" style="color:var(--text2)">สาธิต AI</span></td><td>20</td><td>Prom</td><td>Live walkthrough of the customized prompt pack + model-routing (Claude vs GPT vs Gemini). Constraint up front: NO Artifacts → Gemini Image, HTML→Preview, or Stitch.</td><td>lab.html</td></tr>
+        <tr><td><b>5. Build sprint</b><br><span class="th" style="color:var(--text2)">ลงมือสร้าง</span></td><td>40</td><td>Prom (Chao floats)</td><td>Teams prompt the AI for their MVP, then render the demo (paste HTML into Preview → Save &amp; share, or Stitch/Gemini). Prom unblocks prompts; Chao pressure-tests the business.</td><td>lab → preview</td></tr>
+        <tr><td><b>6. Submit MVP card</b><br><span class="th" style="color:var(--text2)">ส่งการ์ด</span></td><td>10</td><td>Prom</td><td>Each team submits the MVP card (pre-filled from their chosen product) + paste the demo link. Cards appear live on the board.</td><td>submit → board</td></tr>
+        <tr><td><b>7. Gallery walk + pitches</b><br><span class="th" style="color:var(--text2)">พิตช์</span></td><td>20</td><td>Prom + Chao</td><td>Bring each card on stage, open its demo. 60–90s lightning pitch. Chao asks the funding question; Prom the build question.</td><td>board.html</td></tr>
+        <tr><td><b>8. Live pivot/persevere vote</b><br><span class="th" style="color:var(--text2)">โหวต</span></td><td>15</td><td>Prom + Chao</td><td>Room scans the board QR → votes pivot/persevere on the staged team; results render live. Reset votes between teams.</td><td>vote → board</td></tr>
+        <tr><td><b>9. Grading + radar</b><br><span class="th" style="color:var(--text2)">ให้คะแนน</span></td><td>15</td><td>Chao</td><td>Score each team on the weighted rubric; the radar updates live so students see the shape of a fundable idea.</td><td>board.html</td></tr>
+        <tr><td><b>10. Wrap: lab → funding</b><br><span class="th" style="color:var(--text2)">ปิดท้าย</span></td><td>10</td><td>Chao + Prom</td><td>Chao ties to grants &amp; next steps; Prom recaps the reusable AI workflow. Share the live URL so they keep building.</td><td>board.html</td></tr>
+      </tbody>
+    </table>
+    <p class="lede" style="margin-top:14px;font-size:14px">Total ≈ 165 min. Tight room? Trim Build to 30 and Gallery to 15. Big room (60+)? Add 5 to Submit and run pitches in two waves.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="mid">Two things not to forget</h2>
+  <div class="card">
+    <ul>
+      <li><b>No Artifacts.</b> If a student expects an interactive app from the chat, redirect: Gemini Image for visuals, or paste single-file HTML into <b>preview.html</b> (then Save &amp; share for a board link).</li>
+      <li><b>Kill the DEMO teams first.</b> The 3 "DEMO ·" cards are rehearsal only — delete them on the board before students submit, or the gallery and rubric get polluted.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

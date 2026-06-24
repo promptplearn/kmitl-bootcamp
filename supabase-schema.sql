@@ -36,11 +36,21 @@ create table if not exists room_state (
   updated_at timestamptz not null default now()
 );
 
+-- Stores HTML prototypes built in the Preview page, so the board can open them
+create table if not exists demos (
+  id uuid primary key default gen_random_uuid(),
+  room text not null default 'default',
+  html text,
+  created_at timestamptz not null default now()
+);
+
 -- Open access for the workshop --------------------------------------
 alter table submissions enable row level security;
 alter table votes       enable row level security;
 alter table room_state  enable row level security;
+alter table demos       enable row level security;
 
 create policy "open submissions" on submissions for all using (true) with check (true);
 create policy "open votes"       on votes       for all using (true) with check (true);
 create policy "open room_state"  on room_state  for all using (true) with check (true);
+create policy "open demos"       on demos       for all using (true) with check (true);

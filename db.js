@@ -68,6 +68,14 @@
     },
     resetVotes: function (submissionId) {
       return sb("votes?submission_id=eq." + submissionId, { method: "DELETE", prefer: "return=minimal" });
+    },
+    saveDemo: function (html) {
+      return sb("demos", { method: "POST", body: { room: ROOM, html: html } })
+        .then(function (rows) { return rows && rows[0]; });
+    },
+    getDemo: function (id) {
+      return sb("demos?id=eq." + id + "&select=html&limit=1")
+        .then(function (rows) { return rows && rows[0] ? rows[0].html : null; });
     }
   };
 
@@ -107,7 +115,12 @@
     resetVotes: function (submissionId) {
       save("votes", load("votes", []).filter(function (x) { return x.submission_id !== submissionId; }));
       return Promise.resolve();
-    }
+    },
+    saveDemo: function (html) {
+      var d = load("demos", {}), id = uid(); d[id] = html; save("demos", d);
+      return Promise.resolve({ id: id });
+    },
+    getDemo: function (id) { return Promise.resolve(load("demos", {})[id] || null); }
   };
 
   // ---------- Public API ----------
@@ -137,6 +150,8 @@
     getActive: api("getActive"),
     castVote: api("castVote"),
     listVotes: api("listVotes"),
-    resetVotes: api("resetVotes")
+    resetVotes: api("resetVotes"),
+    saveDemo: api("saveDemo"),
+    getDemo: api("getDemo")
   };
 })();

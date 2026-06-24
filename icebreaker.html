@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>KMITL Bootcamp · Warm-up</title>
+<meta name="theme-color" content="#15161c" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wrap{max-width:980px;margin:0 auto}
+  /* section stepper */
+  .stepper{display:flex;gap:8px;justify-content:center;margin-top:18px}
+  .sdot{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:8px 16px;cursor:pointer;font-weight:700;font-size:13.5px;color:var(--text2)}
+  .sdot.on{border-color:var(--clay);background:var(--clay-dim);color:var(--clay2)}
+  .sec{display:none}
+  .sec.show{display:block;animation:fadein .4s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* two truths */
+  .people{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.people{grid-template-columns:1fr}}
+  .person{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:22px}
+  .person .ph{display:flex;align-items:center;gap:12px}
+  .person .av{font-size:38px;line-height:1}
+  .person .nm{font-weight:800;font-size:20px}
+  .person .rl{font-size:12.5px;color:var(--text2);font-family:var(--mono)}
+  .stmts{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .stmt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);background:var(--panel2);border-radius:13px;padding:13px 15px;transition:.25s}
+  .stmt .lt2{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--text2)}
+  .stmt .tx{font-size:15px;line-height:1.5}
+  .person.revealed .stmt.true{border-color:rgba(127,207,160,.5);background:var(--green-dim)}
+  .person.revealed .stmt.true .lt2{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+  .person.revealed .stmt.lie{border-color:rgba(229,138,138,.6);background:var(--rose-dim)}
+  .person.revealed .stmt.lie .lt2{background:var(--rose-dim);border-color:var(--rose);color:var(--rose)}
+  .person.revealed .stmt.lie .tx::after{content:" ← โกหก! / the lie";color:var(--rose);font-weight:700;font-size:13px}
+  .revealbtn{margin-top:16px;width:100%}
+  .edit-note{margin-top:14px;border:1px dashed var(--line2);border-radius:12px;padding:11px 14px;font-size:12.5px;color:var(--text2)}
+  .edit-note b{color:var(--clay2)}
+
+  /* spark wall */
+  .sparkform{border:1px solid var(--line2);background:var(--panel);border-radius:var(--r);padding:20px;margin-top:20px}
+  .sparkrow{display:grid;grid-template-columns:1fr 2fr auto;gap:12px;align-items:end}
+  @media(max-width:680px){.sparkrow{grid-template-columns:1fr}}
+  .wall{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
+  .bub{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:12px 15px;max-width:280px;animation:fadein .4s ease}
+  .bub .who2{font-size:11.5px;font-weight:700;color:var(--clay2);font-family:var(--mono);margin-bottom:3px}
+  .bub .pr{font-size:14.5px;color:var(--text);line-height:1.45;overflow-wrap:anywhere}
+  .wallcount{font-family:var(--mono);font-size:13px;color:var(--text2);margin-top:18px}
+  .wallempty{color:var(--text3);font-size:14px;text-align:center;padding:30px}
+  .facrow{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body data-lang="en" data-page="icebreaker">
+<div class="bg"><div class="bg-glow"></div><div class="bg-dots"></div></div>
+
+<main class="page">
+  <section class="wrap">
+    <div class="kicker pop">Warm-up · วอร์มอัพ · ~10 min</div>
+    <h1 class="big pop bi" style="font-size:clamp(27px,4.6vw,44px)"><span class="en">Before we dive in — <span class="em">let's warm up</span></span><span class="th">ก่อนจะเริ่มกันจริงจัง — <span class="em">มาวอร์มอัพกันก่อน</span></span></h1>
+    <p class="lede pop bi"><span class="en">No pressure, no wrong answers. Get to know your facilitators, then your phone becomes your tool for the whole afternoon.</span><span class="th">ไม่ต้องเกร็ง ไม่มีคำตอบผิด มาทำความรู้จักทีมผู้สอนกันก่อน แล้วมือถือของคุณจะกลายเป็นเครื่องมือตลอดบ่ายนี้</span></p>
+
+    <div class="stepper pop">
+      <button class="sdot on" data-sec="0"><span class="bi inl"><span class="en">1 · Spot the lie</span><span class="th">1 · จับผิดข้อโกหก</span></span></button>
+      <button class="sdot" data-sec="1"><span class="bi inl"><span class="en">2 · What bugs you?</span><span class="th">2 · อะไรกวนใจคุณ</span></span></button>
+    </div>
+
+    <!-- SECTION 1: TWO TRUTHS & A LIE -->
+    <div class="sec show" id="sec0">
+      <h2 class="mid pop bi" style="margin-top:26px;font-size:clamp(20px,3vw,28px)"><span class="en">Meet Prom &amp; Chao — <span class="em">which one's the lie?</span></span><span class="th">รู้จักพรหมกับเฉา — <span class="em">ข้อไหนคือเรื่องโกหก?</span></span></h2>
+      <p class="lede pop bi" style="margin-top:10px"><span class="en">Two of these are true, one is made up. Shout out your guess — then we reveal it.</span><span class="th">สองข้อเป็นเรื่องจริง อีกหนึ่งข้อกุขึ้นมา ทายดัง ๆ เลย แล้วเดี๋ยวเราเฉลย</span></p>
+      <div class="people" id="people"></div>
+      <div class="edit-note bi"><span class="en"><b>✎ Facilitators:</b> edit your three statements in the file (top of the script) before the session — keep 2 true, 1 false. Placeholders are below.</span><span class="th"><b>✎ ทีมผู้สอน:</b> แก้ 3 ข้อความของแต่ละคนในไฟล์ (ส่วนบนของสคริปต์) ก่อนเริ่ม — ให้จริง 2 โกหก 1 ตอนนี้เป็นตัวอย่างไว้ก่อน</span></div>
+      <div class="facrow"><button class="btn ghost sm" id="toSpark"><span class="bi inl"><span class="en">Next: your turn →</span><span class="th">ต่อไป: ตาคุณแล้ว →</span></span></button></div>
+    </div>
+
+    <!-- SECTION 2: SPARK WALL -->
+    <div class="sec" id="sec1">
+      <h2 class="mid pop bi" style="margin-top:26px;font-size:clamp(20px,3vw,28px)"><span class="en">What's a problem that <span class="em">bugs you?</span></span><span class="th">มีปัญหาอะไรที่<span class="em">กวนใจคุณบ้าง?</span></span></h2>
+      <p class="lede pop bi" style="margin-top:10px"><span class="en">One annoying thing from your week — anything. Post it from your phone; it pops up on the screen. These become raw material for the ideas you'll build today.</span><span class="th">เรื่องน่าหงุดหงิดสักอย่างในสัปดาห์นี้ อะไรก็ได้ โพสต์จากมือถือแล้วมันจะขึ้นบนจอ สิ่งเหล่านี้แหละคือวัตถุดิบของไอเดียที่คุณจะสร้างวันนี้</span></p>
+
+      <div class="sparkform pop">
+        <div class="sparkrow">
+          <div class="field" style="margin:0"><label class="bi"><span class="en">Your name / nickname</span><span class="th">ชื่อ / ชื่อเล่น</span></label><input class="in" id="who" maxlength="40" placeholder="e.g. Beam" /></div>
+          <div class="field" style="margin:0"><label class="bi"><span class="en">A problem that annoys you</span><span class="th">ปัญหาที่กวนใจคุณ</span></label><input class="in" id="pr" maxlength="160" placeholder="e.g. หาที่จอดรถในเมืองยากมาก / parking in the city is impossible" /></div>
+          <button class="btn" id="post"><span class="bi inl"><span class="en">Post</span><span class="th">โพสต์</span></span></button>
+        </div>
+      </div>
+
+      <div class="wallcount" id="wallcount"></div>
+      <div class="wall" id="wall"></div>
+      <div class="wallempty bi" id="wallempty"><span class="en">No problems posted yet — be the first.</span><span class="th">ยังไม่มีใครโพสต์ — เป็นคนแรกเลย</span></div>
+
+      <div class="facrow">
+        <a class="btn" href="learn.html"><span class="bi inl"><span class="en">Start the lesson →</span><span class="th">เริ่มบทเรียน →</span></span></a>
+        <button class="btn ghost sm" id="clearWall"><span class="bi inl"><span class="en">↺ Facilitator: clear wall</span><span class="th">↺ ผู้สอน: ล้างกระดาน</span></span></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script>/* isolate the warm-up in its own room so the spark wall never touches the real board */
+  if(window.KMITL_CONFIG) window.KMITL_CONFIG.ROOM = (window.KMITL_CONFIG.ROOM||'default') + '-ice';</script>
+<script src="db.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+
+  /* ===== EDIT ME — Prom & Chao, 2 truths + 1 lie each (lie:true on the false one) ===== */
+  var PEOPLE=[
+    { name:'พรหม · Prom', role:'AI & building', av:'🧑‍💻', stmts:[
+      { en:'I once built a working web app overnight using only AI.', th:'เคยใช้ AI ล้วน ๆ สร้างเว็บแอปใช้งานได้จริงในคืนเดียว', lie:false },
+      { en:'I can play two musical instruments.', th:'เล่นเครื่องดนตรีได้สองชนิด', lie:false },
+      { en:'I have never eaten durian in my life.', th:'ไม่เคยกินทุเรียนเลยสักครั้งในชีวิต', lie:true }
+    ]},
+    { name:'เฉา · Chao', role:'business & strategy', av:'🧑‍🏫', stmts:[
+      { en:'I have pitched to real investors before.', th:'เคยพิทช์ต่อหน้านักลงทุนตัวจริงมาแล้ว', lie:false },
+      { en:'I once ran a small business in school.', th:'เคยทำธุรกิจเล็ก ๆ ตั้งแต่สมัยเรียน', lie:false },
+      { en:'I can solve a Rubik\'s cube in under a minute.', th:'เล่นรูบิคจบได้ในเวลาไม่ถึงหนึ่งนาที', lie:true }
+    ]}
+  ];
+  /* ================================================================================== */
+
+  $('people').innerHTML=PEOPLE.map(function(p,pi){
+    var rows=p.stmts.map(function(s,si){
+      return '<div class="stmt" data-lie="'+(s.lie?1:0)+'"><span class="lt2">'+'ABC'[si]+'</span><span class="tx bi"><span class="en">'+KX.esc(s.en)+'</span><span class="th">'+KX.esc(s.th)+'</span></span></div>';
+    }).join('');
+    return '<div class="person" data-p="'+pi+'"><div class="ph"><span class="av">'+p.av+'</span><div><div class="nm">'+KX.esc(p.name)+'</div><div class="rl">'+KX.esc(p.role)+'</div></div></div>'+
+      '<div class="stmts">'+rows+'</div>'+
+      '<button class="btn revealbtn" data-reveal="'+pi+'"><span class="bi inl"><span class="en">Reveal the lie</span><span class="th">เฉลยข้อโกหก</span></span></button></div>';
+  }).join('');
+
+  $('people').addEventListener('click',function(e){
+    var b=e.target.closest('[data-reveal]'); if(!b) return;
+    var card=b.closest('.person'); card.classList.add('revealed');
+    [].slice.call(card.querySelectorAll('.stmt')).forEach(function(st){ st.classList.add(st.dataset.lie==='1'?'lie':'true'); });
+    b.style.display='none';
+  });
+
+  /* section stepper */
+  var dots=[].slice.call(document.querySelectorAll('.sdot'));
+  function showSec(n){ dots.forEach(function(d,i){d.classList.toggle('on',i===n);}); [].slice.call(document.querySelectorAll('.sec')).forEach(function(s,i){s.classList.toggle('show',i===n);}); }
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ showSec(i); }); });
+  $('toSpark').addEventListener('click',function(){ showSec(1); window.scrollTo({top:0,behavior:'smooth'}); });
+
+  /* ===== spark wall (reuses submissions table, isolated -ice room) ===== */
+  var posted={}; try{ posted=JSON.parse(localStorage.getItem('kmitl:sparked')||'{}'); }catch(e){}
+  function render(list){
+    var w=$('wall');
+    $('wallempty').style.display=list.length?'none':'';
+    $('wallcount').textContent=list.length?(list.length+(KX.TH()?' ปัญหา':' problem'+(list.length===1?'':'s'))):'';
+    w.innerHTML=list.slice().reverse().map(function(s){
+      return '<div class="bub"><div class="who2">'+KX.esc(s.team||'—')+'</div><div class="pr">'+KX.esc(s.problem||'')+'</div></div>';
+    }).join('');
+  }
+  function load(){ return window.DB.listSubmissions().then(render).catch(function(){}); }
+  var post=$('post');
+  post.addEventListener('click',function(){
+    var who=$('who').value.trim(), pr=$('pr').value.trim();
+    if(!pr){ KX.toast(KX.TH()?'พิมพ์ปัญหาก่อนนะ':'Type a problem first','bad'); $('pr').focus(); return; }
+    post.disabled=true;
+    window.DB.submitCard({ team: who||(KX.TH()?'ไม่ระบุชื่อ':'anon'), problem: pr }).then(function(){
+      $('pr').value=''; post.disabled=false;
+      KX.toast(KX.TH()?'ขึ้นจอแล้ว 🎉':'On the screen 🎉','good');
+      load();
+    }).catch(function(e){ post.disabled=false; KX.toast((KX.TH()?'โพสต์ไม่สำเร็จ ลองใหม่: ':'Failed — try again: ')+e.message,'bad'); });
+  });
+  $('clearWall').addEventListener('click',function(){
+    if(!confirm(KX.TH()?'ล้างปัญหาทั้งหมดบนกระดาน?':'Clear all posted problems?')) return;
+    window.DB.listSubmissions().then(function(list){
+      return Promise.all(list.map(function(s){ return window.DB.deleteSubmission(s.id); }));
+    }).then(load);
+  });
+  load(); setInterval(load, 2500);
+  KX.onLang(load);
+})();
+</script>
+</body>
+</html>

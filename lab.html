@@ -166,6 +166,29 @@
     .howrow .arrowmini{display:none}
   }
   .card.open .more{max-height:1400px}
+  /* choose-your-product progression */
+  .card.chosen{border-color:var(--clay);box-shadow:0 0 0 1px var(--clay)}
+  .card .pick{margin-top:8px;cursor:pointer;background:linear-gradient(180deg,var(--clay2),var(--clay));border:none;color:#2a140c;font-family:inherit;font-size:13px;font-weight:800;padding:11px;border-radius:10px;text-align:center;transition:.14s}
+  .card .pick:hover{transform:translateY(-1px)}
+  .card.chosen .pick{background:var(--green-dim);color:var(--green);border:1px solid var(--green);cursor:default}
+  .prograil{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .prograil .pr{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:99px;padding:6px 13px;background:var(--panel)}
+  .prograil .pr .n{width:18px;height:18px;border-radius:50%;background:var(--panel-soft);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--mono)}
+  .prograil .pr.done{color:var(--green);border-color:rgba(127,207,160,.4)}.prograil .pr.done .n{background:var(--green-dim);color:var(--green)}
+  .prograil .pr.now{color:var(--clay2);border-color:var(--clay)}.prograil .pr.now .n{background:var(--clay-dim);color:var(--clay2)}
+  .chosenbar{margin-top:16px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(217,119,87,.07),transparent);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px}
+  .chosenbar b{color:var(--clay2)}.chosenbar .note{font-size:12px;color:var(--text3)}.chosenbar.empty{border-style:dashed;border-color:var(--line);color:var(--text2);font-size:13px}
+  .ownbtn{margin-left:auto}
+  .ownform{margin-top:14px;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px;display:none}
+  .ownform.show{display:block}
+  .buildcard{margin-top:22px;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:20px}
+  .buildcard h4{font-size:14px;font-weight:800;color:var(--clay2);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+  .bopts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:680px){.bopts{grid-template-columns:1fr}}
+  .bopt{border:1px solid var(--line);border-radius:13px;padding:14px;background:var(--panel-soft)}
+  .bopt .bi2{font-weight:800;font-size:14px;margin-bottom:5px}
+  .bopt .bd2{font-size:12.5px;color:var(--text2);line-height:1.5}
+  .bopt a{color:var(--clay2);text-decoration:none;font-weight:700}
 </style>
 </head>
 <body data-lang="en">
@@ -225,8 +248,20 @@
   <section id="ideas">
     <div class="kicker">The idea bank · คลังไอเดีย</div>
     <h2 class="bi"><span class="en">Pick a product <span class="em">to build today</span></span><span class="th">เลือกผลิตภัณฑ์ <span class="em">มาสร้างวันนี้</span></span></h2>
-    <p class="lede bi"><span class="en">Tap a card to see the problem, who pays, why it’s fundable, and a starter MVP angle. The MVP is <b>yours to finalize</b> with the prompts.</span><span class="th">แตะการ์ดเพื่อดูปัญหา ใครจ่าย ทำไมขอทุนได้ และแนวทาง MVP เริ่มต้น ส่วน MVP <b>คุณเป็นคนสรุปเอง</b>ด้วยชุดพรอมป์</span></p>
-    <div class="filters" id="filters"></div>
+    <p class="lede bi"><span class="en">Tap <b>Details</b> to see the full picture, then <b>Work on this →</b> to make it your team's product — the prompts below auto-fill to match. Or add your own idea.</span><span class="th">แตะ <b>รายละเอียด</b> เพื่อดูภาพรวม แล้วกด <b>เลือกทำอันนี้ →</b> ให้เป็นผลิตภัณฑ์ของทีม — พรอมป์ด้านล่างจะปรับให้อัตโนมัติ หรือจะใส่ไอเดียของทีมเองก็ได้</span></p>
+    <div id="progRail" class="prograil"></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px">
+      <div class="filters" id="filters" style="margin:0;flex:1"></div>
+      <button class="btn ghost sm ownbtn" id="ownToggle"><span class="bi inl"><span class="en">+ Use our own idea</span><span class="th">+ ใส่ไอเดียของทีมเอง</span></span></button>
+    </div>
+    <div class="ownform" id="ownForm">
+      <div class="grid2">
+        <div class="field" style="margin:0"><label class="bi"><span class="en">Idea name</span><span class="th">ชื่อไอเดีย</span></label><input class="in" id="ownName" maxlength="60" placeholder="e.g. FarmCredit" /></div>
+        <div class="field" style="margin:0"><label class="bi"><span class="en">One line — what it does</span><span class="th">หนึ่งบรรทัด — ทำอะไร</span></label><input class="in" id="ownOne" maxlength="160" placeholder="e.g. AI credit scoring for smallholder farmers" /></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label class="bi"><span class="en">The problem (optional)</span><span class="th">ปัญหา (ไม่บังคับ)</span></label><input class="in" id="ownProblem" maxlength="200" placeholder="" /></div>
+      <button class="btn sm" id="ownSave" style="margin-top:6px"><span class="bi inl"><span class="en">Work on this →</span><span class="th">เลือกทำอันนี้ →</span></span></button>
+    </div>
     <div class="grid" id="grid"></div>
   </section>
 
@@ -244,10 +279,21 @@
         <div class="mitem"><span class="me">⚙️</span><span class="bi"><span class="en"><b>Effort “Medium”</b> is fine for most prompts; bump it up only for hard analysis.</span><span class="th"><b>Effort “Medium”</b> พอสำหรับงานทั่วไป เพิ่มเฉพาะงานวิเคราะห์หนัก ๆ</span></span></div>
         <div class="mitem"><span class="me">👁️</span><span class="bi"><span class="en"><b>Got a photo?</b> Attach it (📎) and ask the model to describe or improve it.</span><span class="th"><b>มีรูปอยู่แล้ว?</b> แนบ (📎) แล้วให้โมเดลอธิบายหรือปรับให้</span></span></div>
       </div>
-      <div class="quota bi"><span class="en">⚡ Quota is shared (~1000). Images &amp; 💎 Pro models cost more — do research in text, then generate just 1–2 key visuals. Don't spam.</span><span class="th">⚡ โควต้าใช้ร่วมกัน (~1000) ภาพและโมเดล 💎 Pro กินโควต้าเยอะ — รีเสิร์ชด้วยข้อความก่อน แล้วค่อยสร้างภาพสำคัญ 1–2 รูป อย่ายิงรัว</span></div>
+      <div class="quota bi"><span class="en">⚡ Quota is shared (~1000). Images &amp; 💎 Pro models cost more — do research in text, then generate just 1–2 key visuals. Don't spam.</span><span class="th">⚡ โควต้าใช้ร่วมกัน (~1000) ภาพและโมเดล 💎 Pro กินโควต้าเยอะ — รีเสิร์ชด้วยข้อความก่อน แล้วค่อยสร้างเฉพาะภาพสำคัญ 1–2 รูป อย่าสร้างรัว ๆ</span></div>
     </div>
 
+    <div id="chosenBar"></div>
     <div class="prompts" id="prompts-list"></div>
+
+    <div class="buildcard">
+      <h4 class="bi inl"><span class="en">Build your demo · 3 ways</span><span class="th">ทำเดโม่ · 3 ทาง</span></h4>
+      <div class="bopts">
+        <div class="bopt"><div class="bi2 bi inl"><span class="en">🎨 Image mockup</span><span class="th">🎨 ภาพม็อกอัพ</span></div><div class="bd2 bi"><span class="en">Use Prompt 5 with a Gemini Image model. See <a href="examples.html">worked examples →</a></span><span class="th">ใช้พรอมป์ 5 กับโมเดล Gemini Image · ดู <a href="examples.html">ตัวอย่าง →</a></span></div></div>
+        <div class="bopt"><div class="bi2 bi inl"><span class="en">💻 Clickable HTML</span><span class="th">💻 HTML กดได้</span></div><div class="bd2 bi"><span class="en">Use Prompt 6, paste the code into the <a href="preview.html">Preview page →</a> then Save &amp; share.</span><span class="th">ใช้พรอมป์ 6 วางโค้ดที่ <a href="preview.html">หน้า Preview →</a> แล้วกด Save &amp; share</span></div></div>
+        <div class="bopt"><div class="bi2 bi inl"><span class="en">✨ Polished UI (Stitch)</span><span class="th">✨ UI สวย (Stitch)</span></div><div class="bd2 bi"><span class="en">Design a real UI at <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a>, then paste its share link as your demo.</span><span class="th">ออกแบบ UI ที่ <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Google Stitch ↗</a> แล้ววางลิงก์แชร์เป็นเดโม่</span></div></div>
+      </div>
+      <div style="margin-top:16px;text-align:center"><a class="btn" href="submit.html"><span class="bi inl"><span class="en">Got your card &amp; demo? Submit →</span><span class="th">การ์ดกับเดโม่พร้อมแล้ว? ส่งเลย →</span></span></a></div>
+    </div>
   </section>
 
   <!-- PRESENT -->
@@ -258,7 +304,7 @@
       <div class="step"><div class="sn">1</div><div class="sh bi inl"><span class="en">Pick</span><span class="th">เลือก</span></div><div class="sd bi"><span class="en">Your own idea, or one card from the bank. Decide in 2 minutes.</span><span class="th">ไอเดียตัวเอง หรือหนึ่งการ์ด ตัดสินใน 2 นาที</span></div></div>
       <div class="step"><div class="sn">2</div><div class="sh bi inl"><span class="en">Run prompts</span><span class="th">รันพรอมป์</span></div><div class="sd bi"><span class="en">1 → 7 in the portal. Research, MVP, then a demo (image or HTML).</span><span class="th">1 → 7 ในพอร์ทัล รีเสิร์ช MVP แล้วทำเดโม่ (ภาพ หรือ HTML)</span></div></div>
       <div class="step"><div class="sn">3</div><div class="sh bi inl"><span class="en">Show &amp; tell</span><span class="th">โชว์และเล่า</span></div><div class="sd bi"><span class="en">90-second pitch + show your image, or your HTML on the Preview page.</span><span class="th">พิทช์ 90 วิ + โชว์ภาพ หรือ HTML ที่หน้า Preview</span></div></div>
-      <div class="step"><div class="sn">4</div><div class="sh bi inl"><span class="en">Get judged</span><span class="th">ถูกตัดสิน</span></div><div class="sd bi"><span class="en">The room votes pivot or persevere, and scores you on the rubric.</span><span class="th">ห้องโหวตพิวอตหรือไปต่อ และให้คะแนนตามรูบริก</span></div></div>
+      <div class="step"><div class="sn">4</div><div class="sh bi inl"><span class="en">Get judged</span><span class="th">รับคำตัดสิน</span></div><div class="sd bi"><span class="en">The room votes pivot or persevere, and scores you on the rubric.</span><span class="th">เพื่อนในห้องโหวตพิวอตหรือไปต่อ และให้คะแนนตามรูบริก</span></div></div>
     </div>
     <div class="pitchbox">
       <h4 class="bi inl"><span class="en">The 90-second script · say these five lines</span><span class="th">สคริปต์ 90 วินาที · พูดห้าบรรทัดนี้</span></h4>
@@ -310,8 +356,8 @@
       one:{en:'AI companion + medication &amp; fall monitoring for aging-at-home, with a caregiver dashboard.',th:'เพื่อน AI + เตือนยาและตรวจจับการล้ม สำหรับผู้สูงวัยที่อยู่บ้าน พร้อมแดชบอร์ดผู้ดูแล'},
       problem:{en:'Thailand is an aged society; families can’t watch elders 24/7, and missed meds or falls turn into ER visits.',th:'ไทยเป็นสังคมสูงวัย ครอบครัวเฝ้าตลอดไม่ได้ ลืมกินยาหรือล้มกลายเป็นเข้าห้องฉุกเฉิน'},
       pays:{en:'Adult children &amp; care homes (subscription); LINE alerts to caregivers.',th:'ลูกหลานและศูนย์ดูแล (รายเดือน) แจ้งเตือนผ่าน LINE'},
-      fund:{en:'Rides the silver-economy wave (NIA priority); recurring revenue; sticky.',th:'อยู่บนคลื่นเศรษฐกิจผู้สูงวัย (NIA สนับสนุน) รายได้ต่อเนื่อง เลิกใช้ยาก'},
-      mvp:{en:'Clickable caregiver app + LINE alert mock; fake-door signup for families.',th:'แอปผู้ดูแลกดได้ + จำลองแจ้งเตือน LINE; หน้าสมัครหลอกสำหรับครอบครัว'},
+      fund:{en:'Rides the silver-economy wave (NIA priority); recurring revenue; sticky.',th:'อยู่บนคลื่นเศรษฐกิจผู้สูงวัย (NIA สนับสนุน) รายได้ต่อเนื่อง ผู้ใช้ติดแล้วเลิกยาก'},
+      mvp:{en:'Clickable caregiver app + LINE alert mock; fake-door signup for families.',th:'แอปผู้ดูแลกดได้ + จำลองแจ้งเตือน LINE; หน้าสมัครแบบ fake-door สำหรับครอบครัว'},
       risk:{en:'Will families pay monthly for peace of mind vs free reminders?',th:'ครอบครัวจะจ่ายรายเดือนเพื่อความสบายใจแทนแอปเตือนฟรีไหม'}},
 
     {ico:'🌾',cat:'Climate & Energy',group:'climate',
@@ -347,7 +393,7 @@
       problem:{en:'Construction &amp; farm workers collapse from heat as temperatures rise; employers face liability &amp; lost days.',th:'คนงานก่อสร้างและเกษตรล้มจากความร้อนเมื่ออุณหภูมิสูงขึ้น นายจ้างเสี่ยงความรับผิดและเสียวันทำงาน'},
       pays:{en:'Construction firms, farms, factories (per worker / B2B safety).',th:'บริษัทก่อสร้าง ฟาร์ม โรงงาน (รายคน / ความปลอดภัย B2B)'},
       fund:{en:'Climate-driven, timely, occupational-safety angle; recurring B2B revenue.',th:'ขับเคลื่อนด้วยสภาพภูมิอากาศ ทันเวลา มุมความปลอดภัยในงาน รายได้ B2B ต่อเนื่อง'},
-      mvp:{en:'Supervisor dashboard mock: worker risk levels + alerts; B2B fake-door page.',th:'ม็อกแดชบอร์ดหัวหน้างาน: ระดับความเสี่ยงคนงาน + แจ้งเตือน; หน้า B2B หลอก'},
+      mvp:{en:'Supervisor dashboard mock: worker risk levels + alerts; B2B fake-door page.',th:'ม็อกอัพแดชบอร์ดหัวหน้างาน: ระดับความเสี่ยงคนงาน + แจ้งเตือน; หน้า B2B แบบ fake-door'},
       risk:{en:'Will employers buy prevention before an incident forces them to?',th:'นายจ้างจะซื้อการป้องกันก่อนเกิดเหตุไหม'}},
 
     {ico:'🍱',cat:'Agri & Food',group:'agri',
@@ -371,10 +417,10 @@
     {ico:'🛵',cat:'Industry & Logistics',group:'industry',
       nm:{en:'Song-Wai',th:'ส่งไว'},
       one:{en:'AI route &amp; load optimization for last-mile motorbike fleets in dense Thai cities.',th:'AI จัดเส้นทางและโหลดสำหรับฟลีตมอเตอร์ไซค์ส่งของในเมืองไทยที่จราจรหนาแน่น'},
-      problem:{en:'Small delivery operators plan routes by gut — wasted fuel, late drops, idle riders.',th:'ผู้ให้บริการส่งของรายเล็กวางเส้นทางด้วยความรู้สึก เปลืองน้ำมัน ส่งช้า ไรเดอร์ว่างงาน'},
+      problem:{en:'Small delivery operators plan routes by gut — wasted fuel, late drops, idle riders.',th:'ผู้ให้บริการส่งของรายเล็กวางเส้นทางด้วยความรู้สึก เปลืองน้ำมัน ส่งช้า ไรเดอร์มีเวลาว่างเปล่า'},
       pays:{en:'SME logistics &amp; local merchants with riders (per-rider SaaS).',th:'โลจิสติกส์ SME และร้านค้าที่มีไรเดอร์ (SaaS รายไรเดอร์)'},
       fund:{en:'Optimization IP tuned for Thai traffic; clear cost savings; scalable software.',th:'เทคโนโลยีออปติไมซ์จูนสำหรับจราจรไทย ประหยัดต้นทุนชัด ซอฟต์แวร์ขยายได้'},
-      mvp:{en:'Map mock: 10 stops → optimized order + time saved; SME fake-door page.',th:'ม็อกแผนที่: 10 จุด → ลำดับที่ดีที่สุด + เวลาที่ประหยัด; หน้า SME หลอก'},
+      mvp:{en:'Map mock: 10 stops → optimized order + time saved; SME fake-door page.',th:'ม็อกอัพแผนที่: 10 จุด → ลำดับที่ดีที่สุด + เวลาที่ประหยัด; หน้า SME แบบ fake-door'},
       risk:{en:'Is the saving big enough that small operators switch tools?',th:'ประหยัดมากพอให้รายเล็กเปลี่ยนเครื่องมือไหม'}},
 
     {ico:'🌱',cat:'Software, Edu & Fintech',group:'soft',
@@ -392,7 +438,7 @@
       problem:{en:'Outbreaks are fought reactively after people are already sick; prevention is blind without forecasts.',th:'รับมือการระบาดหลังคนป่วยแล้ว การป้องกันมืดบอดถ้าไม่มีการพยากรณ์'},
       pays:{en:'Provincial health offices, municipalities, insurers (data subscription).',th:'สำนักงานสาธารณสุขจังหวัด เทศบาล บริษัทประกัน (สมัครรับข้อมูล)'},
       fund:{en:'Predictive public-health data product; high impact; repeatable nationwide.',th:'ผลิตภัณฑ์ข้อมูลสาธารณสุขเชิงทำนาย ผลกระทบสูง ขยายทั่วประเทศได้'},
-      mvp:{en:'Mock risk map by district + alert; landing page for a health office.',th:'ม็อกแผนที่ความเสี่ยงรายอำเภอ + แจ้งเตือน; หน้าแลนดิ้งสำหรับ สสจ.'},
+      mvp:{en:'Mock risk map by district + alert; landing page for a health office.',th:'ม็อกอัพแผนที่ความเสี่ยงรายอำเภอ + แจ้งเตือน; หน้าแลนดิ้งสำหรับ สสจ.'},
       risk:{en:'Is the forecast accurate &amp; early enough to drive action?',th:'พยากรณ์แม่นและล่วงหน้าพอจะกระตุ้นการลงมือไหม'}},
 
     {ico:'🗣️',cat:'Software, Edu & Fintech',group:'soft',
@@ -401,7 +447,7 @@
       problem:{en:'Clinics &amp; shops miss calls and lose bookings; hiring phone staff is expensive.',th:'คลินิกและร้านค้าพลาดสายและเสียการจอง จ้างพนักงานรับสายแพง'},
       pays:{en:'Clinics, salons, dealerships, SMEs (monthly per line).',th:'คลินิก ร้านเสริมสวย โชว์รูม SME (รายเดือนต่อสาย)'},
       fund:{en:'Thai voice-NLP moat; clear ROI (captured bookings); scalable SaaS.',th:'กำแพง NLP เสียงไทย ROI ชัด (จองที่ได้กลับมา) SaaS ขยายได้'},
-      mvp:{en:'Scripted voice/chat demo + a “bookings captured” dashboard mock; SME landing.',th:'เดโม่เสียง/แชตตามสคริปต์ + ม็อก “การจองที่ได้”; หน้าแลนดิ้ง SME'},
+      mvp:{en:'Scripted voice/chat demo + a “bookings captured” dashboard mock; SME landing.',th:'เดโม่เสียง/แชตตามสคริปต์ + ม็อกอัพ “การจองที่ได้”; หน้าแลนดิ้ง SME'},
       risk:{en:'Will customers accept talking to an AI receptionist in Thai?',th:'ลูกค้าจะยอมคุยกับ AI รับสายภาษาไทยไหม'}},
 
     {ico:'☀️',cat:'Climate & Energy',group:'climate',
@@ -410,7 +456,7 @@
       problem:{en:'Going solar is confusing &amp; quotes take weeks; most SMEs &amp; homes give up before installing.',th:'การติดโซลาร์ซับซ้อนและขอใบเสนอราคาเป็นสัปดาห์ ส่วนใหญ่ยอมแพ้ก่อนติด'},
       pays:{en:'Solar installers (qualified leads) &amp; financiers (referral).',th:'ผู้ติดตั้งโซลาร์ (ลูกค้าที่คัดแล้ว) และผู้ให้สินเชื่อ (ค่าแนะนำ)'},
       fund:{en:'AI sizing + lead engine in a booming energy market; clear unit economics.',th:'AI คำนวณ + เครื่องหาลูกค้าในตลาดพลังงานที่โต เศรษฐศาสตร์ต่อหน่วยชัด'},
-      mvp:{en:'Mock “bill + roof photo → instant quote” flow; installer fake-door page.',th:'จำลอง “บิล + รูปหลังคา → ใบเสนอราคาทันที”; หน้าผู้ติดตั้งหลอก'},
+      mvp:{en:'Mock “bill + roof photo → instant quote” flow; installer fake-door page.',th:'จำลอง “บิล + รูปหลังคา → ใบเสนอราคาทันที”; หน้าผู้ติดตั้งแบบ fake-door'},
       risk:{en:'Can a photo + bill produce a quote accurate enough to trust?',th:'รูป + บิล สร้างใบเสนอราคาแม่นพอให้เชื่อไหม'}},
 
     {ico:'🌿',cat:'Agri & Food',group:'agri',
@@ -419,7 +465,7 @@
       problem:{en:'Herbal exporters can\'t prove provenance or active-compound levels, so buyers won\'t pay premium.',th:'ผู้ส่งออกสมุนไพรพิสูจน์แหล่งที่มาและระดับสารสำคัญไม่ได้ ผู้ซื้อเลยไม่ยอมจ่ายพรีเมียม'},
       pays:{en:'Herbal/cosmetic exporters &amp; brands (per batch / subscription).',th:'ผู้ส่งออกและแบรนด์สมุนไพร/เครื่องสำอาง (รายล็อต / รายเดือน)'},
       fund:{en:'Traceability + compound-prediction IP unlocks premium export pricing; defensible.',th:'เทคโนโลยีตรวจสอบย้อนกลับ + ทำนายสารสำคัญ ปลดล็อกราคาส่งออกพรีเมียม ลอกยาก'},
-      mvp:{en:'Mock product page with a verified origin/potency badge + buyer-facing landing.',th:'ม็อกหน้าสินค้าพร้อมตรายืนยันแหล่งที่มา/สารสำคัญ + หน้าแลนดิ้งสำหรับผู้ซื้อ'},
+      mvp:{en:'Mock product page with a verified origin/potency badge + buyer-facing landing.',th:'ม็อกอัพหน้าสินค้าพร้อมตรายืนยันแหล่งที่มา/สารสำคัญ + หน้าแลนดิ้งสำหรับผู้ซื้อ'},
       risk:{en:'Will overseas buyers pay more for verified provenance?',th:'ผู้ซื้อต่างประเทศจะจ่ายเพิ่มเพื่อแหล่งที่มาที่ยืนยันแล้วไหม'}}
   ];
 
@@ -441,10 +487,46 @@
   /* grid */
   var gEl=document.getElementById('grid');
   function L(en){var labs={problem:{en:'The problem',th:'ปัญหา'},pays:{en:'Who pays',th:'ใครจ่าย'},fund:{en:'Why fundable',th:'ทำไมขอทุนได้'},mvp:{en:'Starter MVP angle',th:'แนวทาง MVP เริ่มต้น'},risk:{en:'Riskiest assumption',th:'สมมติฐานเสี่ยงสุด'}};return labs[en];}
+  /* ---------- chosen product (progression + prompt customization) ---------- */
+  var chosen=null; try{ chosen=JSON.parse(localStorage.getItem('kmitl:chosen')||'null'); }catch(e){}
+  function L2(o){ return o? (document.body.dataset.lang==='th'? (o.th||o.en) : (o.en||o.th)) : ''; }
+  function setChosen(c){
+    chosen=c;
+    if(c) localStorage.setItem('kmitl:chosen',JSON.stringify(c)); else localStorage.removeItem('kmitl:chosen');
+    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts();
+  }
+  function contextBlock(){
+    if(!chosen) return '';
+    var th=document.body.dataset.lang==='th', out=[ th?'[บริบทผลิตภัณฑ์ของทีมเรา]':'[My team\'s product context]' ];
+    out.push((th?'ไอเดีย: ':'Idea: ')+L2(chosen.name)+(L2(chosen.one)?' — '+L2(chosen.one):''));
+    if(L2(chosen.problem)) out.push((th?'ปัญหา: ':'Problem: ')+L2(chosen.problem));
+    if(L2(chosen.pays)) out.push((th?'ใครจ่าย: ':'Who pays: ')+L2(chosen.pays));
+    if(L2(chosen.risk)) out.push((th?'สมมติฐานเสี่ยงสุด: ':'Riskiest assumption: ')+L2(chosen.risk));
+    return out.join('\n')+'\n\n';
+  }
+  function renderProgRail(){
+    var th=document.body.dataset.lang==='th';
+    var steps=[{en:'Choose',th:'เลือก'},{en:'Research',th:'รีเสิร์ช'},{en:'Build',th:'สร้าง'},{en:'Submit',th:'ส่ง'}];
+    document.getElementById('progRail').innerHTML=steps.map(function(s,i){
+      var cls=chosen? (i===0?'done':i===1?'now':'') : (i===0?'now':'');
+      return '<span class="pr '+cls+'"><span class="n">'+(chosen&&i===0?'✓':(i+1))+'</span>'+(th?s.th:s.en)+'</span>';
+    }).join('');
+  }
+  function renderChosenBar(){
+    var bar=document.getElementById('chosenBar'), th=document.body.dataset.lang==='th';
+    if(chosen){
+      bar.innerHTML='<div class="chosenbar"><span>'+(th?'กำลังทำ:':'You\'re building:')+' <b>'+esc2(L2(chosen.name))+'</b></span><span class="note">'+(th?'· บริบทถูกเติมในทุกพรอมป์อัตโนมัติ':'· auto-added to every prompt below')+'</span><button class="btn ghost sm" id="clearChosen" style="margin-left:auto">'+(th?'เปลี่ยน':'change')+'</button></div>';
+    } else {
+      bar.innerHTML='<div class="chosenbar empty">'+(th?'👆 เลือกผลิตภัณฑ์ด้านบน (หรือใส่ไอเดียของทีม) แล้วพรอมป์จะปรับให้อัตโนมัติ':'👆 choose a product above (or add your own) — the prompts will auto-fill to match')+'</div>';
+    }
+  }
+  function esc2(s){return (s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
   function renderGrid(){
     gEl.innerHTML=IDEAS.map(function(d,i){
       if(cur!=='all'&&d.group!==cur)return '';
-      return '<div class="card" data-i="'+i+'">'
+      var isOn=chosen&&!chosen.custom&&chosen.i===i;
+      return '<div class="card'+(isOn?' chosen':'')+'" data-i="'+i+'">'
         +'<div class="top"><span class="ico">'+d.ico+'</span><div style="flex:1"><div class="nm">'+ (document.body.dataset.lang==='th'?d.nm.th:d.nm.en) +'</div><div class="cat">'+d.cat+'</div></div><span class="kv-badge" style="flex:0 0 auto;line-height:0" title="'+d.cat+'">'+ (window.KV?KV.domainBadge(d.group==='soft'?'software':d.group,30):'') +'</span></div>'
         +'<div class="one">'+biCol(d.one)+'</div>'
         +'<div class="more"><div class="more-inner">'
@@ -455,17 +537,34 @@
           +'<div class="field-mini risk"><div class="lab">'+ (document.body.dataset.lang==='th'?L('risk').th:L('risk').en) +'</div><div class="val">'+biCol(d.risk)+'</div></div>'
         +'</div></div>'
         +'<button class="toggle">'+ bi({en:'Details ▾',th:'รายละเอียด ▾'}) +'</button>'
+        +'<button class="pick" data-pick="'+i+'">'+ (isOn?bi({en:'✓ Working on this',th:'✓ กำลังทำอันนี้'}):bi({en:'Work on this →',th:'เลือกทำอันนี้ →'})) +'</button>'
       +'</div>';
     }).join('');
   }
-  renderGrid();
+  renderGrid(); renderChosenBar(); renderProgRail();
   fEl.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;[].slice.call(fEl.children).forEach(function(x){x.classList.toggle('on',x.dataset.f===cur);});renderGrid();});
-  gEl.addEventListener('click',function(e){var t=e.target.closest('.toggle');if(!t)return;var c=t.closest('.card');c.classList.toggle('open');t.innerHTML=c.classList.contains('open')?bi({en:'Hide ▴',th:'ซ่อน ▴'}):bi({en:'Details ▾',th:'รายละเอียด ▾'});});
+  gEl.addEventListener('click',function(e){
+    var p=e.target.closest('.pick');
+    if(p){ var d=IDEAS[+p.dataset.pick]; setChosen({i:+p.dataset.pick,custom:false,name:d.nm,one:d.one,problem:d.problem,pays:d.pays,risk:d.risk,mvp:d.mvp});
+      document.getElementById('prompts').scrollIntoView({behavior:'smooth'}); return; }
+    var t=e.target.closest('.toggle');if(!t)return;var c=t.closest('.card');c.classList.toggle('open');t.innerHTML=c.classList.contains('open')?bi({en:'Hide ▴',th:'ซ่อน ▴'}):bi({en:'Details ▾',th:'รายละเอียด ▾'});
+  });
+  /* change / clear chosen (delegated — bar re-renders) */
+  document.getElementById('chosenBar').addEventListener('click',function(e){ if(e.target.closest('#clearChosen')) setChosen(null); });
+  /* use-our-own-idea */
+  document.getElementById('ownToggle').addEventListener('click',function(){ document.getElementById('ownForm').classList.toggle('show'); });
+  document.getElementById('ownSave').addEventListener('click',function(){
+    var nm=document.getElementById('ownName').value.trim(), one=document.getElementById('ownOne').value.trim(), pr=document.getElementById('ownProblem').value.trim();
+    if(!nm){ document.getElementById('ownName').focus(); return; }
+    setChosen({i:-1,custom:true,name:{en:nm,th:nm},one:{en:one,th:one},problem:{en:pr,th:pr},pays:{en:'',th:''},risk:{en:'',th:''}});
+    document.getElementById('ownForm').classList.remove('show');
+    document.getElementById('prompts').scrollIntoView({behavior:'smooth'});
+  });
 
   /* ---------- prompt pack ---------- */
   var PROMPTS=[
-    {n:1,tag:'chat',tt:{en:'Sharpen &amp; pressure-test',th:'ลับคมและซักไอเดีย'},sub:{en:'Claude as a skeptical investor',th:'ให้ Claude เป็นนักลงทุนจอมหิน'},
-     tip:{en:'Paste a card here, or your own idea. Be ready to be told it\'s reselling.',th:'วางการ์ดหรือไอเดียตัวเอง เตรียมโดนบอกว่าซื้อมาขายไป'},
+    {n:1,tag:'chat',tt:{en:'Sharpen &amp; pressure-test',th:'ลับคมและซักไอเดีย'},sub:{en:'Claude as a skeptical investor',th:'ให้ Claude เป็นนักลงทุนสายโหด'},
+     tip:{en:'Paste a card here, or your own idea. Be ready to be told it\'s reselling.',th:'วางการ์ดหรือไอเดียของตัวเองตรงนี้ เตรียมใจไว้ว่าอาจโดนบอกว่าแค่ซื้อมาขายไป'},
      body:'You are a sharp, skeptical startup investor. Here is my idea:\n[PASTE A CARD ABOVE, OR YOUR OWN IDEA]\n\n1. Restate it in one sentence: "We help [who pays] do [what] using [how]."\n2. Attack it: Who is the REAL paying customer vs the user? What is the single riskiest assumption that, if false, kills it? Is it genuinely innovative, or just buying-and-reselling?\n3. Give me the single sharpest version of this idea.\nBe blunt. (Reply in Thai if I write ตอบเป็นไทย.)'},
     {n:2,tag:'search',tt:{en:'Market &amp; competitor scan',th:'สแกนตลาดและคู่แข่ง'},sub:{en:'Turn Web Search ON for this one',th:'เปิด Web Search สำหรับข้อนี้'},
      tip:{en:'AI is shaky on market size — treat every number as a draft and verify.',th:'AI ไม่แม่นเรื่องขนาดตลาด ถือว่าทุกตัวเลขเป็นร่างและตรวจซ้ำ'},
@@ -489,6 +588,7 @@
   function fmtBody(s){return s.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}).replace(/\[([^\]]+)\]/g,'<span class="ph-acc">[$1]</span>');}
   var plEl=document.getElementById('prompts-list');
   var PICON={1:'sparkle',2:'search',3:'customer',4:'target',5:'image',6:'code',7:'rocket'};
+  function renderPrompts(){
   plEl.innerHTML=PROMPTS.map(function(p){
     var tagtxt=p.tag==='search'?'WEB SEARCH ON':p.tag==='image'?'USE IMAGE MODEL':p.tag==='render'?'PASTE → PREVIEW':'PORTAL CHAT';
     var pico=(window.KV&&PICON[p.n])?('<span style="display:inline-flex;vertical-align:-3px;margin-right:6px;color:var(--clay2)">'+KV.icon(PICON[p.n],16)+'</span>'):'';
@@ -498,9 +598,11 @@
       +'<div class="pbody"><pre data-raw="'+encodeURIComponent(p.body)+'">'+fmtBody(p.body)+'</pre></div>'
       +'<div class="pfoot"><div class="tip">'+biCol(p.tip)+'</div><button class="copybtn">'+ (document.body.dataset.lang==='th'?'คัดลอก':'Copy prompt') +'</button></div></div>';
   }).join('');
+  }
+  renderPrompts();
   plEl.addEventListener('click',function(e){
     var b=e.target.closest('.copybtn');if(!b)return;
-    var raw=decodeURIComponent(b.closest('.prompt').querySelector('pre').dataset.raw);
+    var raw=(chosen?contextBlock():'')+decodeURIComponent(b.closest('.prompt').querySelector('pre').dataset.raw);
     var done=function(){var th=document.body.dataset.lang==='th';b.textContent=th?'คัดลอกแล้ว ✓':'Copied ✓';b.classList.add('done');setTimeout(function(){b.textContent=th?'คัดลอก':'Copy prompt';b.classList.remove('done');},1600);};
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(raw).then(done,function(){fallback(raw,done);});}
     else fallback(raw,done);
@@ -512,7 +614,7 @@
   lts.forEach(function(b){b.addEventListener('click',function(){
     document.body.dataset.lang=b.dataset.lang;
     lts.forEach(function(x){x.classList.toggle('active',x===b);});
-    renderGrid();
+    renderGrid(); renderChosenBar(); renderProgRail(); renderPrompts();
     /* refresh dynamic button/label text */
     [].slice.call(document.querySelectorAll('.copybtn')).forEach(function(cb){if(!cb.classList.contains('done'))cb.textContent=b.dataset.lang==='th'?'คัดลอก':'Copy prompt';});
   });});
