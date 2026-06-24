@@ -19,7 +19,25 @@
     --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
     --sans:'Outfit',-apple-system,system-ui,sans-serif;
     --thai:'Noto Sans Thai','Sukhumvit Set','Thonburi',var(--sans);
+    --r:18px;
   }
+  /* shared button + form rules (lab is self-contained, so define them here) */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;background:linear-gradient(180deg,var(--clay2),var(--clay));border:none;color:#2a140c;font-size:clamp(15px,1.7vw,17px);font-weight:800;padding:13px 26px;border-radius:13px;transition:transform .14s,box-shadow .2s;font-family:inherit;box-shadow:0 8px 26px rgba(217,119,87,.30);text-decoration:none}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(217,119,87,.44)}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:var(--panel);color:var(--text);border:1px solid var(--line);box-shadow:none;font-weight:700}
+  .btn.ghost:hover{border-color:var(--line2);box-shadow:none}
+  .btn.sm{padding:9px 16px;font-size:13.5px;border-radius:10px}
+  .btn[disabled]{opacity:.5;pointer-events:none}
+  .field{margin-bottom:14px}
+  .field>label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
+  .field>label .hintlbl{font-size:11.5px;color:var(--text3);font-weight:500}
+  .field>label .th{font-weight:500;color:var(--text2)}
+  input.in,textarea.in,select.in{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--text);font-family:inherit;font-size:16px;padding:12px 14px;outline:none;transition:border-color .15s}
+  input.in:focus,textarea.in:focus,select.in:focus{border-color:var(--line2)}
+  input.in::placeholder{color:var(--text3)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.grid2{grid-template-columns:1fr}}
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -493,6 +511,9 @@
   /* ---------- chosen product (progression + prompt customization) ---------- */
   var chosen=null; try{ chosen=JSON.parse(localStorage.getItem('kmitl:chosen')||'null'); }catch(e){}
   function L2(o){ return o? (document.body.dataset.lang==='th'? (o.th||o.en) : (o.en||o.th)) : ''; }
+  /* IDEAS strings hold HTML entities (e.g. &amp;) — decode to plain text before storing/copying */
+  function dec(s){ var t=document.createElement('textarea'); t.innerHTML=s||''; return t.value; }
+  function decO(o){ return o?{en:dec(o.en),th:dec(o.th)}:o; }
   function setChosen(c){
     chosen=c;
     if(c) localStorage.setItem('kmitl:chosen',JSON.stringify(c)); else localStorage.removeItem('kmitl:chosen');
@@ -549,7 +570,7 @@
   fEl.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;[].slice.call(fEl.children).forEach(function(x){x.classList.toggle('on',x.dataset.f===cur);});renderGrid();});
   gEl.addEventListener('click',function(e){
     var p=e.target.closest('.pick');
-    if(p){ var d=IDEAS[+p.dataset.pick]; setChosen({i:+p.dataset.pick,custom:false,group:d.group,name:d.nm,one:d.one,problem:d.problem,pays:d.pays,risk:d.risk,mvp:d.mvp});
+    if(p){ var d=IDEAS[+p.dataset.pick]; setChosen({i:+p.dataset.pick,custom:false,group:d.group,name:decO(d.nm),one:decO(d.one),problem:decO(d.problem),pays:decO(d.pays),risk:decO(d.risk),mvp:decO(d.mvp)});
       document.getElementById('prompts').scrollIntoView({behavior:'smooth'}); return; }
     var t=e.target.closest('.toggle');if(!t)return;var c=t.closest('.card');c.classList.toggle('open');t.innerHTML=c.classList.contains('open')?bi({en:'Hide ▴',th:'ซ่อน ▴'}):bi({en:'Details ▾',th:'รายละเอียด ▾'});
   });

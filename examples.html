@@ -36,25 +36,29 @@
     {tag:'HARDWARE / AGRI', name:'Durian Ripeness Sensor',
      what:'A photorealistic render of the clip-on stalk sensor with its RFID tag on a durian, plus a small companion-app screen.',
      prompt:'Photorealistic product render, studio lighting, clean light-gray seamless background. A compact electronic sensor device (matte white and dark-gray ABS housing, rounded edges, single status LED) clipped onto the green woody stalk of a fresh spiky durian fruit. A small printed RFID smart tag (white label with a subtle antenna pattern and a QR/serial code) is adhered to the durian husk. Beside the fruit, a smartphone displays a clean companion app: a circular gauge reading "Ripeness 87%", a line "Sucrose: 14.2 Brix", a green "Ready to harvest" pill, and tag ID "DRN-00428". Soft realistic shadows, shallow depth of field, premium agri-tech aesthetic, green-and-white accents, 4K, no text artifacts.',
+     tipEn:'Ask for the sensor on the durian stalk AND a small app screen together, so judges see the hardware and how it is used in one image.',
      tip:'ลองสั่งให้ภาพมีทั้งตัวเซนเซอร์ติดที่ขั้วทุเรียนและจอแอปเล็ก ๆ คู่กัน เพื่อให้กรรมการเห็นทั้งฮาร์ดแวร์และการใช้งานจริงในภาพเดียว'},
     {tag:'PLATFORM / HEALTH', name:'Pet Connect',
      what:'A modern UI screenshot of the vet blood-donor dashboard + a LINE-style mini-app for owners, with real Thai sample data.',
      prompt:'Clean modern SaaS UI screenshot, desktop web dashboard for a veterinary blood-donor matching network, light theme with soft red and white accents and rounded cards. Header reads "Pet Connect — เครือข่ายบริจาคเลือดสัตว์เลี้ยง". Left sidebar: Dashboard, Donors, Matches, Clinics. Main panel shows a donor-match table with Thai rows: "เจ้าก้อนหิน (สุนัข, DEA 1.1+, กรุ๊ป A)", "มะลิ (แมว, กรุ๊ป B)", "ทองคำ (สุนัข, DEA 1.1−)", each with a distance like "2.4 กม." and a green "จับคู่ได้" badge; a small map pinned to "โรงพยาบาลสัตว์ ลาดกระบัง". Beside it, a smartphone shows a LINE-style mini-app: a pet card "สุนัข พันธุ์โกลเด้น อายุ 3 ปี", a green "ลงทะเบียนเป็นผู้บริจาค" button, and a match notification. Crisp typography, realistic spacing, 4K, no lorem ipsum, no garbled text.',
+     tipEn:'Use real Thai sample data (pet names, blood types, hospital names) — it makes the screen look credible, like it is already in use.',
      tip:'ใส่ข้อมูลตัวอย่างเป็นภาษาไทยจริง เช่น ชื่อสัตว์ กรุ๊ปเลือด ชื่อโรงพยาบาล จะทำให้หน้าจอดูน่าเชื่อถือเหมือนใช้งานจริง'},
     {tag:'PLATFORM / INDUSTRY', name:'Corrosion AI',
      what:'A modern analytics dashboard for corrosion prediction on rigs/pipelines, with a risk heat map and Thai asset labels.',
      prompt:'Clean modern industrial analytics dashboard, UI screenshot, dark-blue professional theme with teal and amber accents, rounded data cards. Title: "Corrosion AI — ระบบพยากรณ์การกัดกร่อน". Top KPI cards: "สินทรัพย์เฝ้าระวัง 142", "จุดเสี่ยงสูง 7", "ความแม่นยำโมเดล 94%". Center: a schematic side-view of an offshore oil rig and pipeline network overlaid with a color-coded corrosion risk heat map (green-yellow-red) and pins "Riser-A03: เสี่ยงสูง", "Pipeline P-12: ปานกลาง". A line chart "อัตราการกัดกร่อนคาดการณ์ (mm/ปี)" over 12 months. Right panel: an alert list with a red "ตรวจสอบเร่งด่วน" badge for "แท่นขุดเจาะ อ่าวไทย B". Crisp enterprise data-viz spacing, soft glow on charts, 4K, no garbled text.',
+     tipEn:'Include both the heat map on the rig/pipeline and the forecast chart, with Thai asset labels — it signals a real industrial platform, not a floating chart.',
      tip:'ขอให้ภาพมีทั้ง heat map บนแท่น/ท่อ และกราฟพยากรณ์ พร้อมป้ายชื่อสินทรัพย์ภาษาไทย จะสื่อว่าเป็นแพลตฟอร์มอุตสาหกรรมจริง ไม่ใช่กราฟลอย ๆ'},
     {tag:'FOOD / TANGIBLE', name:'Golden Snail High-Protein Food',
      what:'An appetizing product-and-packaging hero shot of the high-protein food made from golden apple snail meat.',
      prompt:'Appetizing CPG product photography, soft natural daylight, clean light-wood and white tabletop. A modern retail pouch/jar of high-protein food made from golden apple snail meat, minimalist eco-friendly packaging in cream and green with a clear product name, a "High Protein • ย่อยง่าย" badge and a protein callout "โปรตีนสูง 22g". Beside it, a small white bowl shows the finished product — tender, lightly seasoned protein pieces, garnished with fresh herbs, clean and appetizing (not slimy). A few golden apple snail shells and green rice-field leaves placed tastefully as context. Shallow depth of field, warm inviting tones, premium health-food aesthetic, 4K, no garbled text.',
+     tipEn:'Make the food look clean and appetizing, with packaging that states "high protein, easy to digest"; keep the shells as light context, not messy.',
      tip:'เน้นให้ตัวอาหารดูสะอาดน่าทาน คู่กับแพ็กเกจที่บอกจุดเด่น "โปรตีนสูง ย่อยง่าย" ชัด ๆ ส่วนเปลือกหอยใส่แค่พอเป็นบริบท อย่าให้ดูเลอะ'}
   ];
   document.getElementById('list').innerHTML=EX.map(function(e,i){
     return '<div class="ex pop"><span class="tag">'+e.tag+'</span><h3>'+KX.esc(e.name)+'</h3>'+
       '<div class="what">'+KX.esc(e.what)+'</div>'+
       '<div class="pbox"><button class="btn sm cpy" data-i="'+i+'"><span class="bi inl"><span class="en">Copy</span><span class="th">คัดลอก</span></span></button>'+KX.esc(e.prompt)+'</div>'+
-      '<div class="tip th">💡 '+KX.esc(e.tip)+'</div></div>';
+      '<div class="tip">💡 '+KX.bi(KX.esc(e.tipEn),KX.esc(e.tip))+'</div></div>';
   }).join('');
   document.getElementById('list').addEventListener('click',function(ev){
     var b=ev.target.closest('.cpy'); if(!b) return;

@@ -197,7 +197,7 @@
     var s=curScores(),total=0; CRIT.forEach(function(c){ total+=((s[c.id]||0)/3)*c.w; }); total=Math.round(total);
     $('rTotal').textContent=total;
     var t=tierFor(total); var tb=$('rTier'); tb.innerHTML=KX.bi(t.en,t.th); tb.style.background=t.bg; tb.style.color=t.col;
-    if(window.KV){ KV.gauge($('rGauge'),total); KV.radar($('rRadar'),{problem:s.problem||0,customer:s.customer||0,innovation:s.innovation||0,mvp:s.mvp||0,assumption:s.assumption||0,evidence:s.evidence||0}); }
+    if(window.KV){ KV.gauge($('rGauge'),total); var T=KX.TH(); KV.radar($('rRadar'),{problem:s.problem||0,customer:s.customer||0,innovation:s.innovation||0,mvp:s.mvp||0,assumption:s.assumption||0,evidence:s.evidence||0},{axes:[{k:'problem',en:T?'ปัญหา':'Problem'},{k:'customer',en:T?'ลูกค้า':'Customer'},{k:'innovation',en:T?'นวัตกรรม':'Innovation'},{k:'mvp',en:'MVP'},{k:'assumption',en:T?'สมมติฐาน':'Assumption'},{k:'evidence',en:T?'หลักฐาน':'Evidence'}]}); }
     var ranked=CRIT.map(function(c){return{c:c,score:s[c.id]||0};}).filter(function(x){return x.score<3;}).sort(function(a,b){return (a.score-b.score)||(b.c.w-a.c.w);});
     var weak=$('rWeak');
     if(!ranked.length){ weak.innerHTML='<b>'+KX.bi('Every criterion is strong. Go pitch it.','ครบทุกข้อเลย ไปพิทช์ได้เลย')+'</b>'; return; }

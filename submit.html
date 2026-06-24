@@ -110,7 +110,7 @@
       if(!$('problem').value) $('problem').value=pick(ch.problem);
       if(!$('customer').value) $('customer').value=pick(ch.pays);
       if(!$('risk').value) $('risk').value=pick(ch.risk);
-      if(!$('pitch').value) $('pitch').value=pick(ch.one);
+      var pf=$('prefill'); if(pf) pf.innerHTML='✓ '+KX.bi('Pre-filled from your Idea Lab pick — edit anything.','เติมจากไอเดียที่เลือกในแล็บแล้ว — แก้ได้ทุกช่อง');
     }
   }catch(e){}
 
